@@ -1,8 +1,8 @@
 # TO DO: 1) clean up, thoroughly, the existing code here
 # 2) write enumerate_pbp, which will be handy if we use
 # any future models that do rely on order
-# get set_order is acting screwy
 
+# intended for a full-match string, to produce every subset by set, game, or point
 def enumerate_pbp(s,partition):
     sub_matches = ['']
     if partition == 'set':
@@ -25,6 +25,10 @@ def enumerate_pbp(s,partition):
 
 
 
+
+    return sub_matches
+
+
 # functions used to parse point-by-point tennis data
 def simplify(s):
     s=s.replace('A','S');s=s.replace('D','R')
@@ -33,6 +37,7 @@ def simplify(s):
     for k in range(len(sets)):
         # set server to 0 or 1 at beginning of set, keeping track of all transitions
         server = 0 if k==0 else next_server    
+        
         games = sets[k].split(';');length = len(games)
         # update length of games (service switches) if there is tiebreak
         if length > 12:
@@ -40,16 +45,17 @@ def simplify(s):
             next_server = (server+1)%2
         else:
             next_server = (server + len(games))%2
+        
         # now, iterate through every switch of serve
         for game in games:
             game = game.replace("S",str(server))
             game = game.replace("R",str((server+1)%2))
             literal_s += game
-            server =(server+1)%2
+            server =(server + 1)%2
     return literal_s
 
 def find_pattern(s,pattern):
-    # invert the pattern so as to count occurrences for second player
+    # invert the pattern so as to counter occurrences for second player
     inv_pattern = pattern.replace('0','x')
     inv_pattern = inv_pattern.replace('1','0')
     inv_pattern = inv_pattern.replace('x','1')
@@ -75,19 +81,28 @@ def get_set_score(s):
     # (if the substring ends on a '.' the last element will be '')
     completed_sets = s.split('.')[:-1]
     p1_sets = 0; p2_sets = 0
+    #print 'completed: ',len(completed_sets)
     for k in range(len(completed_sets)):
         # set server to 0 or 1 at beginning of set, keeping track of all transitions
-        server = 0 if k==0 else next_server              
+        if k == 0:
+            server = 0
+        else:
+            server = next_server                
         games = completed_sets[k].split(';');length = len(games)
         # update length of games (service switches) if there is tiebreak
         if length > 12:
             games = games[:-1] + games[-1].split('/')
+            final_server = (server + len(games) - 1)%2
             next_server = (server+1)%2
         else:
+            final_server = (server + len(games) - 1)%2
             next_server = (server + len(games))%2
-        final_server = (server + len(games) - 1)%2
+        #print 'games: ',games
+        #print 'final server: ',final_server
         # award set to the player who won the last point of the set
-        if final_server==0 and games[-1][-1]=='S' or final_server==1 and games[-1][-1]=='R':
+        if final_server==0 and games[-1][-1]=='S':
+            p1_sets += 1
+        elif final_server==1 and games[-1][-1]=='R':
             p1_sets += 1
         else:
             p2_sets += 1
@@ -101,15 +116,20 @@ def get_set_order(s):
     sets = []
     for k in range(len(completed_sets)):
         # set server to 0 or 1 at beginning of set, keeping track of all transitions
-        server = 0 if k==0 else next_server              
+        server = 0 if k==0 else next_server
+        #if k == 0:
+        #    server = 0
+        #else:
+        #    server = next_server                
         games = completed_sets[k].split(';');length = len(games)
         # update length of games (service switches) if there is tiebreak
         if length > 12:
             games = games[:-1] + games[-1].split('/')
+            final_server = (server + len(games) - 1)%2
             next_server = (server+1)%2
         else:
+            final_server = (server + len(games) - 1)%2
             next_server = (server + len(games))%2
-        final_server = (server + len(games) - 1)%2
         # award set to the player who won the last point of the set
         if final_server==0 and games[-1][-1]=='S':
             sets += [0]
@@ -210,11 +230,9 @@ print get_current_game_score(S2)
 print get_current_game_score(S3)
 print get_current_game_score(S4)
 print get_game_order(S)
-print get_game_order_sub(S1,0)
 #print get_set_order(S2)
-x,y = 3,4
-x+=1 if 3>2 else y
-#print x,y
+
+print get_game_order_sub(S1,0)
 
 
 
