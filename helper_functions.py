@@ -9,7 +9,8 @@ def enumerate_pbp(s,partition):
         s = s.split('.')
         for i in range(1,len(s)):
             sub_matches.append('.'.join(s[:i])+'.')
-        return sub_matches
+        return sub_matches[:-1]
+    
     elif partition=='game':
         s = s.split(';')
         s_new = []
@@ -20,10 +21,9 @@ def enumerate_pbp(s,partition):
                 s_new += games
             else:
                 s_new += [s[i]]
-        print s_new
         for i in range(1,len(s_new)-1):
             sub_matches.append((';'.join(s_new[:i])+';').replace('.;','.'))
-        return sub_matches
+        return sub_matches[:-1]
     
     # now, divide into points
     elif partition=='point':
@@ -36,14 +36,15 @@ def enumerate_pbp(s,partition):
                 s_new += games
             else:
                 s_new += [s[i]]
-        print s_new
         for i in range(len(s_new)-1):
-            up_til_now = (';'.join(s_new[:i])+';').replace('.;','.')
-            #print up_til_now
+            up_til_now = (';'.join(s_new[:i])+';' if i>0 else ';'.join(s_new[:i])).replace('.;','.')
             for k in range(len(s_new[i])):
                 if s_new[i][k] not in ('.','/'):
-                    sub_matches.append(up_til_now+s_new[i][:k+1])
-        return sub_matches
+                    sub_matches.append(up_til_now+s_new[i][:k+1]+';' if k==len(s_new[i])-1 else up_til_now+s_new[i][:k+1])
+                elif s_new[i][k]=='.':
+                    sub_matches[-1] += '.'
+                #print 'sub: ', sub_matches
+        return sub_matches[:-1]
             
 
 # functions used to parse point-by-point tennis data
@@ -143,7 +144,7 @@ def get_set_order(s):
 
 # gives the game score in current set of match substring 
 # (will be [0,0] if match completed)
-def get_current_game_score(s):
+def get_game_score(s):
     s=s.replace('A','S');s=s.replace('D','R')
     add_d = {'0S':1,'1R':1,'1S':0,'0R':0}   
     # last entry in this will be '' if we split at the end of a set
@@ -226,10 +227,10 @@ S2 = 'SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSRRSRSRSS;SSSRS;RRSSRSSS;SSSRS;S/
 S3 = 'SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSRRSRSRSS;SSSRS;RRSSRSSS;SSSRS;S/SS/SR/SS/SS/RS/SS/SS/SS/R.RRRSSR;RSRRR;S'
 S4 = 'SS/R.RRRSSR;RSRRR;SSSS;RSSSS;SSRSS;SRSRSRRSSS;SRSSRS;RRRR;RRSRSS'
 #print S
-#print get_current_game_score(S)
-#print get_current_game_score(S2)
-#print get_current_game_score(S3)
-#print get_current_game_score(S4)
+#print get_game_score(S)
+#print get_game_score(S2)
+#print get_game_score(S3)
+#print get_game_score(S4)
 #print get_game_order(S)
 #print get_game_order_sub(S1,0)
 #print get_set_order(S2)
@@ -239,8 +240,7 @@ S4 = 'SS/R.RRRSSR;RSRRR;SSSS;RSSSS;SSRSS;SRSRSRRSSS;SRSSRS;RRRR;RRSRSS'
 #x+=1 if 3>2 else y
 #print x,y
 
-S_full = 'SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSRRSRSRSS;SSSRS;RRSSRSSS;SSSRS;S/SS/SR/SS/SS/RS/SS/SS/SS/R.RRRSSR;RSRRR;SSSS;RSSSS;SSRSS;SRSRSRRSSS;SRSSRS;RRRR;RRSRSSSS.SRRSSRSS;SSSS;RSRSRR;RSRSSS;SSSRS;SSRSS;SSSS;SSSRS;SSSRRRRSR.'
-print enumerate_pbp(S_full,'set')
-
-
-
+#S_full = 'SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSRRSRSRSS;SSSRS;RRSSRSSS;SSSRS;S/SS/SR/SS/SS/RS/SS/SS/SS/R.RRRSSR;RSRRR;SSSS;RSSSS;SSRSS;SRSRSRRSSS;SRSSRS;RRRR;RRSRSSSS.SRRSSRSS;SSSS;RSRSRR;RSRSSS;SSSRS;SSRSS;SSSS;SSSRS;SSSRRRRSR.'
+#for a in enumerate_pbp(S_full,'point'):
+#    print a
+#print ';'.join(['SSSS'])
