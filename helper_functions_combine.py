@@ -111,20 +111,9 @@ def enumerate_pbp_2(s,columns,final_set_extend=0):
                     sub_matches[-1] += '.'
         
         points = [0,0]
-        columns = [[item]*len(servers) for item in columns]
-        # have to add elo_diffs
+    columns = [[item]*len(servers) for item in columns]
+    # have to add elo_diffs
     return columns+[sub_matches[:-1],servers,p0_s[:-1],p1_s[:-1],p0_g[:-1],p1_g[:-1],p0_p[:-1],p1_p[:-1],p0_tp[:-1],p1_tp[:-1],p0_swp[:-1],p0_sp[:-1],p1_swp[:-1],p1_sp[:-1]]
-
-
-#mini_games = t_s.split('/')
-#for k in range(1,len(mini_games)):
-#    server = 1 - server
-
-
-
-
-
-
 
 
 def get_set_score(s):
