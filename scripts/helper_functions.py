@@ -316,6 +316,79 @@ def do_classify(clf, parameters, indf, featurenames, targetname, target1val, mas
     print "Log Loss on test data:     %0.2f" % (test_loss)
     return clf, Xtrain, ytrain, Xtest, ytest
 
+def normalize_name(s):
+    s = s.replace('-',' ')
+    s = s.replace('Stanislas','Stan').replace('Stan','Stanislas')
+    s = s.replace('Alexandre','Alexander')
+    s = s.replace('Federico Delbonis','Federico Del').replace('Federico Del','Federico Delbonis')
+    s = s.replace('Mello','Melo')
+    s = s.replace('Cedric','Cedrik')
+    s = s.replace('Bernakis','Berankis')
+    s = s.replace('Hansescu','Hanescu')
+    s = s.replace('Teimuraz','Teymuraz')
+    s = s.replace('Vikor','Viktor')
+    s = s.rstrip()
+    s = s.replace('Alex Jr.','Alex Bogomolov')
+    s = s.title()
+    sep = s.split(' ')
+    return ' '.join(sep[:2]) if len(sep)>2 else s
+
+# accept dates in (year,month); last_year contains last 12 month stats, most recent to least
+class stats_52():
+    def __init__(self,date):
+        self.most_recent = date
+        self.last_year = np.zeros([12,4])
+        
+    def time_diff(self,new_date,old_date):
+        return 12*(new_date[0]-old_date[0])+(new_date[1]-old_date[1])
+    
+    def update(self,match_date,match_stats):
+        diff = self.time_diff(match_date,self.most_recent)
+        if diff>=12:
+            self.last_year = np.zeros([12,4])
+        elif diff>0:
+            self.last_year[diff:] = self.last_year[:12-diff]; self.last_year[:diff] = 0
+        self.last_year[0] = self.last_year[0]+match_stats
+        self.most_recent = match_date
+
+def break_point(s):
+    s=s.replace('A','S');s=s.replace('D','R')
+    all_sets = s.split('.')
+    for k in range(len(all_sets)):
+        # set server to 0 or 1 at beginning of set, keeping track of all transitions
+        server = 0 if k==0 else next_server 
+        games = all_sets[k].split(';')
+        length = len(games)
+        next_server = (server+1)%2 if length>12 else (server + length)%2   
+        if k==len(all_sets)-1:
+            last_game = games[-1]
+            final_server = (server+len(games[:-1]))%2
+            pt_s,pt_r = last_game.count('S'),last_game.count('R')
+            b_point = pt_r+1>=4 and pt_r+1>=pt_s
+            #print b_point
+            #print pt_s,pt_r
+            if b_point and final_server:
+                return (1,0)
+            elif b_point and not final_server:
+                return (0,1)
+            else:
+                return (0,0)
+
+# a similar class to store a tournament's serving averages from the previous year
+class tourney_52():
+    def __init__(self,date):
+        self.most_recent = date
+        self.tourney_stats = np.zeros([2,2])
+    
+    def update(self,match_year,match_stats):
+        diff = match_year-self.most_recent
+        if diff>=2:
+            self.tourney_stats = np.zeros([2,2])
+        elif diff==1:
+            self.tourney_stats[1] = self.tourney_stats[0]; self.tourney_stats[0]=0
+        self.tourney_stats[0] = self.tourney_stats[0]+match_stats
+        self.most_recent = match_year
+        return 0 if self.tourney_stats[1][1]==0 else self.tourney_stats[1][0]/float(self.tourney_stats[1][1])
 
 if __name__=='__main__':
     S = 'SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSRRSRSRSS;SSSRS;RRSSRSSS;SSSRS;S/SS/SR/SS/SS/RS/SS/SS/SS/R.RRRSSR;RSRRR;SSSS;RSSSS;SSRSS;SRSRSRRSSS;SRSSRS;RRRR;RRSRSSSS.SRRSSRSS;SSSS;RSRSRR;RSRSSS;SSSRS;SSRSS;SSSS;SSSRS;SSSRRRRSR.'
