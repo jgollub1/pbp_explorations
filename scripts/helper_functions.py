@@ -1,20 +1,14 @@
-# TO DO: 1) clean up, thoroughly, the existing code here
-# 2) write enumerate_pbp, which will be handy if we use
-# any future models that do rely on order
-# get set_order is acting screwy
+# TO DO: get set_order is acting screwy (?)
 
 import math
 import numpy as np
 import pandas as pd
-# NOTE: you should eventually clean up and combine many of these functions
-# for convenience's sake; also turn this whole thing into a class?!!
 
 # v3.0 with smarter object construction
 # use np.array to create arrays from lists; use np.concatenate to combine arrays
-# figuring out the last three lines here made my function about four times faster...
+# the last three lines here made my function about four times faster...
 def enumerate_pbp_2(s,columns,final_set_extend=0):
-    # find the number of S,R,D,A characters and use this to initialize
-    # all columns as npy arrays of this length
+    # find the number of S,R,D,A characters, the number of points
     length = len(s.replace('.','').replace('/','').replace(';',''))
 
     sub_matches = ['']; sub_sets = [0]
@@ -316,6 +310,7 @@ def do_classify(clf, parameters, indf, featurenames, targetname, target1val, mas
     print "Log Loss on test data:     %0.2f" % (test_loss)
     return clf, Xtrain, ytrain, Xtest, ytest
 
+# normalize names in atp pbp data
 def normalize_name(s):
     s = s.replace('-',' ')
     s = s.replace('Stanislas','Stan').replace('Stan','Stanislas')

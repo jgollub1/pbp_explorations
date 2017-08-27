@@ -72,5 +72,10 @@ def matchProb(s, t, gv=0, gw=0, sv=0, sw=0, mv=0, mw=0, sets=3):
     return mWin
 
 if __name__=='__main__':
-    print matchProb(.66,.35)
+    diff = .1
+    for i in range(10):
+        print 'p_s =',i*.1+.1
+        print matchProb(i*.1+.1,1-i*.1)
+
+    #print matchProb(.66,.35)
 
