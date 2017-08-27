@@ -1,14 +1,20 @@
-# TO DO: get set_order is acting screwy (?)
+# TO DO: 1) clean up, thoroughly, the existing code here
+# 2) write enumerate_pbp, which will be handy if we use
+# any future models that do rely on order
+# get set_order is acting screwy
 
 import math
 import numpy as np
 import pandas as pd
+# NOTE: you should eventually clean up and combine many of these functions
+# for convenience's sake; also turn this whole thing into a class?!!
 
 # v3.0 with smarter object construction
 # use np.array to create arrays from lists; use np.concatenate to combine arrays
-# the last three lines here made my function about four times faster...
+# figuring out the last three lines here made my function about four times faster...
 def enumerate_pbp_2(s,columns,final_set_extend=0):
-    # find the number of S,R,D,A characters, the number of points
+    # find the number of S,R,D,A characters and use this to initialize
+    # all columns as npy arrays of this length
     length = len(s.replace('.','').replace('/','').replace(';',''))
 
     sub_matches = ['']; sub_sets = [0]
@@ -310,23 +316,25 @@ def do_classify(clf, parameters, indf, featurenames, targetname, target1val, mas
     print "Log Loss on test data:     %0.2f" % (test_loss)
     return clf, Xtrain, ytrain, Xtest, ytest
 
-# normalize names in atp pbp data
-def normalize_name(s):
-    s = s.replace('-',' ')
-    s = s.replace('Stanislas','Stan').replace('Stan','Stanislas')
-    s = s.replace('Alexandre','Alexander')
-    s = s.replace('Federico Delbonis','Federico Del').replace('Federico Del','Federico Delbonis')
-    s = s.replace('Mello','Melo')
-    s = s.replace('Cedric','Cedrik')
-    s = s.replace('Bernakis','Berankis')
-    s = s.replace('Hansescu','Hanescu')
-    s = s.replace('Teimuraz','Teymuraz')
-    s = s.replace('Vikor','Viktor')
-    s = s.rstrip()
-    s = s.replace('Alex Jr.','Alex Bogomolov')
-    s = s.title()
-    sep = s.split(' ')
-    return ' '.join(sep[:2]) if len(sep)>2 else s
+def normalize_name(s,tour='atp'):
+    if tour=='atp':
+        s = s.replace('-',' ')
+        s = s.replace('Stanislas','Stan').replace('Stan','Stanislas')
+        s = s.replace('Alexandre','Alexander')
+        s = s.replace('Federico Delbonis','Federico Del').replace('Federico Del','Federico Delbonis')
+        s = s.replace('Mello','Melo')
+        s = s.replace('Cedric','Cedrik')
+        s = s.replace('Bernakis','Berankis')
+        s = s.replace('Hansescu','Hanescu')
+        s = s.replace('Teimuraz','Teymuraz')
+        s = s.replace('Vikor','Viktor')
+        s = s.rstrip()
+        s = s.replace('Alex Jr.','Alex Bogomolov')
+        s = s.title()
+        sep = s.split(' ')
+        return ' '.join(sep[:2]) if len(sep)>2 else s
+    else:
+        return s
 
 # accept dates in (year,month); last_year contains last 12 month stats, most recent to least
 class stats_52():
@@ -374,6 +382,7 @@ class tourney_52():
     def __init__(self,date):
         self.most_recent = date
         self.tourney_stats = np.zeros([2,2])
+        self.historical_avgs = {}
     
     def update(self,match_year,match_stats):
         diff = match_year-self.most_recent
@@ -383,7 +392,9 @@ class tourney_52():
             self.tourney_stats[1] = self.tourney_stats[0]; self.tourney_stats[0]=0
         self.tourney_stats[0] = self.tourney_stats[0]+match_stats
         self.most_recent = match_year
+        self.historical_avgs[match_year] = (self.tourney_stats[0][0],self.tourney_stats[0][1])
         return 0 if self.tourney_stats[1][1]==0 else self.tourney_stats[1][0]/float(self.tourney_stats[1][1])
+
 
 if __name__=='__main__':
     S = 'SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSRRSRSRSS;SSSRS;RRSSRSSS;SSSRS;S/SS/SR/SS/SS/RS/SS/SS/SS/R.RRRSSR;RSRRR;SSSS;RSSSS;SSRSS;SRSRSRRSSS;SRSSRS;RRRR;RRSRSSSS.SRRSSRSS;SSSS;RSRSRR;RSRSSS;SSSRS;SSRSS;SSSS;SSSRS;SSSRRRRSR.'
