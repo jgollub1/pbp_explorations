@@ -6,8 +6,46 @@
 import math
 import numpy as np
 import pandas as pd
-# NOTE: you should eventually clean up and combine many of these functions
-# for convenience's sake; also turn this whole thing into a class?!!
+from sklearn import linear_model
+from sklearn.model_selection import KFold
+from sklearn.metrics import log_loss,accuracy_score
+
+# accept dates in (year,month); last_year contains last 12 month stats, most recent to least
+class stats_52():
+    def __init__(self,date):
+        self.most_recent = date
+        self.last_year = np.zeros([12,4])
+        
+    def time_diff(self,new_date,old_date):
+        return 12*(new_date[0]-old_date[0])+(new_date[1]-old_date[1])
+    
+    def update(self,match_date,match_stats):
+        diff = self.time_diff(match_date,self.most_recent)
+        if diff>=12:
+            self.last_year = np.zeros([12,4])
+        elif diff>0:
+            self.last_year[diff:] = self.last_year[:12-diff]; self.last_year[:diff] = 0
+        self.last_year[0] = self.last_year[0]+match_stats
+        self.most_recent = match_date
+
+# a similar class to store a tournament's serving averages from the previous year
+class tourney_52():
+    def __init__(self,date):
+        self.most_recent = date
+        self.tourney_stats = np.zeros([2,2])
+        self.historical_avgs = {}
+    
+    def update(self,match_year,match_stats):
+        diff = match_year-self.most_recent
+        if diff>=2:
+            self.tourney_stats = np.zeros([2,2])
+        elif diff==1:
+            self.tourney_stats[1] = self.tourney_stats[0]; self.tourney_stats[0]=0
+        self.tourney_stats[0] = self.tourney_stats[0]+match_stats
+        self.most_recent = match_year
+        self.historical_avgs[match_year] = (self.tourney_stats[0][0],self.tourney_stats[0][1])
+        return 0 if self.tourney_stats[1][1]==0 else self.tourney_stats[1][0]/float(self.tourney_stats[1][1])
+
 
 # v3.0 with smarter object construction
 # use np.array to create arrays from lists; use np.concatenate to combine arrays
@@ -112,7 +150,7 @@ def enumerate_pbp_2(s,columns,final_set_extend=0):
         points = [0,0]
     
     columns = np.repeat([columns],[len(servers)],axis=0)
-    generated_cols = np.array([p0_s[:-1],p1_s[:-1],p0_g[:-1],p1_g[:-1],p0_p[:-1],p1_p[:-1],p0_tp[:-1],p1_tp[:-1],p0_swp[:-1],p0_sp[:-1],p1_swp[:-1],p1_sp[:-1]]).T
+    generated_cols = np.array([p0_s[:-1],p1_s[:-1],p0_g[:-1],p1_g[:-1],p0_p[:-1],p1_p[:-1],p0_tp[:-1],p1_tp[:-1],p0_swp[:-1],p0_sp[:-1],p1_swp[:-1],p1_sp[:-1],servers]).T
     return sub_matches[:-1], np.concatenate([columns,generated_cols],axis=1)
 
 # leave this here so you can modify column names
@@ -127,7 +165,7 @@ def generate_df_2(df_pbp,columns,final_set_no_tb):
 
     df = pd.DataFrame(np.concatenate(dfs))
     df.columns = columns + ['sets_0','sets_1','games_0',\
-                  'games_1','points_0','points_1','tp_0','tp_1','p0_swp','p0_sp','p1_swp','p1_sp']
+                  'games_1','points_0','points_1','tp_0','tp_1','p0_swp','p0_sp','p1_swp','p1_sp','server']
     df['score'] = np.concatenate(pbps)
     df['in_lead'] = in_lead(df) 
     return df
@@ -336,24 +374,6 @@ def normalize_name(s,tour='atp'):
     else:
         return s
 
-# accept dates in (year,month); last_year contains last 12 month stats, most recent to least
-class stats_52():
-    def __init__(self,date):
-        self.most_recent = date
-        self.last_year = np.zeros([12,4])
-        
-    def time_diff(self,new_date,old_date):
-        return 12*(new_date[0]-old_date[0])+(new_date[1]-old_date[1])
-    
-    def update(self,match_date,match_stats):
-        diff = self.time_diff(match_date,self.most_recent)
-        if diff>=12:
-            self.last_year = np.zeros([12,4])
-        elif diff>0:
-            self.last_year[diff:] = self.last_year[:12-diff]; self.last_year[:diff] = 0
-        self.last_year[0] = self.last_year[0]+match_stats
-        self.most_recent = match_date
-
 def break_point(s):
     s=s.replace('A','S');s=s.replace('D','R')
     all_sets = s.split('.')
@@ -377,24 +397,75 @@ def break_point(s):
             else:
                 return (0,0)
 
-# a similar class to store a tournament's serving averages from the previous year
-class tourney_52():
-    def __init__(self,date):
-        self.most_recent = date
-        self.tourney_stats = np.zeros([2,2])
-        self.historical_avgs = {}
+# cols is a list of all column sets to test; compare with kls pre-match forecasts
+def validate_results(df,columns,n_splits=5):
+    kfold = KFold(n_splits=n_splits,shuffle=True)
+    scores = np.zeros([len(columns)+2,2,n_splits]);i=0
+    for train_ind,test_ind in kfold.split(df):
+        lm = linear_model.LogisticRegression(fit_intercept = True)
+        train_df,test_df = df.loc[train_ind],df.loc[test_ind]
+        
+        for k,cols in enumerate(columns):
+            lm.fit(train_df[cols].values.reshape([len(train_df),len(cols)]),train_df['winner'])
+            y_preds = lm.predict(test_df[cols].values.reshape([len(test_df),len(cols)]))
+            y_probs = lm.predict_proba(test_df[cols].values.reshape([len(test_df),len(cols)]))
+            scores[k][0][i]=accuracy_score(test_df['winner'],y_preds)
+            scores[k][1][i]=log_loss(test_df['winner'],y_probs,labels=[0,1])
+        
+        y_preds2 = test_df['match_prob_kls']>.5
+        y_preds3 = test_df['match_prob_kls_JS']>.5
+        scores[len(columns)][0][i]=accuracy_score(test_df['winner'],y_preds2)
+        scores[len(columns)][1][i]=log_loss(test_df['winner'],test_df['match_prob_kls'],labels=[0,1])
+        scores[len(columns)+1][0][i]=accuracy_score(test_df['winner'],y_preds3)
+        scores[len(columns)+1][1][i]=log_loss(test_df['winner'],test_df['match_prob_kls_JS'],labels=[0,1])
+        i+=1
     
-    def update(self,match_year,match_stats):
-        diff = match_year-self.most_recent
-        if diff>=2:
-            self.tourney_stats = np.zeros([2,2])
-        elif diff==1:
-            self.tourney_stats[1] = self.tourney_stats[0]; self.tourney_stats[0]=0
-        self.tourney_stats[0] = self.tourney_stats[0]+match_stats
-        self.most_recent = match_year
-        self.historical_avgs[match_year] = (self.tourney_stats[0][0],self.tourney_stats[0][1])
-        return 0 if self.tourney_stats[1][1]==0 else self.tourney_stats[1][0]/float(self.tourney_stats[1][1])
+    for i,cols in enumerate(columns):
+        print 'columns: ',cols
+        #print '% s_elo used in lm fit: ',lm.coef_[0][1]/(lm.coef_[0][0]+lm.coef_[0][1])
+        print 'accuracy: ', np.mean(scores[i][0])
+        print 'loss: ', np.mean(scores[i][1])
+    
+    print 'kls probabilities'
+    print 'accuracy: ', np.mean(scores[len(columns)][0])
+    print 'loss: ', np.mean(scores[len(columns)][1])
 
+    print 'kls JS probabilities'
+    print 'accuracy: ', np.mean(scores[len(columns)+1][0])
+    print 'loss: ', np.mean(scores[len(columns)+1][1])
+
+def in_dict(x,d):
+    return x in d
+
+# function to cross-validate, with no match-overlap between splits (since there are 100-200
+# points per match)
+def cross_validate(val_df,clf,cols,target,hyper_parameters,n_splits):
+    print 'searching for hyperparams...'
+    ids = list(set(val_df['match_id']))
+    vfunc = np.vectorize(in_dict)
+    kfold = KFold(n_splits=n_splits,shuffle=True)
+    key = hyper_parameters.keys()[0]
+    scores = [[] for k in range(len(hyper_parameters[key]))]
+    
+    for train_index,____ in kfold.split(ids):
+        train_dict = dict(zip(train_index,[1]*len(train_index)))
+        train_ind = vfunc(np.array(val_df['match_id']),train_dict)
+        test_ind = (1 - train_ind)==1
+        Xtrain, ytrain = val_df[cols][train_ind], val_df[target][train_ind]
+        Xtest, ytest = val_df[cols][test_ind], val_df[target][test_ind]
+        
+        # retrieve classification score for every hyper_parameter fed into this function
+        # LOOP THROUGH ALL KEYS here if you want to test multiple hyper_params
+        for j in xrange(len(hyper_parameters[key])):
+            setattr(clf,key,hyper_parameters[key][j])
+            clf.fit(Xtrain,ytrain)
+            score = clf.score(Xtest,ytest)
+            scores[j].append(score)
+    for i in range(len(scores)):
+        print hyper_parameters[key][i],': ',np.mean(scores[i])
+    best_ind = np.argmax([np.mean(a) for a in scores])
+    print 'best: ',{key:hyper_parameters[key][best_ind]}
+    return {key:hyper_parameters[key][best_ind]}
 
 if __name__=='__main__':
     S = 'SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSSS;SSRRSRSRSS;SSSRS;RRSSRSSS;SSSRS;S/SS/SR/SS/SS/RS/SS/SS/SS/R.RRRSSR;RSRRR;SSSS;RSSSS;SSRSS;SRSRSRRSSS;SRSSRS;RRRR;RRSRSSSS.SRRSSRSS;SSSS;RSRSRR;RSRSSS;SSSRS;SSRSS;SSSS;SSSRS;SSSRRRRSR.'

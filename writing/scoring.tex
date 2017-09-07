@@ -14,7 +14,9 @@
 \usepackage{ amssymb }
 \usepackage{mathtools}
 \usepackage{amsmath}
+\usepackage{textcomp}
 \usepackage{tikz}
+\usepackage{csquotes}
 \usetikzlibrary{arrows}
 \tikzset{
     vertex/.style={circle,draw,minimum size=1.5em},
@@ -34,171 +36,546 @@
 \newcommand{\e}{{\rm e}}
 \newcommand{\R}{{\bf R}}
 \newcommand{\Z}{{\bf Z}}
-
+\newcommand{\h}{1.2}
 
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
 \begin{document}
-
-\title{CS 124 HW5}
-\author{HUID: 90904116\\ %replace with your name
-CS124 - Data Structures and Algorithms} 
-\maketitle
-
-
-
-\textit{For all homework problems where you are asked to give an algorithm, you must prove the correctness of your algorithm and establish the best upper bound that you can give for the running time. You should always write a clear informal description of your algorithm in English. You may also write pseudocode if you feel your informal explanation requires more precision and detail. As always, try to make your answers as clear and concise as possible.}
-
 \begin{enumerate}
 
-\item Assume there is a unique solution to E($P_i$), the expected number of moves to reach $n$ starting from position $i$ using random walk with a partially reflecting boundary. By definition, we know that E($P_n$) = 0, and from any position $0 \textless i \textless n$, E($P_i$) = 1 + $\frac{1}{2}$E($P_{i+1}$) + $\frac{1}{2}$E($P_{i-1}$). Finally, for our partially-reflecting boundary, we have E($P_0$) = 1 + $\frac{1}{2}$E($P_{1}$) + $\frac{1}{2}$E($P_{0}$).\\
+\item Tennis' scoring system consists of three levels: sets, games, and points. Consider a tennis match between two entities, $p_i$ and $p_j$. We can represent any score as ($s_i,s_j,g_i,g_j,{x}_i,{x}_j$), where $i$ is serving and $s_k,g_k,x_k$ represent each player's score in sets, games, and points, respectively. The players alternate serve each game and continue until someone clinches the match by winning two sets (best-of-three) or three sets (best-of-five) $\footnote{The best-of-five format is typically reserved for men's grand slam and Davis Cup events}$.
 
-Now, assume that E($P_i$) = $(n-i)(n+i+1)$. We must show that this close-form solution satisfies the above three conditions. \\
-1) From position $n$, E($P_n$) = $(n-n)(n+n+1)= 0$ \\
-2) From any position $0 \textless i \textless n$, E($P_i$) = 1 + $\frac{1}{2}$E($P_{i+1}$) + $\frac{1}{2}$E($P_{i-1}$) = 1 + $\frac{1}{2}(n-i-1)(n+i+2) + \frac{1}{2}(n-i+1)(n+i)$ =  1 + $\frac{1}{2}(n^2 - i^2 + n - 3i - 2) + \frac{1}{2}(n^2 + n - i^2 + i) = 1 + n^2 + n - i^2 - i - 1 = (n^2 - i^2) + (n-i) = (n+i)(n-i) + (n-i) = (n+i + 1)(n-i)$\\
-3) starting from the reflecting boundary, E($P_0$) = 1 + $\frac{1}{2}$E($P_{1}$) + $\frac{1}{2}$E($P_{0}$) = 1 + $\frac{1}{2} (n-1)(n+2) + \frac{1}{2} n(n+1) = 1 + n^2 + n - 1 = n^2 + n = n(n+1)$, which satisfies $(n-i)(n+i+1)$ when $i=0$
+The majority of in-play tennis models utilize a hierarchical Markov Model, which embodies the levels in tennis' scoring system. Barnett formally defines a representation for scores in tennis (Barnett Clarke 2002). With $p_i$ and $p_j$ winning points on serve with probabilities $f_{ij},f_{ji}$, each in-match scoreline ($s_i,s_j,g_i,g_j,{x}_i,{x}_j$) progresses to one of its two neighbors ($s_i,s_j,g_i,g_j,{x}_i+1,{x}_j$) and ($s_i,s_j,g_i,g_j,{x}_i,{x}_j+1$), depending on the current serve probability. Assuming all points in a match are $iid$, we can then use the above model to recursively determine win probability:
 
-As we can see, our close-form solution E($P_i$) = $(n-i)(n+i+1)$ satisfies our three necessary conditions for a reflecting boundary and the expected number of steps to reach $n$ from position $i$, with $i \in \Z; 0 \leq i \leq n$, is E($P_i$) = $(n-i)(n+i+1)$. 
+$P_m(s_i,s_j,g_i,g_j,{x}_i,{x}_j)$ = probability that $p_i$ wins the match when serving from this scoreline
 
-\newpage
-\item 
-\includegraphics[angle=270,scale=.15]{pic1}
+$P_m(s_i,s_j,g_i,g_j,{x}_i,{x}_j) = f_{ij}*P_m(s_i,s_j,g_i,g_j,{x}_i+1,{x}_j) + (1-f_{ij}) P_m(s_i,s_j,g_i,g_j,{x}_i,{x}_j+1)$
 
-\newpage
-Step 3: DFS from $s$ to $t$ (s-c-d-t) \\
-Current flow from $s$ to $t$: 7 \\
-residual graph (3): \\
-\includegraphics[angle=90, scale=.15]{pic2}
+In the following sections, we specify boundary values to each level of our hierarchical model. 
 
-While their still exist reverse edges $(v,u)$ = c(u,v) - $f_{uv}$ for all edges $(u,v)$ with positive flow going through them, my algorithm has run out of paths from $s$ to $t$. Therefore, we conclude that the maximum flow from $s$ to $t$ is 8. The final cut is $S \setminus V$, with nodes reachable from $s$ are $S$ = [$s,a,c,d$]. Since the sum of edge weights crossing $S$ in our original graph $G$ is also 8, we are sure that the maximum flow is 8.
+%With these specifications, we can analytically compute win probability at any point in the match.
 
 
-\newpage
-\item First, determine capacity $C$, the number of subplots that support plant growth, of every row $r_1,r_2,...r_n$ and every column $c_1,c_2,...c_n$, where $0 \leq C(r_i) \leq n$ and $0 \leq C(c_i) \leq n$. While iterating through all rows and columns, keep track of the minimum capacity among all rows and columns \\ $m =$ min($C(r_1),...,C(r_n),...,C(c_1),...,C(c_n)$). Since there are one or more rows/columns with capacity $m$, we know $p$ cannot be greater than $m$. Now, consider the graph below:
+\item Modeling games
 
-\begin{tikzpicture} [scale=3]
-\node[vertex] (1) at (0,0) {$s$};
-\node[vertex] (2) at (1.5,1) {$r_1$};
-\node[vertex] (3) at (1.5 ,0) {$r_2$};
-\node[vertex] (4) at (1.5 ,-1) {$r_n$};
+Within a game, either $p_i$ or $p_j$ serves every point. Every game starts at (0,0) and to win a game, a player must win four or more points by a margin of at least two $\footnote{While tennis officially  refers to a game's first three points as 15,30,40 we will call them 1,2,3 for simplicity's sake}$. Consequently, all games with valid scores $(x_i,x_j)$ where $x_i+x_j \textgreater 6; |x_i-x_j| \leq 1$ are reduced to (3,3), (3,2), or (2,3). Furthermore, the win probability at (3,3) can be calculated directly. From (3,3), the server wins the next two points with probability $f_{ij}^2$, the returner wins the next two points with probability $(1-f_{ij})^2$, or both players split the two points and return to (3,3) with probability $2f_{ij}(1-f_{ij})$. Relating the game's remainder to a geometric series, we find $P_g(3,3) = \frac{f_{ij}^2}{f_{ij}^2+(1-f_{ij})^2}$.
 
-\node[vertex] (5) at (3,1) {$c_1$};
-\node[vertex] (6) at (3 ,0) {$c_2$};
-\node[vertex] (7) at (3 ,-1) {$c_n$};
+Possible sequences of point scores in a game:
 
-\node[vertex] (8) at (4.5 ,0) {$t$};
+a - player $i$ wins the following point
 
-\draw[edge] (1) -- (2) node[midway, above] {$m$};
-\draw[edge] (1) -- (4) node[midway, above] {$m$};
-\draw[edge] (1) -- (3) node[midway, above] {$m$};
+b - player $j$ wins the following point
 
-\draw[edge] (2) -- (5) node[midway, above] {$1$};
-\draw[edge] (2) -- (6) node[midway, above] {$1$};
-\draw[edge] (2) -- (7) node[midway, below] {$1$};
+\begin{tikzpicture} [scale=1]
+\tikzset{VertexStyle/.style = {shape = circle,inner sep=0x}}
+\node[vertex] (1) at (0,0) {$0,0$};
+\node[vertex] (2) at (2,.8) {$1,0$};
+\node[vertex] (3) at (2,-.8) {$0,1$};
+\node[vertex] (4) at (4,0) {$1,1$};
+\node[vertex] (7) at (4,1.6) {$2,0$};
+\node[vertex] (8) at (4,-1.6) {$0,2$};
+\node[vertex] (5) at (6,.8) {$2,1$};
+\node[vertex] (6) at (6,-.8) {$1,2$};
+\node[vertex] (9) at (6,2.4) {$3,0$};
+\node[vertex] (10) at (6,-2.4) {$0,3$};
+\node[vertex] (11) at (8,1.6) {$3,1$};
+\node[vertex] (12) at (8,-1.6) {$1,3$};
+\node[vertex] (13) at (8,0) {$2,2$};
 
-\draw[edge] (3) -- (5) node[midway, below] {$1$};
-\draw[edge] (3) -- (7) node[midway, above] {$1$};
+\node[vertex] (14) at (12,3.2) {$G_1$};
+\node[vertex] (15) at (12,-3.2) {$G_1^{c}$};
+\node[vertex] (16) at (10,.8) {$3,2$};
+\node[vertex] (17) at (10,-.8) {$2,3$};
+\node[vertex] (18) at (12,0) {$3,3$};
 
-\draw[edge] (4) -- (5) node[midway, above] {$1$};
-\draw[edge] (4) -- (7) node[midway, above] {$1$};
-
-\path (3) -- node[auto=false]{\ldots} (4);
-\path (6) -- node[auto=false]{\ldots} (7);
-
-
-\draw[edge] (5) -- (8) node[midway, above] {$m$};
-\draw[edge] (6) -- (8) node[midway, above] {$m$};
-\draw[edge] (7) -- (8) node[midway, above] {$m$};
-
-\end{tikzpicture}
-
-To represent this problem as a flow problem, we create a source with edges to each row $r_i$ with flow capacity $m$. Each row node has edges to the columns corresponding to entries in which it holds arable subplots. That is, for all fertile subplots $x_{ij}$ in our square plot, there exists edge $(r_i,c_j) \in G$. Finally, include edges from all column nodes to sink $t$ with capacity $m$. We limit flow capacity to $m$ on nodes emanating from $s$ and nodes leading into $t$ because there exist one or more rows or columns with farming capacity $m$ and all rows and columns must have an equal number of palm trees.\\
-
-To find an arrangement of palm trees that maximizes $p$, we solve the max-flow linear program corresponding to $G$:
-
-max $\sum f_{S,*}$ (maximize the sum of all flow leaving $S$)\\
-for all nodes $w \in G; w \neq s,t$: $\sum_{(u,w)} f_{uw} - \sum_{(w,v)} f_{wv} = 0$ \\
-for all edges $(u,v)$ in $G$: $0 \leq f_{uv} \leq c_{uv}$ (where $c_{uv}$ is the capacity of edge $(u,v) \in G$) \\
-Since all rows and columns have capacity greater than or equal to $m$, we are guaranteed to find a solution with max-flow $n*m$ via our linear program. To find our solution after solving this program, we simply iterate through all rows $r_i$ in the max-flow graph and plant a tree at position ($i,k$) in our graph for all edges $(i,k)$ outgoing from $r_i$.
-
-Run-time Analysis. Determining the minimum capacity $m$ requires iterating through all elements twice, via rows and columns, and takes O($2n$) = O($n$) time. By running the Edmonds-Karp Algorithm, a variation of Ford-Fulkerson with BFS, we can solve our linear program in time O($VE^2$), where $V=2n+2=O(n)$ and $E=2n+n^2=O(n^2)$. So the run-time of our flow-problem solver is O($VE^2$) = O($n*(n^2)^2$) = O($n^5$). Constructing our farm plot from the max plot takes time O($V + E$) = O($n^2$). So, overall, our algorithm takes run-time O($n$) + O($n^5$) +  O($n^2$) = O($n^5$)
-
-\newpage
-\item 1) In our max-flow problem in graph $G$ with source $s$ and sink $t$, we want to maximize flow subject to the following constraints: \\
-max $\sum f_{S,*}$ (maximize the sum of all flow leaving $S$)\\
-for all nodes $w \in G; w \neq s,t$: $\sum_{(u,w)} f_{uw} - \frac{1}{2} \sum_{(w,v)} f_{wv} = 0$ \\
-for all edges $(u,v)$ in $G$: $0 \leq f_{uv} \leq c_{uv}$ (where $c_{uv}$ is the capacity of edge $(u,v) \in G$) \\
-Then we solve the above problem via linear programming.
-
-\vskip .3cm
-2) First, ignore all edge costs $c_e$ in our graph $G$ and solve the max flow problem (same as above): \\
-max $\sum f_{S,*}$ (maximize the sum of all flow leaving $S$)\\
-for all nodes $w \in G; w \neq s,t$: $\sum_{(u,w)} f_{uw} - \sum_{(w,v)} f_{wv} = 0$ \\
-for all edges $(u,v)$ in $G$: $0 \leq f_{uv} \leq c_{uv}$ (where $c_{uv}$ is the capacity of edge $(u,v) \in G$) \\
-\vskip .04cm
-To determine the max flow in our graph, we solve the above problem via linear programming. Once we determine $m$, the max-flow in $G$, we set up another linear program incorporating our max flow as a constraint and minimizing sum of all edge costs $c_e$ in our  graph: \\
-min $\sum_{(u,v)} c_{uv} * f_{uv}$ (for all edges $(u,v) \in G$, multiply flow going through by cost to get total cost)\\
-$\sum f_{S,*} = m$ \\
-for all nodes $w \in G; w \neq s,t$: $\sum_{(u,w)} f_{uw} - \sum_{(w,v)} f_{wv} = 0$ \\
-for all edges $(u,v)$ in $G$: $0 \leq f_{uv} \leq c_{uv}$ (where $c_{uv}$ is the capacity of edge $(u,v) \in G$) \\
-Then we solve the above optimization problem via linear programming. If there exists a maximum flow solution with minimum total cost other than our current solution, we are guaranteed to find it.
-
-\newpage
-\item We are given a graph $G = (V,E)$, with source $s$, sink $t$, and integer capacities. We're also given the flow value that goes along each edge to achieve the graph's maximum flow. By subtracting the flow-value from each edge capacity and installing corresponding back edges for every edge with positive flow in our max-edge graph, we create residual graph $G_r$.\\
-1) Suppose that in graph $G'$, the capacity $c_{uv}$ of edge $e = (u,v)$ is increased by one. Observe our residual graph, $G_r$. If edge $e$ had a positive flow capacity through it in $G_r$, there are no remaining paths from $u$ to $t$ and our maximum-flow in $G'$ will be the same as that of $G$. This is because, if there had existed a path to route this additional flow in $G'$, it must have also existed in $G_r$, since $e$ previously had a nonzero edge capacity. However, this is not possible because it would mean that there existed a path from $s$ to $t$ through $(u,v)$ in $G_r$ and $G$ was not actually a max-flow graph. Therefore, the max-flow remains the same if $c_{uv}$ was non-negative in $G_r$.
-
-If $c_{uv}$ was 0 in $G$, it is possible that our max-flow may increase. To check, first perform DFS on $G_r$ from $s$ until finding a path to $u$. if a path is not found, the max-flow remains the same because there is no incoming flow to node $u$ in our residual graph to make use of the newly-added capacity to $c_{uv}$. If a path is found, then perform DFS from $v$ until finding a path to $t$. If a path exists, then our max-flow increases by one from $G$ to $G'$ since our DFS results have confirmed that there exists a path in $G'$ from $s$ to $t$ through $(u,v)$. The run-time of both of these DFS steps is O($E + V$), and the run-time of this algorithm is O($E + V$) + O($E + V$) = O($2E + 2V$) = O($E + V$)
-
-2) Suppose that in graph $G'$, the capacity $c_{uv}$ of edge $e = (u,v)$ is decreased by one. Observe our residual graph. If edge $e$ had a positive flow capacity through it in $G_r$, then decreasing its capacity by one does not have any effect on the max-flow of $G'$. All flow in the max-flow graph of $G$ can still travel through $G'$ because there was residual flow $r_{uv} \geq 1$ in $G_r$ beforehand and the capacity of all other edges remains the same from $G$ to $G'$.
-
-Otherwise, if there existed no residual flow on edge $(u,v)$ in $G_r$, we must check if there exists a cycle in $G_r$ containing $u$ and $v$. If there is a cycle from $u$ to $v$ in $G_r$, then there exists an alternate path through which to route that one unit of flow from $u$ to $v$ in $G$ and maximum flow does not decrease. We are only concerned with finding an alternate path from $u$ to $v$ because $G$ was a max-flow graph and there could exist no residual paths from $s$ to $t$ that does not go through $u$ and $v$ by definition.
-
-Consider the case that we do find a cycle in $G_r$ from $u$ to $v$. \\
-$a,b \textgreater 0$, with non-negative residual flow going back from $v$ to $u$, $f_{vu} \textgreater 0$, not pictured.
-
-\begin{tikzpicture} [scale=1.5]
-\node[vertex] (1) at (0,0) {$u$};
-\node[vertex] (3) at (4 ,0) {$v$};
-\node[vertex] (4) at (2 ,-1) {$w$};
-
-\draw[edge] (1) -- (4) node[midway, above] {$a$};
-\draw[edge] (4) -- (3) node[midway, above] {$b$};
-\draw[edge] (1) -- (3) node[midway, above] {$0$};
+\draw[edge] (1) -- (2) node[midway, above] {$a$};
+\draw[edge] (1) -- (3) node[midway, above] {$b$};
+\draw[edge] (2) -- (4) node[midway, above] {$b$};
+\draw[edge] (3) -- (4) node[midway, above] {$a$};
+\draw[edge] (2) -- (7) node[midway, above] {$a$};
+\draw[edge] (3) -- (8) node[midway, above] {$b$};
+\draw[edge] (4) -- (5) node[midway, above] {$a$};
+\draw[edge] (4) -- (6) node[midway, above] {$b$};
+\draw[edge] (7) -- (9) node[midway, above] {$a$};
+\draw[edge] (7) -- (5) node[midway, above] {$b$};
+\draw[edge] (8) -- (6) node[midway, above] {$a$};
+\draw[edge] (8) -- (10) node[midway, above] {$b$};
+\draw[edge] (9) -- (11) node[midway, above] {$b$};
+\draw[edge] (10) -- (12) node[midway, above] {$a$};
+\draw[edge] (5) -- (11) node[midway, above] {$a$};
+\draw[edge] (6) -- (12) node[midway, above] {$b$};
+\draw[edge] (5) -- (13) node[midway, above] {$b$};
+\draw[edge] (6) -- (13) node[midway, above] {$a$};
+\draw[edge] (13) -- (16) node[midway, above] {$a$};
+\draw[edge] (13) -- (17) node[midway, above] {$b$};
+\draw[edge] (11) -- (16) node[midway, above] {$b$};
+\draw[edge] (12) -- (17) node[midway, above] {$a$};
+\draw[edge] (16) -- (18) node[midway, above] {$b$};
+\draw[edge] (17) -- (18) node[midway, above] {$a$};
+\draw[edge] (9) -- (14) node[midway, above] {$a$};
+\draw[edge] (11) -- (14) node[midway, above] {$a$};
+\draw[edge] (16) -- (14) node[midway, above] {$a$};
+\draw[edge] (10) -- (15) node[midway, above] {$b$};
+\draw[edge] (12) -- (15) node[midway, above] {$b$};
+\draw[edge] (17) -- (15) node[midway, above] {$b$};
+\draw[->, xshift=11.3cm, yshift=1cm] (18) to [bend right=50] (16) node[ sloped,midway,above] {$a$};
+\draw[->, xshift=11.3cm, yshift=-1cm] (18) to [bend left=50] (17) node[ sloped,midway,above] {$b$};
 
 \end{tikzpicture}
 
-Since there exists a cycle with positive flow capacities ($v-u-w-v$) in $G_r$, the max-flow remains the same. In the case of any cycle in $G_r$ containing $u$ and $v$, we know we can send back one unit of flow across $(v,u)$ route it to $v$ through another path along our cycle, thus preserving our maximum flow from $G$ in $G'$. Even if the cycle containing $u$ and $v$ intersects with the path from $s$ to $u$ taken in $G$, there exists a point of intersection at node $k$ between our our cycle and path $s-u$ from which we can directly route the one additional unit of flow from path $s-k$ to $u$, and then $v$.
+Boundary values:
 
-If there is no cycle from $u$ to $v$ in $G_r$, then there exist no alternate paths in $G$ and the maximum flow of our graph decreases by one. While any path in $G$ from $s$ to $t$ would allow us to redirect an additional unit of flow, no path can exist that does not pass through $u$ and $v$, since $G_r$ was the residual graph of a max-flow graph. If we find no cycle, that means there are no alternate paths from $u$ to $v$ to direct the unit of flow that went along $(u,v)$ in $G$ and the maximum flow decreases by one.
+\begin{equation}
+    P_g(x_i,x_j) 
+    \begin{cases}
+      1, & \text{if}\ x_1=4,x_2 \leq 2 \\
+      0, & \text{if}\ x_2=4,x_1 \leq 2 \\
+      \cfrac{f_{ij}^2}{f_{ij}^2+(1-f_{ij})^2}, & \text{if}\ x_1=x_2=3 \\
+      f_{ij}*P_g(s_i,s_j,g_i,g_j,{x}_i+1,{x}_j) + (1-f_{ij}) P_g(s_i,s_j,g_i,g_j,{x}_i,{x}_j+1), & \text{otherwise}\ \\
+      
+    \end{cases}
+  \end{equation}
 
-Since our algorithm consists of running DFS in $G_r$ from $u$ in search of a cycle through $v$ and back to $u$, it takes run-time O($V+E$).
+With the above specifications, we can efficiently compute player $i$'s win probability from any score $P_g(x_i,x_j)$.
+
+\item Modeling Sets
+
+Within a set, $p_i$ or $p_j$ alternate serve every game. Every set starts at (0,0). To win a set, a player must win six or more games by a margin of at least two. If the set score $(6,6)$ is reached, a special tiebreaker game is played to determine the outcome of the match.
+
+Possible sequences of point scores in a game:
+
+$a$ - player 1 wins the following game
+
+$b$ - player 2 wins the following game
+
+$a'$ - player 1 wins the tiebreaker game
+
+$b'$ - player 2 wins the tiebreaker game
+
+\begin{tikzpicture} [scale=.7]
+\tikzset{VertexStyle/.style = {shape = circle,inner sep=0x}}
+\node[vertex] (1) at (0,0) {$0,0$};
+\node[vertex] (2) at (2,\h) {$1,0$};
+\node[vertex] (3) at (2,-\h) {$0,1$};
+\node[vertex] (4) at (4,2*\h) {$2,0$};
+\node[vertex] (5) at (4,0) {$1,1$};
+\node[vertex] (6) at (4,-2*\h) {$0,2$};
+\node[vertex] (7) at (6,3*\h) {$3,0$};
+\node[vertex] (8) at (6,\h) {$2,1$};
+\node[vertex] (9) at (6,-\h) {$1,2$};
+\node[vertex] (10) at (6,-3*\h) {$0,3$};
+\node[vertex] (11) at (8,4*\h) {$4,0$};
+\node[vertex] (12) at (8,2*\h) {$3,1$};
+\node[vertex] (13) at (8,0) {$2,2$};
+\node[vertex] (14) at (8,-2*\h) {$1,3$};
+\node[vertex] (15) at (8,-4*\h) {$0,4$};
+\node[vertex] (16) at (10,5*\h) {$5,0$};
+\node[vertex] (17) at (10,3*\h) {$4,1$};
+\node[vertex] (18) at (10,\h) {$3,2$};
+\node[vertex] (19) at (10,-\h) {$2,3$};
+\node[vertex] (20) at (10,-3*\h) {$1,4$};
+\node[vertex] (21) at (10,-5*\h) {$0,5$};
+\node[vertex] (22) at (18,6*\h) {$S_1$};
+\node[vertex] (23) at (12,4*\h) {$5,1$};
+\node[vertex] (24) at (12,2*\h) {$4,2$};
+\node[vertex] (25) at (12,0) {$3,3$};
+\node[vertex] (26) at (12,-2*\h) {$2,4$};
+\node[vertex] (27) at (12,-4*\h) {$1,5$};
+\node[vertex] (28) at (18,-6*\h) {$S_1^c$};
+\node[vertex] (29) at (14,3*\h) {$5,2$};
+\node[vertex] (30) at (14,\h) {$4,3$};
+\node[vertex] (31) at (14,-\h) {$3,4$};
+\node[vertex] (32) at (14,-3*\h) {$2,5$};
+\node[vertex] (33) at (16,2*\h) {$5,3$};
+\node[vertex] (34) at (16,0) {$4,4$};
+\node[vertex] (35) at (16,-2*\h) {$3,5$};
+\node[vertex] (36) at (18,\h) {$5,4$};
+\node[vertex] (37) at (18,-\h) {$4,5$};
+\node[vertex] (38) at (20,0) {$5,5$};
+\node[vertex] (39) at (22,\h) {$6,5$};
+\node[vertex] (40) at (22,-\h) {$5,6$};
+\node[vertex] (41) at (24,0) {$6,6$};
 
 
+
+\draw[edge] (1) -- (2) node[midway, above] {$a$};
+\draw[edge] (1) -- (3) node[midway, above] {$b$};
+\draw[edge] (2) -- (4) node[midway, above] {$b$};
+\draw[edge] (2) -- (5) node[midway, above] {$a$};
+\draw[edge] (3) -- (5) node[midway, above] {$a$};
+\draw[edge] (3) -- (6) node[midway, above] {$b$};
+\draw[edge] (4) -- (7) node[midway, above] {$a$};
+\draw[edge] (4) -- (8) node[midway, above] {$b$};
+\draw[edge] (5) -- (8) node[midway, above] {$a$};
+\draw[edge] (5) -- (9) node[midway, above] {$b$};
+\draw[edge] (6) -- (9) node[midway, above] {$a$};
+\draw[edge] (6) -- (10) node[midway, above] {$b$};
+\draw[edge] (7) -- (11) node[midway, above] {$a$};
+\draw[edge] (7) -- (12) node[midway, above] {$b$};
+\draw[edge] (8) -- (12) node[midway, above] {$a$};
+\draw[edge] (8) -- (13) node[midway, above] {$b$};
+\draw[edge] (9) -- (13) node[midway, above] {$a$};
+\draw[edge] (9) -- (14) node[midway, above] {$b$};
+\draw[edge] (10) -- (14) node[midway, above] {$a$};
+\draw[edge] (10) -- (15) node[midway, above] {$b$};
+\draw[edge] (11) -- (16) node[midway, above] {$a$};
+\draw[edge] (11) -- (17) node[midway, above] {$b$};
+\draw[edge] (12) -- (17) node[midway, above] {$a$};
+\draw[edge] (12) -- (18) node[midway, above] {$b$};
+\draw[edge] (13) -- (18) node[midway, above] {$a$};
+\draw[edge] (13) -- (19) node[midway, above] {$b$};
+\draw[edge] (14) -- (19) node[midway, above] {$a$};
+\draw[edge] (14) -- (20) node[midway, above] {$b$};
+\draw[edge] (15) -- (20) node[midway, above] {$a$};
+\draw[edge] (15) -- (21) node[midway, above] {$b$};
+\draw[edge] (16) -- (22) node[midway, above] {$a$};
+\draw[edge] (16) -- (23) node[midway, above] {$b$};
+\draw[edge] (17) -- (23) node[midway, above] {$a$};
+\draw[edge] (17) -- (24) node[midway, above] {$b$};
+\draw[edge] (18) -- (24) node[midway, above] {$a$};
+\draw[edge] (18) -- (25) node[midway, above] {$b$};
+\draw[edge] (19) -- (25) node[midway, above] {$a$};
+\draw[edge] (19) -- (26) node[midway, above] {$b$};
+\draw[edge] (20) -- (26) node[midway, above] {$a$};
+\draw[edge] (20) -- (27) node[midway, above] {$b$};
+\draw[edge] (21) -- (27) node[midway, above] {$a$};
+\draw[edge] (21) -- (28) node[midway, above] {$b$};
+\draw[edge] (23) -- (22) node[midway, above] {$a$};
+\draw[edge] (23) -- (29) node[midway, above] {$b$};
+\draw[edge] (24) -- (29) node[midway, above] {$a$};
+\draw[edge] (24) -- (30) node[midway, above] {$b$};
+\draw[edge] (25) -- (30) node[midway, above] {$a$};
+\draw[edge] (25) -- (31) node[midway, above] {$b$};
+\draw[edge] (26) -- (31) node[midway, above] {$a$};
+\draw[edge] (26) -- (32) node[midway, above] {$b$};
+\draw[edge] (27) -- (32) node[midway, above] {$a$};
+\draw[edge] (27) -- (28) node[midway, above] {$b$};
+\draw[edge] (29) -- (22) node[midway, above] {$a$};
+\draw[edge] (29) -- (33) node[midway, above] {$b$};
+\draw[edge] (30) -- (33) node[midway, above] {$a$};
+\draw[edge] (30) -- (34) node[midway, above] {$b$};
+\draw[edge] (31) -- (34) node[midway, above] {$a$};
+\draw[edge] (31) -- (35) node[midway, above] {$b$};
+\draw[edge] (32) -- (35) node[midway, above] {$a$};
+\draw[edge] (32) -- (28) node[midway, above] {$b$};
+\draw[edge] (33) -- (22) node[midway, above] {$a$};
+\draw[edge] (33) -- (36) node[midway, above] {$b$};
+\draw[edge] (34) -- (36) node[midway, above] {$a$};
+\draw[edge] (34) -- (37) node[midway, above] {$b$};
+\draw[edge] (35) -- (37) node[midway, above] {$a$};
+\draw[edge] (35) -- (28) node[midway, above] {$b$};
+\draw[edge] (36) -- (22) node[midway, left] {$a$};
+\draw[edge] (36) -- (38) node[midway, above] {$b$};
+\draw[edge] (37) -- (38) node[midway, above] {$a$};
+\draw[edge] (37) -- (28) node[midway, right] {$b$};
+\draw[edge] (38) -- (39) node[midway, above] {$a$};
+\draw[edge] (38) -- (40) node[midway, above] {$b$};
+\draw[edge] (39) -- (22) node[midway, above] {$a$};
+\draw[edge] (39) -- (41) node[midway, above] {$b$};
+\draw[edge] (40) -- (41) node[midway, above] {$a$};
+\draw[edge] (40) -- (28) node[midway, above] {$b$};
+
+\draw[->, xshift=20cm,yshift=6.35cm] (41) to [bend right=30] (22) node[sloped,midway,above,scale=1.4] {$a'$};
+\draw[->, xshift=20cm,yshift=-6.35cm] (41) to [bend left=30] (28) node[sloped,midway,above,scale=1.4] {$b'$};
+
+
+\end{tikzpicture}
+
+Boundary values:
+\begin{equation}
+    P_s(g_1,g_2) 
+    \begin{cases}
+      1, & \text{if}\ g_1 \geq 6,g_1-g_2 \geq 2 \\
+      0, & \text{if}\ g_2 \geq 6,g_2-g_1 \geq 2 \\
+      P_{tb}(s_1,s_2), & \text{if}\ g_1=g_2=6 \\
+      P_g(0,0)(1-P_s(g_2,g_1+1))+(1-P_g(0,0))(1-P_s(g_2+1,g_1)), & \text{otherwise}\ \\
+    \end{cases}
+  \end{equation}
+
+See appendix for the tiebreak game's corresponding diagram**
+
+
+\item Modeling a best-of-three match
+
+a - player 1 wins the following set
+
+b - player 2 wins the following set
+
+\begin{tikzpicture} [scale=1]
+\node[vertex] (1) at (0,0) {$0,0$};
+\node[vertex] (2) at (2,1) {$1,0$};
+\node[vertex] (3) at (2,-1) {$0,1$};
+\node[vertex] (4) at (4,0) {$1,1$};
+\node[vertex] (5) at (6,1) {$W_1$};
+\node[vertex] (6) at (6,-1) {$W_1^{c}$};
+
+\draw[edge] (1) -- (2) node[midway, above] {$a$};
+\draw[edge] (1) -- (3) node[midway, above] {$b$};
+\draw[edge] (2) -- (4) node[midway, above] {$b$};
+\draw[edge] (3) -- (4) node[midway, above] {$a$};
+\draw[edge] (2) -- (5) node[midway, above] {$a$};
+\draw[edge] (3) -- (6) node[midway, above] {$b$};
+\draw[edge] (4) -- (5) node[midway, above] {$a$};
+\draw[edge] (4) -- (6) node[midway, above] {$b$};
+
+\end{tikzpicture}
+
+Boundary values:
+\begin{equation}
+    P_m(s_1,s_2) 
+    \begin{cases}
+      1, & \text{if}\ g_1 \geq 2 \\
+      0, & \text{if}\ g_2 \geq 2 \\
+      P_s(0,0)(P_m(s_1+1,s_2))+(1-P_s(0,0))(P_m(s_1,s_2+1)), & \text{otherwise}\ \\
+    \end{cases}
+  \end{equation}
+
+Combining the above equations, we can recursively calculate win probability with player $i$ serving from $(s_i,s_j,g_i,g_j,{x}_i,{x}_j)$ as:
+
+$P_m(s_i,s_j,g_i,g_j,{x}_i,{x}_j) = f_{ij}*P_m(s_i,s_j,g_i,g_j,{x}_i+1,{x}_j) + (1-f_{ij}) P_m(s_i,s_j,g_i,g_j,{x}_i,{x}_j+1) \newline 
+= P_g(x_i,x_j)*(1-P_m(s_j,s_i,g_j,g_i+1,0,0)) + (1-P_g(x_i,x_j))*(1-P_m(s_j,s_i,g_j+1,g_i,0,0)) \newline
+= 
+P_g(x_i,x_j)*(1-(P_s(g_j,g_i+1)*P_m(s_j+1,s_i)+(1-P_s(g_j,g_i+1))*P_m(s_j,s_i+1)) + (1-P_g(x_i,x_j))*(1-(P_s(g_j+1,g_i)*P_m(s_j+1,s_i)+(1-P_s(g_j+1,g_i))*P_m(s_j,s_i+1)) = ...$
+
+
+\item
+Pre-Match Predictions (elo (glicko???), BCM, point-based)
+
+%Since an effective in-match prediction model must generate predictions over the course of an entire match, the most effective pre-match prediction model should agree with the most effective in-match prediction model before the first point. 
+
+%Consider a match between players $i$ and $j$, with $w_{ij}$ an indicator specifying whether player $i$ wins. Pre-match prediction model, $M_p$, and in-match prediction model $M_c$ both estimate $P(w_{ij})$. At any point in the match, $S = {s_1,s_2,...,s_n}$ represents the sequence of points that have elapsed by time $n$ in the match. When $|S| \textgreater 0$, then $M_p(w_{ij}|S) \neq M_c(w_{ij}|S)$, since $M_p$ does take match play into account. However, when $|S| = 0$, the two models should agree $M_p(w_{ij}|S) = M_c(w_{ij}|S)$
+
+Before play has started, an in-match prediction model cannot draw on information from the match itself. Then, before a match between players $i$ and $j$ commences, it makes sense that this model should use the most well-informed pre-match forecast $\hat{\pi}_{ij}(t)$ as a starting point for predictions. Therefore, we first explore pre-match models as a starting point for in-match prediction.
+
+Earlier this year, Kovalchik released a survey of eleven different pre-match prediction models, assessing them side-by-side in accuracy, log-loss, calibration, and discriminatory something. 538's elo-based model and the Bookmaker Consensus Model performed the best. Elo-based prediction incorporates player $i$ and $j$'s entire match histories, while the BCM model incorporates all information encoded in the betting market. However, the paper leaves out a point-based method  devised by Klaassen and Magnus that derives serving probabilities from historical player data (combining player outcomes).
+
+
+\item Elo was originally developed as a head-to-head rating system for chess players (1978). Recently, 538's elo variant has gained prominence in the media. For match $t$ between $p_i$ and $p_j$ with elo ratings $E_i(t)$ and $E_j(t)$, $p_i$ is forecasted to win with probability:
+
+$\hat{\pi}_{ij}(t) = (1 + 10*\frac{E_j(t)-E_i(t)}{400})^{-1}$
+
+
+$p_i$'s rating for the following match $t+1$ is then updated accordingly:
+
+$E_i(t+1) = E_i(t) + K_{it}*(\hat{\pi}_{ij}(t)-W_i(t))$
+
+$W_i(t)$ is an indicator for whether $p_i$ won the given match, while $K_{it}$ is the learning rate for $p_i$ at time $t$. According to 538's analysts, elo ratings perform optimally when allowing $K_{it}$ to  decay slowly over time. With $m_i(t)$ representing the $p_i$'s career matches played at time $t$ we update our learning rate:
+
+$K_{it} = 250/(5+m(t))^{.4} $
+
+This variant updates a player's elo most quickly when we have no information about a player and makes smaller changes as $m_i(t)$ accumulates. To apply this elo rating method to our dataset, we initalize each player's elo rating at $E_i(0)=1500$ and match history $m_i(0)=0$. Then, we iterate through all tour-level matches from 1968-2017 $\footnote{tennis' Open Era began in 1968, when professionals were allowed to enter grand slam tournaments. Before then, only amateurs played these events}$ in chronological order, storing $E_i(t),E_j(t)$ for each match and updating each player's elo accordingly.
+
+Show a graphic of Roger Federer's 7-match win-streak at the 2017 Australian Open, with elo ratings.
+
+Rank
+
+While Klaassen and Magnus incorporated ATP rank into their prediction model (forecasting 2003), Kovalchik and 538 concur that elo outperforms ranking-based methods. On ATP match data from 2010-present, we found:
+
+Table with elo vs ATP/WTA rank
+
+Considering elo's superiority to ATP rank in 21st-century matches, models in this paper will incorporate elo ratings.
+
+
+\item Point-based Model (to do: stratify by surface)
+
+The hierarchical Markov Model offers an analytical solution to win probability $\hat{\pi}_{ij}(t)$ between players $p_i$ and $p_j$, given serving probabilities $f_{ij}$,$f_{ji}$. Klaassen and Magnus outline a way to estimate each player's serving probability from historical serve and return data. 
+
+$f_{ij} = f_t + (f_i-f_{av})-(g_j-g_{av}) \newline
+f_{ji} = f_t + (f_j-f_{av})-(g_i-g_{av})$
+
+Each player's serve percentage is a function of their own serving ability and their opponent's returning ability. $f_t$ denotes the average serve percentage for the match's given tournament, while $f_i,f_j$ and $g_i,g_j$ represent player $i$ and $j$'s percentage of points won on serve and return, respectively. $f_{av},g_{av}$ are the tour-level averages in serve and return percentage; since all points are won by either server or returner, $f_{av} =1-g_{av}$.
+
+As per Klaassen and Magnus' implementation, we use the previous year's tournament serving statistics to calculate $f_t$ for a given tournament and year, where $(w,y)$ represents the set of all matches played at tournament $w$ in year $y$.
+
+$f_t(w,y) = \frac{\sum_{k \in (w,y-1)}{\text{\# of points won on serve in match k}}}{\sum_{k \in (w,y-1)}\text{\# of points played in match k}}$
+
+Klaassen and Magnus only apply this method to a single match (Roddick vs. El Aynaoui Australian Open 2003). Furthermore, their ability to calculate serve and return percentages is limited by aggregate statistics supplied by atpworldtour.com. That is, they can only use year-to-date serve and return statistics to calculate $f_i,g_i,f_j,g_j$. Since the statistics do not list corresponding sample sizes, they must assume that each best-of-three match lasts 165 points to estimate uncertainty.
+
+Implementing this method with year-to-date statistics proves troublesome because $f_i,g_i$ decrease significantly in uncertainty as player $i$ accumulates matches throughout the year. Match forecasts in September will then be far more reliable than ones made in January. However, with our tour-level match dataset, we can keep a year-long tally of serve/return statistics for each player at any point in time. Where $(p_i,y,m)$ represents the set of $p_i$'s matches in year $y$, month $m$, we obtain the following statistics $\footnote{for the current month m, we only collect month-to-date matches} $:
+
+$f_i(y,m) = \frac{\sum_{t=1}^{12}\sum_{k \in (i,y-1,m+t)}{\text{\# of points won on serve by i in match k}}}{\sum_{t=1}^{12}\sum_{k \in (i,y-1,m+t)}\text{\# of points played on serve by i in match k}} \newline
+g_i(y,m) = \frac{\sum_{t=1}^{12}\sum_{k \in (i,y-1,m+t)}{\text{\# of points won on return by i in match k}}}{\sum_{t=1}^{12}\sum_{k \in (i,y-1,m+t)}\text{\# of points played on return by i in match k}}$
+
+Now, variance of $f_i,g_i$ no longer depends on time of year. Since the number of points won on serve are recorded in each match, we also know the player's number of serve/return points played. Below, we combine player statistics over the past 12 months to produce $f_{ij},f_{ji}$ for Kevin Anderson and Fernando Verdasco's 3rd round match at the 2013 Australian Open.
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c| } 
+ \hline
+ player name & $\#$ s points won & $\#$ s points
+&$f_i$ & $\#$ r points won & $\#$ r points & $g_i$ \\ 
+ \hline
+ Kevin Anderson & 3292 & 4842 & .6799 & 1726 & 4962 & .3478\\ 
+ \hline
+ Fernando Verdasco & 2572 & 3981 & .6461 & 1560 & 4111 & .3795\\ 
+ \hline
+\end{tabular}
+\end{center}
+
+From 2012 Australian Open statistics, $f_t=.6153$. From tour-level data spanning 2010-2017, $f_{av} = 0.6468; g_{av} = 1-f_{av} =.3532$ Using the above serve/return statistics from 02/12-01/13, we can calculate:
+
+$f_{ij} = f_t + (f_i-f_{av})-(g_j-g_{av}) = .6153 + (.6799-.6468) - (.3795-.3532) = .6221
+\newline
+f_{ji} = f_t + (f_j-f_{av})-(g_i-g_{av}) = .6153 + (.6461-.6468) - (.3478-.3532) = .6199$
+
+With the above serving percentages, Kevin Anderson is favored to win the best-of-five match with probability $M_p(0,0,0,0,0,0) = .5139$
+
+James-Stein Estimator:
+
+Decades ago, Efron and Morris described a method to estimate groups of sample means (Efron Morris 1977). The James-Stein estimator shrinks sample means toward the overall mean, in proportion to its estimator's variance. Regardless of the value of $\theta$ (???) this method has been proved to perform better than the MLE method (reporting the sample mean for each group).
+
+To estimate serve/return parameters for players who do not regularly play tour-level events, $f_i,g_i$ must be calculated from limited sample sizes. Consequently, match probabilities based off these estimates may be skewed by noise. The James-Stein estimators offer a more reasonable estimate of serve and return ability for players with limited match history. 
+
+%Players who do not regularly play tour-level events must yield serve and return estimates $f_i,g_i$ based on limited sample sizes. 
+
+To shrink serving percentages, we compute the variance of all recorded $f_i$ statistics $\footnote{each ${f_i}$ is computed from the previous twelve months of player data}$ in our match data set $D_m$.
+
+$\hat{\tau}^2 = \sum_{f_i \in D_m} (f_i-f_{av})^2$
+
+Then, each estimator $f_i$ is based off $n_i$ service points. With each estimator $f_i$ representing $f_i/n_i$ points won on serve, we can compute estimator $f_i$'s variance as:
+
+$\hat{\sigma_i}^2 = \frac{f_i(1-f_i)}{n_i}$
+
+and $B_i = \frac{\hat{\sigma_i}^2}{\hat{\tau}^2+\hat{\sigma_i}^2} $
+
+Finally, the James-Stein estimator takes the form: 
+
+$JS(f_i) = f_i + B_i(f_{av}-f_i)$
+
+We repeat the same process with $g_i$ to obtain James-Stein estimators for return statistics.
+
+To see how shrinkage makes our model robust to small sample sizes, consider the following example. When Dimitry Tursunov and Rui Machado faced off at the ATP Oeiras 2014, Machado had one tour-level match in his year-long stats. From a previous one-sided match, his return average, $g_j=25/32=.7813$, was abnormally high compared to the tour-level average of $g_av=.3532$. 
+
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+ \hline
+ player name & $\#$ s points won & $\#$ s points
+ & $f_i$ &$\#$ r points won & $\#$ r points & $g_i$ & elo rating \\ 
+ \hline
+ Rui Machado & 27 & 38 & .7105 & 25 & 32 & .7813 & 1503.89 
+ \\
+ \hline
+ Dmitry Tursunov & 2503 & 4014 & .6236 & 1413 & 3801 & .3717 & 1764.57 \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+$f_{ij} = f_t + (f_i-f_{av})-(g_j-g_{av}) = .6028 + (.7105-.6468) - (.3717-.3532) = .6481
+\newline
+f_{ji} = f_t + (f_j-f_{av})-(g_i-g_{av}) = .6028 + (.6236-.6468) - (.7813-.3532) = .1516$
+
+Following Klaassen and Magnus' method of combining player outcomes, we estimate that Tursunov has a $15\%$ chance of winning points on serve. This is extremely low, even for the most one-sided match. From the serving stats, our hierarchical Markov Model computes Machado's win probability as $M_p(0,0,0,0,0,0) \textgreater .9999$. This forecast seems unreasonably confident of Machado's victory, despite only having collected his player statistics for one match. Tursunov's 260-point elo advantage, which calculates Machado's win probability as $\hat{\pi}_{ij}(t) = (1+10*\frac{1764.57-1503.89}{400})^{-1} = .133$, further questions the validity of using limited historical data. Thus, we turn to the James-Stein estimator to normalize Machado's serving and return probabilities.
+
+$\newline
+JS(f_i) = f_i + B_i(f_{av}-f_i) = .7105 + .7906(.6468-.7105) = .6542
+\newline
+JS(g_i) = g_i + B_i(g_{av}-g_i) = .7813 + .8530(.3532-.7813) = .4225
+\newline
+JS(f_j) = f_j + B_j(f_{av}-f_j) = .6236 + .0345(.6468-.6236) = .6241
+\newline
+JS(g_j) = g_i + B_j(g_{av}-g_j) = .3717 + .0466(.3532-.3717) = .3712
+\newline
+JS(f_{ij}) = f_t + (JS(f_i)-f_{av})-(JS(g_j)-g_{av}) = .6028 + (.6542-.6468) - (.3712-.3532) = .5923
+\newline
+JS(f_{ji}) = f_t + (JS(f_j)-f_{av})-(JS(g_i)-g_{av}) = .6028 + (.6241-.6468) - (.4225-.3532) = .5109
+$
+
+with $JS(f_i),JS(f_j): M_p(0,0,0,0,0,0) = .9116$
+
+Above, we can see that the James-Stein estimator shrinks Machado's stats far more than Tursunov's, since Tursunov has played more tour-level matches in the past year. By shrinking the serve/return statistics, our model remains confident in Machado's victory, yet to a less extreme length.
+
+Extremely confident forecasts, such as the one produced without James-Stein estimators, can severely hurt model performance with respect to cross entropy. 
+
+%A loss by Machado in this circumstance would increase the overall log-loss of our dataset by $\approx 10^7$
+
+
+%While this does not hurt our model's accuracy, such high-probability forecasts are harmful to a model's log-loss in the case of tail events. When a relatively unknown player squares off against a tour-level regular, there is a tail probability that an upset occurs.
+
+If Machado were to have lost against Tursunov, then our cross entropy would increase by $\approx 22$, a huge penalty for a single data point. Given Tursunov's elo advantage, this is not a situation to which we want to expose models forecasting. In the end, the James-Stein estimator offers robustness to serve/return probabilities derived from infrequently charted players. We will hold onto these estimates for use in future models.
+
+
+%In conclusion, the James-Stein estimator appears to lower performance only because it allocates higher win probabilities to relatively unknown players (eg the Tursunov-Machado matchup). However, the James-Stein estimator is more robust to uncertain serve/return probabilities derived from infrequently charted players. Given this property, we hold onto James-Stein derived serve estimates for later use with in-match probability models.
+
+
+Then, test all pre-match forecasting methods on 2015 data in a table...:
 
 \newpage
-\item For the row player, consider [$y_1,y_2,y_3,y_4$] to be the row player's strategy, a probability distribution over the possible rows. Now, we have the following linear program: \\
-max $s$ \\
-$y_1 + y_2 + y_3 + y_4 = 1$ \\
-$s \leq 3y_1 + 6y_2 - 3y_3 - 7y_4$ \\
-$s \leq y_1 - 2y_2 - 2y_3 + 4y_4$ \\
-$s \leq  -2y_2 + 3y_3 - 5y_4$ \\
-$s \leq 4y_1 + 3y_3 - 7y_4$ \\
-\vskip .2cm
-For the column player, we have the following dual linear program: \\
-min $t$ \\
-$x_1 + x_2 + x_3 + x_4 = 1$ \\
-$t \geq 3x_1 + x_2 - 4x_4$ \\
-$t \geq 6x_1 - 2x_2 - 2x_3$ \\
-$t \geq -3x_1 - 2x_2 + 3x_3 - 3x_4$ \\
-$t \geq -7x_1 + 4x_2 - 5x_3 + 7x_4$ \\
 
-With the help of a linear program solver, we find: \\
-row-player: $s = -\frac{224}{583}$ \\
-$x_1 = \frac{8}{53}, x_2 = \frac{161}{583}, x_3 = \frac{221}{583}, x_4 = \frac{113}{583}$ \\
-column player: $t = -\frac{224}{583}$ \\
-$y_1 = \frac{81}{583}, x_2 = \frac{11}{53}, x_3 = \frac{234}{583}, x_4 = \frac{147}{583}$ \\
-The row-player's optimal strategy is [$x_1,x_2,x_3,x_4$] and the column-player's optimal strategy is [$y_1,y_2,y_3,y_4$]. The value of the game is $-\frac{224}{583}$. Since the value is negative, the row-player is at a disadvantage and the column-player should pay the row-player to play. To make the game fair, the column player must pay the row-player $\frac{224}{583}$ for each round of the game.
+The following methods will be tested primarily on tour-level matches for which we have point-by-point data. The matches span 2010-2017, accounting for nearly half of all tour-level matches within this time. Point-by-point records in Sackmann's dataset take the form of the following string:
+
+(Mikhail Youzhny vs. Evgeny Donskoy Australian Open 2013)
+
+P=``SSRSS;RRRR;SRSSS;SRRSRSSS;SRSSRS;RSRSSS;SRSRSS;RSRSRSSS;SSSS.SSSRRRSS;
+
+RSSSS;SSRSS;SSSRS;SSSS;RRRSSSSRRSSRRSRSSS;SRSRSS;SSSRS;RSRSSRSS;SSSS;SRSSS;
+
+RSRSSRRSSS;R/SR/SS/RR/RS/SR.RSRRR;...''
+
+$S$ denotes a point won by the server and $R$ a point won by the returner. Individual games are separated by ``$;$'' sets by ``$.$'' and service changes in tiebreaks by ``$/$''. By iterating through the string, one can construct $n$ data points $\{P_0,P_1,...,P_{n-1}\}$ from a match with $n$ total points, with $P_i$ representing the subset of the match after $i$ points have been played. W
+
+$P_0 = ``"
+\newline
+P_1 = ``S"
+\newline
+P_1 = ``SS"
+\newline
+P_2 = ``SSR"
+\newline
+...
+\newline$
+With $M = \{M_1,M_2,...M_k\}$ complete match-strings in our point-by-point data set, the size of our enumerated data set then becomes $\sum_{i=1}^k |M_i|$. This comes out to 1231122 points for ATP matches and "" for WTA matches.
+
+
+
+\item ML-based approaches
+
+As a baseline, we first consider a logistic regression model. 
+
+From any scoreline  ($s_i,s_j,g_i,g_j,{x}_i,{x}_j$), we can simply feed these parameters into our model. Logistic Regression's structure makes it easy to consider additional features for each player, such as elo difference, surface elo difference, etc. Before adding all features to the model, we consider two baselines: a model using ($s_i,s_j,g_i,g_j,{x}_i,{x}_j$) and another model trained on elo differences and a lead heuristic $L_{ij}$.
+
+This heuristic simply calculates one player's total lead in sets, games, and points:
+
+$L_{ij} = s_i-s_j + \frac{1}{6}(g_i-g_j) + \frac{1}{24}(x_i-x_j)$
+
+The coefficients preserve order between sets, games, and points, as one cannot lead by six games without winning a set or four points without winning a game.
+
+1) sets + games + points
+
+2) lead-margin + elo diff + surface elo diff
+
+3) all features
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| } 
+ \hline
+ input & train accuracy & test accuracy
+& train log loss & test log loss \\ 
+ \hline
+ 1 &  &  &  & \\ 
+ \hline
+ 2 &  &  &  & \\ 
+ \hline
+  3 &  &  &  & \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+
+A drawback of logistic regression is that it cannot distinguish between situations whose score differentials are equivalent. A player serving at (1,0,5,4,3,0) will have approximately the same win probability as one serving at (1,0,1,0,3,0). However, in the first situation, that player is far closer to victory than in the second.
+
+
+\item Random-Forest approach
+
+Brian Burke's win-probability models are among the most well-known in sports. They calculate a team's win probability at any point in the match based on historical data. Nettleton and Lock improved upon this method of binning players together with a random forest approach.
+
+\item See neural nets/mlp paper
+
+\item hierarchical Markov Model: regular and beta model
+
+\item Inferring Serve Probabilities from Elo difference (also try this with Glicko)
+
+In "", Klaassen and Magnus suggest a method to infer serving probabilities from a pre-match win forecast. By imposing a constraint $f_{ij}+f{ji}=1.29$, 
 
 
 

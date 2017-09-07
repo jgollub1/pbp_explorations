@@ -76,14 +76,17 @@ def generate_elo(df,counts_i):
             new_elo1, new_elo2 = elo_obj.rate_1vs1(surface_elo[surface][row['w_name']],surface_elo[surface][row['l_name']],is_gs,counts=counts_i)
 
     # add columns
-    df['w_elo'], df['l_elo'] = elo_1s, elo_2s
-    df['w_s_elo'], df['l_s_elo'] = surface_elo_1s, surface_elo_2s
+    if counts_i:
+        df['w_elo_538'], df['l_elo_538'] = elo_1s, elo_2s
+        df['w_s_elo_538'], df['l_s_elo_538'] = surface_elo_1s, surface_elo_2s
+    else:
+        df['w_elo'], df['l_elo'] = elo_1s, elo_2s
+        df['w_s_elo'], df['l_s_elo'] = surface_elo_1s, surface_elo_2s
     return df
 
 
-def generate_52_stats(df):
+def generate_52_stats(df,start_ind):
     # track player match stats for every match since 2009 (we only need these for pbp matches)
-    start_ind = 136146
     players_stats = {}
     # an array containing 2x1 arrays for winner and loser's previous 12-month serve performance over all matches in df
     match_52_stats = np.zeros([2,len(df),4])
@@ -131,7 +134,8 @@ def generate_tourney_stats(df,start_ind=0):
     df['tourney_stats'] = tourney_52_stats
     return df
 
-def connect_df(match_df,pbp_df,col_d):
+# have to correct the winner problem
+def connect_df(match_df,pbp_df,col_d,start_year=2009):
     pbp_dict = {}; winner_dict = {}
     for i in xrange(len(pbp_df)):
         key = pbp_df['w_name'][i] +' ' +  pbp_df['l_name'][i] + ' ' \
@@ -147,7 +151,8 @@ def connect_df(match_df,pbp_df,col_d):
     pbps,winners = [],[]
     info = {}
 
-    for i in xrange(len(match_df)):
+    match_df = match_df[match_df['match_year']>=start_year]
+    for i in match_df.index:
         key = match_df['w_name'][i] +' ' +  match_df['l_name'][i] + ' ' \
             +str(match_df['match_year'][i])+' '+match_df['score'][i]
         key = key+' '+str(match_df['match_month'][i]) if key in col_d else key
@@ -156,23 +161,26 @@ def connect_df(match_df,pbp_df,col_d):
             pbps.append(pbp_dict[key])
             winners.append(winner_dict[key])
             if key in info:
-                pbps[-1] = 'NA'; winners[-1] = 'NA'
+                pbps[-1] = 'None'; winners[-1] = 'None'
                 print 'collision'; print key + ' ' + str(match_df['match_month'][i])
             info[key] = 1
         else:
-            pbps.append('NA')
-            winners.append('NA')
+            pbps.append('None')
+            #winners.append('NA')
+            # we'll just make 'winner' a random 0 or 1 for now
+            #winners.append(0)
+            winners.append(np.random.choice([0,1]))
     print c
     match_df['pbp'] = pbps
     match_df['winner'] = winners
 
-    df = match_df[match_df['pbp']!='NA']
-    cols = df.columns.drop(['loser_id','winner_id'])
-    df = df[cols]
+    #df = match_df[match_df['pbp']!='NA']
+    #cols = df.columns.drop(['loser_id','winner_id'])
+    df = match_df[match_df.columns.drop(['loser_id','winner_id'])]
     df = df.reset_index(); del df['index']
 
     # SET UP LOOP TO CHANGE W,L TO P0,P1
-    for col in ['_name','_elo','_s_elo','_52_swon','_52_svpt','_52_rwon','_52_rpt']:
+    for col in ['_name','_elo','_s_elo','_elo_538','_s_elo_538','_52_swon','_52_svpt','_52_rwon','_52_rpt']:
         df['p0'+col] = [df['l'+col][i] if df['winner'][i] else df['w'+col][i] for i in xrange(len(df))]
         df['p1'+col] = [df['w'+col][i] if df['winner'][i] else df['l'+col][i] for i in xrange(len(df))]
 
