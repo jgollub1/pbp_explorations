@@ -17,6 +17,7 @@
 \usepackage{textcomp}
 \usepackage{tikz}
 \usepackage{csquotes}
+\usepackage{graphicx}
 \usetikzlibrary{arrows}
 \tikzset{
     vertex/.style={circle,draw,minimum size=1.5em},
@@ -540,11 +541,19 @@ $L_{ij} = s_i-s_j + \frac{1}{6}(g_i-g_j) + \frac{1}{24}(x_i-x_j)$
 
 The coefficients preserve order between sets, games, and points, as one cannot lead by six games without winning a set or four points without winning a game.
 
+Cross Validation
+
+Each match in our best-of-three dataset has around 160 points on average. We implement five-fold group validation, keeping matches together, so points from the same match do not overlap between train, validation, and test sets. This prevents a single match from informing the model before its later assessed by the model. (need to get your datasets straight, best-of-three, best-of-five, men's, women's)
+
+
+
 1) sets + games + points
 
 2) lead-margin + elo diff + surface elo diff
 
 3) all features
+
+4) Specific "score" features
 
 \begin{center}
 \begin{tabular}{ |c|c|c|c|c| } 
@@ -556,14 +565,27 @@ The coefficients preserve order between sets, games, and points, as one cannot l
  \hline
  2 &  &  &  & \\ 
  \hline
-  3 &  &  &  & \\ 
+ 3 &  &  &  & \\ 
+ \hline
+ 4 &  &  &  & \\ 
  \hline
 \end{tabular}
 \end{center}
 
+"" performs the best.
+To visualize logistic regression's predictive power, consider the below graphs.
 
-A drawback of logistic regression is that it cannot distinguish between situations whose score differentials are equivalent. A player serving at (1,0,5,4,3,0) will have approximately the same win probability as one serving at (1,0,1,0,3,0). However, in the first situation, that player is far closer to victory than in the second.
 
+\includegraphics[scale=.7]{gasquet_reister_9_6_all_features}
+
+
+One drawback of logistic regression is that it cannot distinguish between situations whose score differentials are equivalent. A player serving at (1,0,5,4,3,0) will have approximately the same win probability as one serving at (1,0,1,0,3,0). However, in the first situation from 5-4 40-0, the player serving wins the match if he wins any of the next three points. From the second scenario, the player serving must maintain his lead of 1-0 40-0 throughout the second set, which is less favorable.
+
+Although the first situation is clearly favorable, logistic regression will compute approximately the same probability in both scenarios $\footnote{after fitting coefficients for the equation $P(win) = logit(s_i,s_j,g_i,g_j,{x}_i,{x}_j) = e^{(c_1s_i+c_2s_j+c_3g_i+c_4g_j+c_5x_i+c_6x_j}$, coefficients $ c_1 \approx c_2, c_3 \approx c_4,c_5 \approx c_6$ by symmetry and therefore}$
+
+Another issue is that logistic regression can fails to detect when a higher-ranked player is about to lose in a close match. Below,
+
+\includegraphics[scale=.7]{simon_gabashvili_9_6_all_features}
 
 \item Random-Forest approach
 

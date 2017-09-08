@@ -170,7 +170,6 @@ def generate_df_2(df_pbp,columns,final_set_no_tb):
     df['in_lead'] = in_lead(df) 
     return df
 
-
 # optimized function to check who leads, combining boolean indices and functions
 def in_lead(df):
     c = np.array(df[['sets_0','games_0','points_0']]) - np.array(df[['sets_1','games_1','points_1']])
@@ -183,17 +182,6 @@ def in_lead(df):
     leads[game_ind] = game_d[game_ind]>0
     leads[point_ind] = point_d[point_ind]>0
     return leads
-# def generate_df_2(df_pbp,final_set_no_tb):
-#     print 'hi'
-#     dfs = [0]*len(df_pbp)
-#     for i in xrange(len(df_pbp)):
-#         info = [df_pbp['match_id'][i],df_pbp['elo_diff'][i],df_pbp['s_elo_diff'],df_pbp['winner'][i]]
-#         dfs[i] = np.asarray(enumerate_pbp_2(df_pbp['pbp'][i],info,final_set_no_tb)).T
-#     df = pd.DataFrame(np.concatenate(dfs))
-#     df.columns = ['match_id','elo_diff','s_elo_diff','winner','score','server','sets_0','sets_1','games_0',\
-#                   'games_1','points_0','points_1','tp_0','tp_1','p0_swp','p0_sp','p1_swp','p1_sp']
-#     return df
-
 
 # functions used to parse point-by-point tennis data
 def simplify(s):

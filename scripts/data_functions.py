@@ -86,9 +86,8 @@ def generate_elo(df,counts_i):
 
 
 def generate_52_stats(df,start_ind):
-    # track player match stats for every match since 2009 (we only need these for pbp matches)
     players_stats = {}
-    # an array containing 2x1 arrays for winner and loser's previous 12-month serve performance over all matches in df
+    # array w/ 2x1 arrays for each player's 12-month serve/return performance
     match_52_stats = np.zeros([2,len(df),4])
     w_l = ['w','l']
     for i, row in df.loc[start_ind:].iterrows():    
@@ -100,7 +99,8 @@ def generate_52_stats(df,start_ind):
             match_52_stats[k][i] = np.sum(players_stats[row[label+'_name']].last_year,axis=0)
             # update serving stats if no
             if row[label+'_swon']==row[label+'_swon'] and row[label+'_svpt']==row[label+'_svpt']:    
-                match_stats = (row[label+'_swon'],row[label+'_svpt'],row[w_l[1-k]+'_svpt']-row[w_l[1-k]+'_swon'],row[w_l[1-k]+'_svpt'])
+                match_stats = (row[label+'_swon'],row[label+'_svpt'],row[w_l[1-k]+'_svpt']- \
+                                row[w_l[1-k]+'_swon'],row[w_l[1-k]+'_svpt'])
                 players_stats[row[label+'_name']].update(date,match_stats)
             match_52_stats[k][i] = np.sum(players_stats[row[label+'_name']].last_year,axis=0)
 
