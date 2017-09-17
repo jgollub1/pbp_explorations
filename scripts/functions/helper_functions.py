@@ -18,33 +18,70 @@ class stats_52():
         
     def time_diff(self,new_date,old_date):
         return 12*(new_date[0]-old_date[0])+(new_date[1]-old_date[1])
-    
-    def update(self,match_date,match_stats):
+
+    def set_month(self,match_date):
         diff = self.time_diff(match_date,self.most_recent)
         if diff>=12:
             self.last_year = np.zeros([12,4])
         elif diff>0:
             self.last_year[diff:] = self.last_year[:12-diff]; self.last_year[:diff] = 0
-        self.last_year[0] = self.last_year[0]+match_stats
         self.most_recent = match_date
 
-# a similar class to store a tournament's serving averages from the previous year
-class tourney_52():
+    def update(self,match_date,match_stats):
+        self.set_month(match_date)
+        self.last_year[0] = self.last_year[0]+match_stats
+
+# stores opponent ability at time of match to produce adjusted stats
+class adj_stats_52():
     def __init__(self,date):
         self.most_recent = date
-        self.tourney_stats = np.zeros([2,2])
+        self.last_year = np.zeros([12,6])
+        self.adj_sr = [0,0]
+        
+    def time_diff(self,new_date,old_date):
+        return 12*(new_date[0]-old_date[0])+(new_date[1]-old_date[1])
+
+    def set_month(self,match_date):
+        diff = self.time_diff(match_date,self.most_recent)
+        if diff>=12:
+            self.last_year = np.zeros([12,6])
+        elif diff>0:
+            self.last_year[diff:] = self.last_year[:12-diff]; self.last_year[:diff] = 0
+        self.most_recent = match_date
+
+    def update(self,match_date,match_stats):
+        self.set_month(match_date)
+        self.last_year[0] = self.last_year[0]+match_stats
+        self.update_adj_sr()
+    
+    # update the player's adjust serve/return ability, based on last twelve months
+    def update_adj_sr(self):
+        with np.errstate(divide='ignore', invalid='ignore'):
+            f_i = np.sum(self.last_year[:,0])/np.sum(self.last_year[:,1])
+            f_adj = 1 - np.sum(self.last_year[:4])/np.sum(self.last_year[:,1])
+            g_i = np.sum(self.last_year[:,2])/np.sum(self.last_year[:,3])
+            g_adj = 1 - np.sum(self.last_year[:5])/np.sum(self.last_year[:,2])
+        self.adj_sr[0] = f_i - f_adj
+        self.adj_sr[1] = g_i - g_adj
+
+
+# a similar class to store a tournament's serving averages from the previous year
+class tny_52():
+    def __init__(self,date):
+        self.most_recent = date
+        self.tny_stats = np.zeros([2,2])
         self.historical_avgs = {}
     
     def update(self,match_year,match_stats):
         diff = match_year-self.most_recent
         if diff>=2:
-            self.tourney_stats = np.zeros([2,2])
+            self.tny_stats = np.zeros([2,2])
         elif diff==1:
-            self.tourney_stats[1] = self.tourney_stats[0]; self.tourney_stats[0]=0
-        self.tourney_stats[0] = self.tourney_stats[0]+match_stats
+            self.tny_stats[1] = self.tny_stats[0]; self.tny_stats[0]=0
+        self.tny_stats[0] = self.tny_stats[0]+match_stats
         self.most_recent = match_year
-        self.historical_avgs[match_year] = (self.tourney_stats[0][0],self.tourney_stats[0][1])
-        return 0 if self.tourney_stats[1][1]==0 else self.tourney_stats[1][0]/float(self.tourney_stats[1][1])
+        self.historical_avgs[match_year] = (self.tny_stats[0][0],self.tny_stats[0][1])
+        return 0 if self.tny_stats[1][1]==0 else self.tny_stats[1][0]/float(self.tny_stats[1][1])
 
 
 # v3.0 with smarter object construction
@@ -166,9 +203,11 @@ def generate_df_2(df_pbp,columns,final_set_no_tb):
     df = pd.DataFrame(np.concatenate(dfs))
     df.columns = columns + ['sets_0','sets_1','games_0',\
                   'games_1','points_0','points_1','tp_0','tp_1','p0_swp','p0_sp','p1_swp','p1_sp','server']
+    df[df.columns[2:]] = df[df.columns[2:]].astype(float)
     df['score'] = np.concatenate(pbps)
     df['in_lead'] = in_lead(df) 
     return df
+
 
 # optimized function to check who leads, combining boolean indices and functions
 def in_lead(df):
@@ -182,6 +221,17 @@ def in_lead(df):
     leads[game_ind] = game_d[game_ind]>0
     leads[point_ind] = point_d[point_ind]>0
     return leads
+# def generate_df_2(df_pbp,final_set_no_tb):
+#     print 'hi'
+#     dfs = [0]*len(df_pbp)
+#     for i in xrange(len(df_pbp)):
+#         info = [df_pbp['match_id'][i],df_pbp['elo_diff'][i],df_pbp['s_elo_diff'],df_pbp['winner'][i]]
+#         dfs[i] = np.asarray(enumerate_pbp_2(df_pbp['pbp'][i],info,final_set_no_tb)).T
+#     df = pd.DataFrame(np.concatenate(dfs))
+#     df.columns = ['match_id','elo_diff','s_elo_diff','winner','score','server','sets_0','sets_1','games_0',\
+#                   'games_1','points_0','points_1','tp_0','tp_1','p0_swp','p0_sp','p1_swp','p1_sp']
+#     return df
+
 
 # functions used to parse point-by-point tennis data
 def simplify(s):

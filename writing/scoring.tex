@@ -349,7 +349,7 @@ Pre-Match Predictions (elo (glicko???), BCM, point-based)
 
 Before play has started, an in-match prediction model cannot draw on information from the match itself. Then, before a match between players $i$ and $j$ commences, it makes sense that this model should use the most well-informed pre-match forecast $\hat{\pi}_{ij}(t)$ as a starting point for predictions. Therefore, we first explore pre-match models as a starting point for in-match prediction.
 
-Earlier this year, Kovalchik released a survey of eleven different pre-match prediction models, assessing them side-by-side in accuracy, log-loss, calibration, and discriminatory something. 538's elo-based model and the Bookmaker Consensus Model performed the best. Elo-based prediction incorporates player $i$ and $j$'s entire match histories, while the BCM model incorporates all information encoded in the betting market. However, the paper leaves out a point-based method  devised by Klaassen and Magnus that derives serving probabilities from historical player data (combining player outcomes).
+Earlier this year, Kovalchik released a survey of eleven different pre-match prediction models, assessing them side-by-side in accuracy, log-loss, calibration, and discrimination. 538's elo-based model and the Bookmaker Consensus Model performed the best. Elo-based prediction incorporates player $i$ and $j$'s entire match histories, while the BCM model incorporates all information encoded in the betting market. However, the paper leaves out a point-based method  devised by Klaassen and Magnus that derives serving probabilities from historical player data (combining player outcomes).
 
 
 \item Elo was originally developed as a head-to-head rating system for chess players (1978). Recently, 538's elo variant has gained prominence in the media. For match $t$ between $p_i$ and $p_j$ with elo ratings $E_i(t)$ and $E_j(t)$, $p_i$ is forecasted to win with probability:
@@ -583,7 +583,7 @@ One drawback of logistic regression is that it cannot distinguish between situat
 
 Although the first situation is clearly favorable, logistic regression will compute approximately the same probability in both scenarios $\footnote{after fitting coefficients for the equation $P(win) = logit(s_i,s_j,g_i,g_j,{x}_i,{x}_j) = e^{(c_1s_i+c_2s_j+c_3g_i+c_4g_j+c_5x_i+c_6x_j}$, coefficients $ c_1 \approx c_2, c_3 \approx c_4,c_5 \approx c_6$ by symmetry and therefore}$
 
-Another issue is that logistic regression can fails to detect when a higher-ranked player is about to lose in a close match. Below,
+Another issue is that logistic regression can fail to detect when a higher-ranked player is about to lose in a close match. Below,
 
 \includegraphics[scale=.7]{simon_gabashvili_9_6_all_features}
 
