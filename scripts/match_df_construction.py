@@ -1,18 +1,24 @@
+SCRIPT_PATH = '/Users/jacobgollub/Desktop/college (current)/research/pbp_explorations/scripts/sackmann'
+TOUR = 'atp'
+COUNT = False
+START_YEAR = 2000
+ONLY_PBP = 1
+
+import sys
+sys.path.insert(0,SCRIPT_PATH)
+import tennisGameProbability,tennisMatchProbability,tennisSetProbability,tennisTiebreakProbability
+from tennisMatchProbability import matchProb
 from helper_functions import *
 from data_functions import *
 import pandas as pd
+pd.options.mode.chained_assignment = None
 import numpy as np
 import re
 import math
 import copy
 
-TOUR = 'atp'
-COUNT = False
-START_YEAR = 2010
-ONLY_PBP = 1
-pd.options.mode.chained_assignment = None
-
 if __name__=='__main__':
+	print 'main'
 	atp_year_list = []
 	for i in xrange(1968,2018):
 	    atp_year_list.append(pd.read_csv("../../tennis_data/"+TOUR+"/"+TOUR+"_matches_{0}.csv".format(i)))
@@ -39,6 +45,8 @@ if __name__=='__main__':
 	atp_all_matches = generate_52_stats(atp_all_matches,start_ind)
 	atp_all_matches = generate_52_adj_stats(atp_all_matches,start_ind)
 	atp_all_matches = generate_tny_stats(atp_all_matches,start_ind)
+	#print 'adj stats: ', atp_all_matches[atp_all_matches['match_year']==2014][['w_52_s_adj','w_52_r_adj']]
+	#print 'now: ', atp_all_matches[['match_year','match_month','w_name','l_name','w_52_s_adj','l_52_s_adj','l_52_svpt']].loc[137969]
 
 	# Combine all the matches that have pbp (point by point) information into one dataframe
 	# and clean up columns in preparation for merging with all_atp_matches
@@ -66,12 +74,15 @@ if __name__=='__main__':
 	cols = ['_name','_elo','_sf_elo','_elo_538','_sf_elo_538','_52_swon','_52_svpt','_52_rwon',\
         '_52_rpt','_sf_52_swon','_sf_52_svpt','_sf_52_rwon','_sf_52_rpt','_52_s_adj','_52_r_adj']
 	df = connect_df(match_df=atp_all_matches,pbp_df=pbp_matches,col_d=collision_d,player_cols=cols,\
-	                start_year=2000)
+	                start_year=START_YEAR)
+	#print 'now: ', df[['match_year','match_month','p0_name','p1_name','p0_52_s_adj','p1_52_s_adj','p1_52_svpt']].loc[30016]
+
 	df['elo_diff'] = [df['p0_elo'][i] - df['p1_elo'][i] for i in xrange(len(df))]
 	df['sf_elo_diff'] = [df['p0_sf_elo'][i] - df['p1_sf_elo'][i] for i in xrange(len(df))]
 	df['elo_diff_538'] = [df['p0_elo_538'][i] - df['p1_elo_538'][i] for i in xrange(len(df))]
 	df['sf_elo_diff_538'] = [df['p0_sf_elo_538'][i] - df['p1_sf_elo_538'][i] for i in xrange(len(df))]
 
+	#print 'adj stats 2nd time: ', df[df['match_year']==2014][['p0_52_s_adj','p0_52_r_adj']]
 	# dataframe with only matches that have pbp
 	if ONLY_PBP:
 	    df = df[df['pbp']!='None']
@@ -116,22 +127,32 @@ if __name__=='__main__':
 	df['p1_sf_s_kls'] = df['tny_stats']+(df['p1_sf_s_pct']-df['sf_avg_52_s']) - (df['p0_sf_r_pct']-df['sf_avg_52_r'])
 	df['p0_sf_s_kls_JS'] = df['tny_stats']+(df['p0_sf_s_pct_JS']-df['sf_avg_52_s']) - (df['p1_sf_r_pct_JS']-df['sf_avg_52_r'])
 	df['p1_sf_s_kls_JS'] = df['tny_stats']+(df['p1_sf_s_pct_JS']-df['sf_avg_52_s']) - (df['p0_sf_r_pct_JS']-df['sf_avg_52_r'])
-	df['p0_s_kls_adj'] = df['tny_stats']+(df['p0_52_s_adj']+df['avg_52_s']) - (df['p1_52_r_adj']+df['avg_52_r'])
-	df['p1_s_kls_adj'] = df['tny_stats']+(df['p1_52_s_adj']+df['avg_52_s']) - (df['p0_52_r_adj']+df['avg_52_r'])
-	df['p0_s_kls_adj_JS'] = df['tny_stats']+(df['p0_52_s_adj_JS']+df['avg_52_s']) - (df['p1_52_r_adj_JS']+df['avg_52_r'])
-	df['p1_s_kls_adj_JS'] = df['tny_stats']+(df['p1_52_s_adj_JS']+df['avg_52_s']) - (df['p0_52_r_adj_JS']+df['avg_52_r'])
+	df['p0_s_kls_adj'] = df['tny_stats']+(df['p0_52_s_adj']) - (df['p1_52_r_adj'])
+	df['p1_s_kls_adj'] = df['tny_stats']+(df['p1_52_s_adj']) - (df['p0_52_r_adj'])
+	df['p0_s_kls_adj_JS'] = df['tny_stats']+(df['p0_52_s_adj_JS']) - (df['p1_52_r_adj_JS'])
+	df['p1_s_kls_adj_JS'] = df['tny_stats']+(df['p1_52_s_adj_JS']) - (df['p0_52_r_adj_JS'])
+
+
+
+	# generate match probabilities and z-scores for Klaassen method, with and w/o JS estimators
+	df['match_prob_kls'] = [matchProb(row['p0_s_kls'],1-row['p1_s_kls']) for i,row in df.iterrows()]
+	df['match_prob_kls_JS'] = [matchProb(row['p0_s_kls_JS'],1-row['p1_s_kls_JS']) for i,row in df.iterrows()]
+	df['match_prob_sf_kls'] = [matchProb(row['p0_sf_s_kls'],1-row['p1_sf_s_kls']) for i,row in df.iterrows()]
+	df['match_prob_sf_kls_JS'] = [matchProb(row['p0_sf_s_kls_JS'],1-row['p1_sf_s_kls_JS']) for i,row in df.iterrows()]
+	df['match_prob_adj_kls'] = [matchProb(row['p0_s_kls_adj'],1-row['p1_s_kls_adj']) for i,row in df.iterrows()]
+	df['match_prob_adj_kls_JS'] = [matchProb(row['p0_s_kls_adj_JS'],1-row['p1_s_kls_adj_JS']) for i,row in df.iterrows()]
+
+	# generate win probabilities from elo differences
+	df['elo_prob'] = [(1+10**(diff/-400.))**-1 for diff in df['elo_diff']]
+	df['elo_prob_538'] = [(1+10**(diff/-400.))**-1 for diff in df['elo_diff_538']]
+	df['sf_elo_prob'] = [(1+10**(diff/-400.))**-1 for diff in df['sf_elo_diff']]
+	df['sf_elo_prob_538'] = [(1+10**(diff/-400.))**-1 for diff in df['sf_elo_diff_538']]
+	# elo-induced serve percentages
+	df = generate_elo_induced_s(df, start_ind=0)
 
 	# depending on ONLY_PBP, this will have point-by-point matches, or all
 	# tour-level matches from START_DATE to present
-	name = 'elo_pbp_with_surface_9_17' if ONLY_PBP else 'elo_atp_matches_21st_century_9_17'
+	name = 'elo_pbp_with_surface_10_2' if ONLY_PBP else 'elo_atp_matches_all_10_2'
+	# 'elo_atp_matches_21st_century_9_17'
 	print name + '.csv saved to my_data'
 	df.to_csv('../../my_data/'+name+'.csv')
-
-
-
-
-
-
-
-
-

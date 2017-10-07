@@ -48,6 +48,7 @@ class adj_stats_52():
         elif diff>0:
             self.last_year[diff:] = self.last_year[:12-diff]; self.last_year[:diff] = 0
         self.most_recent = match_date
+        self.update_adj_sr()
 
     def update(self,match_date,match_stats):
         self.set_month(match_date)
@@ -56,11 +57,15 @@ class adj_stats_52():
     
     # update the player's adjust serve/return ability, based on last twelve months
     def update_adj_sr(self):
+        s_pt, r_pt = np.sum(self.last_year[:,1]), np.sum(self.last_year[:,3])
+        if s_pt==0 or r_pt==0:
+            self.adj_sr = [0,0]
+            return
         with np.errstate(divide='ignore', invalid='ignore'):
-            f_i = np.sum(self.last_year[:,0])/np.sum(self.last_year[:,1])
-            f_adj = 1 - np.sum(self.last_year[:4])/np.sum(self.last_year[:,1])
-            g_i = np.sum(self.last_year[:,2])/np.sum(self.last_year[:,3])
-            g_adj = 1 - np.sum(self.last_year[:5])/np.sum(self.last_year[:,2])
+            f_i = np.sum(self.last_year[:,0])/s_pt
+            f_adj = 1 - np.sum(self.last_year[:,4])/s_pt
+            g_i = np.sum(self.last_year[:,2])/r_pt
+            g_adj = 1 - np.sum(self.last_year[:,5])/r_pt
         self.adj_sr[0] = f_i - f_adj
         self.adj_sr[1] = g_i - g_adj
 
@@ -435,42 +440,37 @@ def break_point(s):
             else:
                 return (0,0)
 
-# cols is a list of all column sets to test; compare with kls pre-match forecasts
-def validate_results(df,columns,n_splits=5):
+# cols is a list of column sets for logistic regression; 
+# probs are model-specific probabilities
+def validate_results(df,probs,lm_columns,n_splits=5):
     kfold = KFold(n_splits=n_splits,shuffle=True)
-    scores = np.zeros([len(columns)+2,2,n_splits]);i=0
+    scores = np.zeros([len(lm_columns)+len(probs),2,n_splits]);i=0
     for train_ind,test_ind in kfold.split(df):
         lm = linear_model.LogisticRegression(fit_intercept = True)
         train_df,test_df = df.loc[train_ind],df.loc[test_ind]
         
-        for k,cols in enumerate(columns):
+        for j,prob_col in enumerate(probs):
+            y_preds = test_df[prob_col]>.5
+            scores[j][0][i]=accuracy_score(test_df['winner'],y_preds)
+            scores[j][1][i]=log_loss(test_df['winner'],test_df[prob_col],labels=[0,1])
+        
+        for k,cols in enumerate(lm_columns):
             lm.fit(train_df[cols].values.reshape([len(train_df),len(cols)]),train_df['winner'])
             y_preds = lm.predict(test_df[cols].values.reshape([len(test_df),len(cols)]))
             y_probs = lm.predict_proba(test_df[cols].values.reshape([len(test_df),len(cols)]))
-            scores[k][0][i]=accuracy_score(test_df['winner'],y_preds)
-            scores[k][1][i]=log_loss(test_df['winner'],y_probs,labels=[0,1])
-        
-        y_preds2 = test_df['match_prob_kls']>.5
-        y_preds3 = test_df['match_prob_kls_JS']>.5
-        scores[len(columns)][0][i]=accuracy_score(test_df['winner'],y_preds2)
-        scores[len(columns)][1][i]=log_loss(test_df['winner'],test_df['match_prob_kls'],labels=[0,1])
-        scores[len(columns)+1][0][i]=accuracy_score(test_df['winner'],y_preds3)
-        scores[len(columns)+1][1][i]=log_loss(test_df['winner'],test_df['match_prob_kls_JS'],labels=[0,1])
+            scores[len(probs)+k][0][i]=accuracy_score(test_df['winner'],y_preds)
+            scores[len(probs)+k][1][i]=log_loss(test_df['winner'],y_probs,labels=[0,1])
         i+=1
-    
-    for i,cols in enumerate(columns):
-        print 'columns: ',cols
-        #print '% s_elo used in lm fit: ',lm.coef_[0][1]/(lm.coef_[0][0]+lm.coef_[0][1])
-        print 'accuracy: ', np.mean(scores[i][0])
-        print 'loss: ', np.mean(scores[i][1])
-    
-    print 'kls probabilities'
-    print 'accuracy: ', np.mean(scores[len(columns)][0])
-    print 'loss: ', np.mean(scores[len(columns)][1])
 
-    print 'kls JS probabilities'
-    print 'accuracy: ', np.mean(scores[len(columns)+1][0])
-    print 'loss: ', np.mean(scores[len(columns)+1][1])
+    for j,prob_col in enumerate(probs):
+        print prob_col
+        print 'accuracy: ', np.mean(scores[j][0])
+        print 'loss: ', np.mean(scores[j][1])
+    
+    for i,cols in enumerate(lm_columns):
+        print 'lm columns: ',cols
+        print 'accuracy: ', np.mean(scores[len(probs)+i][0])
+        print 'loss: ', np.mean(scores[len(probs)+i][1])
 
 def in_dict(x,d):
     return x in d

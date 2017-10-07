@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import elo_538 as elo
-from helper_functions import stats_52,tny_52,normalize_name
+from helper_functions import adj_stats_52,stats_52,tny_52,normalize_name
 import re
 import datetime
 
@@ -87,7 +87,10 @@ def generate_elo(df,counts_i):
 
 def generate_52_stats(df,start_ind):
     players_stats = {}
-    avg_stats = stats_52((df['match_year'][0],df['match_month'][0]))
+    start_date = (df['match_year'][start_ind],df['match_month'][start_ind])
+    avg_stats = stats_52(start_date)
+    # set as prior so first row is not nan
+    avg_stats.update(start_date,(6.4,10,3.6,10))
     # array w/ 2x1 arrays for each player's 12-month serve/return performance
     match_52_stats = np.zeros([2,len(df),4])
     avg_52_stats = np.zeros([len(df),4])
@@ -97,6 +100,7 @@ def generate_52_stats(df,start_ind):
     for surface in ('Hard','Clay','Grass'):
         s_players_stats[surface] = {}
         s_avg_stats[surface] = stats_52((df['match_year'][0],df['match_month'][0]))
+        s_avg_stats[surface].update(start_date,(6.4,10,3.6,10))
     s_match_52_stats = np.zeros([2,len(df),4])
     s_avg_52_stats = np.zeros([len(df),4])
     
@@ -156,57 +160,46 @@ def generate_52_stats(df,start_ind):
         df['sf_avg_52_r'] = np.divide(s_avg_52_stats[:,2],s_avg_52_stats[:,3])
     return df
 
-def generate_52_adj_stats(df,start_ind):
+def generate_52_adj_stats(df,start_ind=0):
     players_stats = {}
-    avg_stats = stats_52((df['match_year'][0],df['match_month'][0]))
     # array w/ 2x1 arrays for each player's 12-month serve/return performance
-    match_52_stats = np.zeros([2,len(df),4])
-    avg_52_stats = np.zeros([len(df),4])
+    match_52_stats = np.zeros([2,len(df),2])
     
     w_l = ['w','l']
     for i, row in df.loc[start_ind:].iterrows():
         surface = row['surface']  
         date = row['match_year'],row['match_month']
+        avg_52_s,avg_52_r = row['avg_52_s'],row['avg_52_r']
+        match_stats = [[],[]]
 
-        avg_stats.set_month(date)
-        avg_52_stats[i] = np.sum(avg_stats.last_year,axis=0)       
-        
         # add new players to the dictionary
         for k,label in enumerate(w_l):
             if row[label+'_name'] not in players_stats:
                 players_stats[row[label+'_name']] = adj_stats_52(date)
-            
+        
+        # store pre-match adj stats
         for k,label in enumerate(w_l):
-            # store serving stats prior to match, update current month
             players_stats[row[label+'_name']].set_month(date)
-            match_52_stats[k][i] = np.sum(players_stats[row[label+'_name']].last_year,axis=0)
             
             # fill in player's adjusted stats prior to start of match
-            match_52_stats[k][i][4:] = players_stats[row[label+'_name']].adj_sr
+            match_52_stats[k][i] = players_stats[row[label+'_name']].adj_sr
             # update serving stats if not null
             if row[label+'_swon']==row[label+'_swon'] and row[label+'_svpt']==row[label+'_svpt']:
-                sv_pts, r_pts = row[label+'_svpt'],row[w_l[1-k]+'_svpt']
-                avg_stats = np.sum(avg_stats.last_year,axis=0)
-                sv_stats = (row[label+'_swon'],sv_pts,row[w_l[1-k]+'_svpt']-\
-                                row[w_l[1-k]+'_swon'],r_pts)
-                opp_r_ablty = players_stats[row[w_l[1-k]+'_name']].adj_sr[1]+avg_stats[0]/avg_stats[1]
-                opp_s_ablty = players_stats[row[w_l[1-k]+'_name']].adj_sr[0]+avg-stats[2]/avg_stats[3]
-                opp_stats = (opp_r_ablty*sv_pts, opp_s_ablty*r_pts)
-                match_stats = sv_stats+opp_stats
-                players_stats[row[label+'_name']].update(date,match_stats)
-                avg_stats.update(date,match_stats)
-
+                sv_stats = (row[label+'_swon'],row[label+'_svpt'],row[label+'_rwon'],row[label+'_rpt'])
+                opp_r_ablty = players_stats[row[w_l[1-k]+'_name']].adj_sr[1]+avg_52_r
+                opp_s_ablty = players_stats[row[w_l[1-k]+'_name']].adj_sr[0]+avg_52_s
+                opp_stats = (opp_r_ablty*row[label+'_svpt'], opp_s_ablty*row[label+'_rpt'])
+                match_stats[k] = sv_stats+opp_stats
+                
+        # update players' adjusted scores based on pre-match adjusted ratings
+        for k,label in enumerate(w_l):
+            if row[label+'_swon']==row[label+'_swon'] and row[label+'_svpt']==row[label+'_svpt']:
+                players_stats[row[label+'_name']].update(date,match_stats[k])
+            
     for k,label in enumerate(w_l):
-        df[label+'_52_swon'] = match_52_stats[k][:,0]
-        df[label+'_52_svpt'] = match_52_stats[k][:,1]
-        df[label+'_52_rwon'] = match_52_stats[k][:,2]
-        df[label+'_52_rpt'] = match_52_stats[k][:,3]
-        df[label+'_52_s_adj'] = match_52_stats[k][:,4]
-        df[label+'_52_r_adj'] = match_52_stats[k][:,5]
+        df[label+'_52_s_adj'] = match_52_stats[k][:,0]
+        df[label+'_52_r_adj'] = match_52_stats[k][:,1]
 
-    with np.errstate(divide='ignore', invalid='ignore'):
-        df['avg_52_s'] = np.divide(avg_52_stats[:,0],avg_52_stats[:,1])
-        df['avg_52_r'] = np.divide(avg_52_stats[:,2],avg_52_stats[:,3])
     return df
 
 def generate_tny_stats(df,start_ind=0):
@@ -277,20 +270,12 @@ def connect_df(match_df,pbp_df,col_d,player_cols,start_year=2009):
     df = match_df[match_df.columns.drop(['loser_id','winner_id'])]
     df = df.reset_index(drop=True)
 
-    # SET UP LOOP TO CHANGE W,L TO P0,P1
-    #for col in ['_name','_elo','_s_elo','_elo_538','_s_elo_538','_52_swon','_52_svpt','_52_rwon','_52_rpt']:
+    # change w,l TO p0,p1
     for col in player_cols:
         df['p0'+col] = [df['l'+col][i] if df['winner'][i] else df['w'+col][i] for i in xrange(len(df))]
         df['p1'+col] = [df['w'+col][i] if df['winner'][i] else df['l'+col][i] for i in xrange(len(df))]
 
-    df['elo_diff'] = [df['p0_elo'][i] - df['p1_elo'][i] for i in xrange(len(df))]
-    df['sf_elo_diff'] = [df['p0_sf_elo'][i] - df['p1_sf_elo'][i] for i in xrange(len(df))]
-    df['tny_name'] = [s if s==s else 'Davis Cup' for s in df['tny_name']]
-    return df
-
-def generate_JS_stats(df):
-    #### James-Stein estimators for 52-week serve and return percentages ####
-    # calculate B_i coefficients for each player in terms of service points
+    # add s/r pct columns
     p_hat = np.sum([df['p0_52_swon'],df['p1_52_swon']])/np.sum([df['p0_52_svpt'],df['p1_52_svpt']])
     for label in ['p0','p1']:
         df[label+'_s_pct'] = [p_hat if x==0 else x for x in np.nan_to_num(df[label+'_52_swon']/df[label+'_52_svpt'])]
@@ -298,7 +283,79 @@ def generate_JS_stats(df):
         df[label+'_sf_s_pct'] = [p_hat if x==0 else x for x in np.nan_to_num(df[label+'_sf_52_swon']/df[label+'_sf_52_svpt'])]
         df[label+'_sf_r_pct'] = [1-p_hat if x==0 else x for x in np.nan_to_num(df[label+'_sf_52_rwon']/df[label+'_sf_52_rpt'])]
 
+    df['elo_diff'] = [df['p0_elo'][i] - df['p1_elo'][i] for i in xrange(len(df))]
+    df['sf_elo_diff'] = [df['p0_sf_elo'][i] - df['p1_sf_elo'][i] for i in xrange(len(df))]
+    df['tny_name'] = [s if s==s else 'Davis Cup' for s in df['tny_name']]
+    return df
+
+# def generate_JS_stats(df):
+#     cols = ['_s_pct','_r_pct','_sf_s_pct','_sf_r_pct',]
+#     #### James-Stein estimators for 52-week serve and return percentages ####
+#     # calculate B_i coefficients for each player in terms of service points
+#     p_hat = np.sum([df['p0_52_swon'],df['p1_52_swon']])/np.sum([df['p0_52_svpt'],df['p1_52_svpt']])
+#     # for label in ['p0','p1']:
+#     #     df[label+'_s_pct'] = [p_hat if x==0 else x for x in np.nan_to_num(df[label+'_52_swon']/df[label+'_52_svpt'])]
+#     #     df[label+'_r_pct'] = [1-p_hat if x==0 else x for x in np.nan_to_num(df[label+'_52_rwon']/df[label+'_52_rpt'])]
+#     #     df[label+'_sf_s_pct'] = [p_hat if x==0 else x for x in np.nan_to_num(df[label+'_sf_52_swon']/df[label+'_sf_52_svpt'])]
+#     #     df[label+'_sf_r_pct'] = [1-p_hat if x==0 else x for x in np.nan_to_num(df[label+'_sf_52_rwon']/df[label+'_sf_52_rpt'])]
+
+
+
+#     # repeat for surace stats and overall stats
+#     for sv in ['','sf_']:
+#         s_history = np.concatenate([df['p0_'+sv+'52_swon']/df['p0_'+sv+'52_svpt'],\
+#                     df['p1_'+sv+'52_swon']/df['p1_'+sv+'52_svpt']],axis=0)
+#         n = len(s_history)/2
+#         group_var = np.var(s_history)
+#         s_points = np.concatenate([df['p0_'+sv+'52_svpt'],df['p1_'+sv+'52_svpt']])
+#         sigma2_i = np.divide(p_hat*(1-p_hat),s_points,where=s_points>0)
+#         tau2_hat = np.nanvar(s_history)
+#         B_i = sigma2_i/(tau2_hat+sigma2_i)
+#         df['B_'+sv+'i0_sv'],df['B_'+sv+'i1_sv'] = B_i[:n],B_i[n:]
+
+#         s_history[s_history!=s_history] = p_hat
+#         group_var = np.var(s_history)
+#         df['p0_'+sv+'s_pct_JS'] = df['p0_'+sv+'s_pct']+df['B_'+sv+'i0_sv']*(p_hat-df['p0_'+sv+'s_pct'])
+#         df['p1_'+sv+'s_pct_JS'] = df['p1_'+sv+'s_pct']+df['B_'+sv+'i1_sv']*(p_hat-df['p1_'+sv+'s_pct'])
+
+#         # repeat for return averages (slightly different tau^2 value)
+#         r_history = np.concatenate([df['p0_'+sv+'52_rwon']/df['p0_'+sv+'52_rpt'],\
+#                     df['p1_'+sv+'52_rwon']/df['p1_'+sv+'52_rpt']],axis=0)
+#         r_points = np.concatenate([df['p0_'+sv+'52_rpt'],df['p1_'+sv+'52_rpt']])
+#         sigma2_i = np.divide((1-p_hat)*p_hat,r_points,where=r_points>0)
+#         tau2_hat = np.nanvar(r_history)
+#         B_i = sigma2_i/(tau2_hat+sigma2_i)
+#         df['B_'+sv+'i0_r'],df['B_'+sv+'i1_r'] = B_i[:n],B_i[n:]
+
+#         r_history[r_history!=r_history] = 1-p_hat
+#         df['p0_'+sv+'r_pct_JS'] = r_history[:n]+df['B_'+sv+'i0_r']*((1-p_hat)-r_history[:n])
+#         df['p1_'+sv+'r_pct_JS'] = r_history[n:]+df['B_'+sv+'i1_r']*((1-p_hat)-r_history[n:])
+#     return p_hat,df
+
+def generate_JS_stats(df,cols):
+    #### James-Stein estimators for 52-week serve and return percentages ####
+    # calculate B_i coefficients for each player in terms of service points
+    for col in cols:
+        stat_history = np.concatenate([df['p0_'+col],df['p1_'+col]],axis=0)
+        n = len(stat_history)/2
+        group_var = np.var(stat_history)
+        num_points = np.concatenate([df['p0_52_svpt'],df['p1_52_svpt']]) if '_s_' in col \
+                    else np.concatenate([df['p0_52_rpt'],df['p1_52_rpt']])
+        p_hat = np.mean(stat_history)
+        sigma2_i = np.divide(p_hat*(1-p_hat),num_points,where=num_points>0)
+        tau2_hat = np.nanvar(stat_history)
+        B_i = sigma2_i/(tau2_hat+sigma2_i)
+        df['B_'+col+'_i0_sv'],df['B_'+col+'_i1_sv'] = B_i[:n],B_i[n:]
+
+        stat_history[stat_history!=stat_history] = p_hat
+        group_var = np.var(stat_history)
+        df['p0_'+col+'_JS'] = df['p0_'+col]+df['B_'+col+'_i0_sv']*(p_hat-df['p0_'+col])
+        df['p1_'+col+'_JS'] = df['p1_'+col]+df['B_'+col+'_i1_sv']*(p_hat-df['p1_'+col])
+        print col, p_hat
+
+
     # repeat for surace stats and overall stats
+    p_hat = np.sum([df['p0_52_swon'],df['p1_52_swon']])/np.sum([df['p0_52_svpt'],df['p1_52_svpt']])
     for sv in ['','sf_']:
         s_history = np.concatenate([df['p0_'+sv+'52_swon']/df['p0_'+sv+'52_svpt'],\
                     df['p1_'+sv+'52_swon']/df['p1_'+sv+'52_svpt']],axis=0)
@@ -328,3 +385,6 @@ def generate_JS_stats(df):
         df['p0_'+sv+'r_pct_JS'] = r_history[:n]+df['B_'+sv+'i0_r']*((1-p_hat)-r_history[:n])
         df['p1_'+sv+'r_pct_JS'] = r_history[n:]+df['B_'+sv+'i1_r']*((1-p_hat)-r_history[n:])
     return df
+
+
+

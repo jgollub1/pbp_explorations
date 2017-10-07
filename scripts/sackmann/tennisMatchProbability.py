@@ -76,11 +76,13 @@ if __name__=='__main__':
     # for i in range(10):
     #     print 'p_s =',i*.1+.1
     #     print matchProb(i*.1+.1,1-i*.1)
-    print matchProb(.5923,1-.5109,sets=5)
+    #print matchProb(.8925,1-.8101,sets=3)
+    print matchProb(.64,.36,mv=1,mw=0,sv=1,sw=0,gv=3,gw=0)
+    print matchProb(.64,.36,mv=1,mw=0,sv=5,sw=4,gv=3,gw=0)
     # print matchProb(.5,.4,sets=3)
     # print matchProb(.6481,.8484,sets=3)
-    for diff in [.01,.02,.03,.04,.05]:
-        print matchProb(.64+diff,1-.64+diff)
+    # for diff in [.01,.02,.03,.04,.05]:
+    #     print matchProb(.64+diff,1-.64+diff)
 
     #print matchProb(.66,.35)
 
