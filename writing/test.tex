@@ -1,0 +1,30 @@
+\RequirePackage{filecontents}
+\begin{filecontents*}{\jobname.bib}
+@misc{Silent.Spring,
+  author = {Wikipedia},
+  title  = {Silent Spring},
+  month  = {September},
+  year   = {2015},
+  url    = {https://en.wikipedia.org/wiki/Silent_Spring},
+}
+\end{filecontents*}
+
+
+\documentclass[12]{article}
+\usepackage{fullpage}
+\usepackage{enumerate}
+\usepackage{cite}
+
+\begin{document}
+\begin{enumerate}
+  \item The main finding of the book ``Silent Spring'' was that the 
+    use of the use of DDT pesticides was killing birds and harming the 
+    environment. Also, she described how DDT entered the food chain 
+    and accumulated in the fatty tissues of the birds , animals and 
+    humans and how that caused cancer and genetic 
+    damage\cite{Silent.Spring}.
+\end{enumerate}
+
+\bibliographystyle{plain}
+\bibliography{\jobname}
+\end{document}

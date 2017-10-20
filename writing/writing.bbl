@@ -1,0 +1,60 @@
+\begin{thebibliography}{10}
+
+\bibitem{BarnettandClarke2005}
+Tristan Barnett and Stephen~R Clarke.
+\newblock Combining player statistics to predict outcomes of tennis matches.
+\newblock {\em IMA Journal of Management Mathematics}, 16(2):113--120, 2005.
+
+\bibitem{BarnettandClarke2002}
+Tristan~J Barnett, Stephen~R Clarke, et~al.
+\newblock Using microsoft excel to model a tennis match.
+\newblock In {\em 6th Conference on Mathematics and Computers in Sport}, pages
+  63--68. Queensland, Australia: Bond University, 2002.
+
+\bibitem{Barnett2006}
+Tristan~J Barnett et~al.
+\newblock {\em Mathematical modelling in hierarchical games with specific
+  reference to tennis}.
+\newblock PhD thesis, Swinburne University of Technology, 2006.
+
+\bibitem{Bevc2015}
+Martin Bevc.
+\newblock Predicting the outcome of tennis matches from point-by-point data.
+\newblock 2015.
+
+\bibitem{EfronandMorris1977}
+Bradley Efron and Carl~N Morris.
+\newblock {\em Stein's paradox in statistics}.
+\newblock WH Freeman, 1977.
+
+\bibitem{Huang2011}
+Xinzhuo Huang, William Knottenbelt, and Jeremy Bradley.
+\newblock Inferring tennis match progress from in-play betting odds.
+\newblock {\em Final year project), Imperial College London, South Kensington
+  Campus, London, SW7 2AZ}, 2011.
+
+\bibitem{KlaassenandMagnus2001}
+Franc J G~M Klaassen and Jan~R Magnus.
+\newblock Are points in tennis independent and identically distributed?
+  evidence from a dynamic binary panel data model.
+\newblock {\em Journal of the American Statistical Association},
+  96(454):500--509, 2001.
+
+\bibitem{Klaassen2003}
+Franc~JGM Klaassen and Jan~R Magnus.
+\newblock Forecasting the winner of a tennis match.
+\newblock {\em European Journal of Operational Research}, 148(2):257--267,
+  2003.
+
+\bibitem{Kovalchik2016}
+Stephanie~Ann Kovalchik.
+\newblock Searching for the goat of tennis win prediction.
+\newblock {\em Journal of Quantitative Analysis in Sports}, 12(3):127--138,
+  2016.
+
+\bibitem{Sipko2015}
+Michal Sipko and William Knottenbelt.
+\newblock Machine learning for the prediction of professional tennis matches.
+\newblock 2015.
+
+\end{thebibliography}

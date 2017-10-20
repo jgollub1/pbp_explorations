@@ -1,4 +1,4 @@
-SCRIPT_PATH = '/Users/jacobgollub/Desktop/college (current)/research/pbp_explorations/scripts/sackmann'
+SCRIPT_PATH = '/Users/jacobgollub/Desktop/college/research/pbp_explorations/scripts/sackmann'
 TOUR = 'atp'
 COUNT = False
 START_YEAR = 2000
@@ -75,12 +75,14 @@ if __name__=='__main__':
         '_52_rpt','_sf_52_swon','_sf_52_svpt','_sf_52_rwon','_sf_52_rpt','_52_s_adj','_52_r_adj']
 	df = connect_df(match_df=atp_all_matches,pbp_df=pbp_matches,col_d=collision_d,player_cols=cols,\
 	                start_year=START_YEAR)
-	#print 'now: ', df[['match_year','match_month','p0_name','p1_name','p0_52_s_adj','p1_52_s_adj','p1_52_svpt']].loc[30016]
 
 	df['elo_diff'] = [df['p0_elo'][i] - df['p1_elo'][i] for i in xrange(len(df))]
 	df['sf_elo_diff'] = [df['p0_sf_elo'][i] - df['p1_sf_elo'][i] for i in xrange(len(df))]
 	df['elo_diff_538'] = [df['p0_elo_538'][i] - df['p1_elo_538'][i] for i in xrange(len(df))]
 	df['sf_elo_diff_538'] = [df['p0_sf_elo_538'][i] - df['p1_sf_elo_538'][i] for i in xrange(len(df))]
+
+	# generate win probabilities from logit of elo/s_elo 538 differences, trained on 2011-2013 data
+	df = generate_logit_probs(df,cols=['elo_diff_538','sf_elo_diff_538'])
 
 	#print 'adj stats 2nd time: ', df[df['match_year']==2014][['p0_52_s_adj','p0_52_r_adj']]
 	# dataframe with only matches that have pbp
@@ -111,7 +113,7 @@ if __name__=='__main__':
 	         u'p0_52_s_adj',u'p0_52_r_adj',u'p1_52_s_adj',u'p1_52_r_adj',
 	         u'p0_52_s_adj_JS',u'p0_52_r_adj_JS',u'p1_52_s_adj_JS',u'p1_52_r_adj_JS',
 	         u'avg_52_s', u'avg_52_r', u'sf_avg_52_s', u'sf_avg_52_r',
-	         'tny_stats','best_of','score','pbp','winner']]
+	         'tny_stats','best_of','score','pbp','logit_elo_538_prob','winner']]
 
 	# binary indicator for whether player 0 won
 	df['winner'] = [1-winner for winner in df['winner']]
@@ -147,12 +149,14 @@ if __name__=='__main__':
 	df['elo_prob_538'] = [(1+10**(diff/-400.))**-1 for diff in df['elo_diff_538']]
 	df['sf_elo_prob'] = [(1+10**(diff/-400.))**-1 for diff in df['sf_elo_diff']]
 	df['sf_elo_prob_538'] = [(1+10**(diff/-400.))**-1 for diff in df['sf_elo_diff_538']]
+
 	# elo-induced serve percentages
-	df = generate_elo_induced_s(df, start_ind=0)
+	df = generate_elo_induced_s(df, 'elo',start_ind=0)
+	df = generate_elo_induced_s(df, 'logit_elo_538',start_ind=0)
 
 	# depending on ONLY_PBP, this will have point-by-point matches, or all
 	# tour-level matches from START_DATE to present
-	name = 'elo_pbp_with_surface_10_2' if ONLY_PBP else 'elo_atp_matches_all_10_2'
+	name = 'elo_pbp_with_surface_10_15' if ONLY_PBP else 'elo_atp_matches_all_10_15'
 	# 'elo_atp_matches_21st_century_9_17'
 	print name + '.csv saved to my_data'
 	df.to_csv('../../my_data/'+name+'.csv')

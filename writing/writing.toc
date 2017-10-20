@@ -5,24 +5,27 @@
 \contentsline {section}{\numberline {1.4}Implementation}{4}
 \contentsline {chapter}{\numberline {2}Scoring}{5}
 \contentsline {section}{\numberline {2.1}Modeling games}{5}
-\contentsline {section}{\numberline {2.2}Modeling Sets}{6}
-\contentsline {section}{\numberline {2.3}Modeling a best-of-three match}{7}
+\contentsline {section}{\numberline {2.2}Modeling sets}{6}
+\contentsline {section}{\numberline {2.3}Modeling a tie-break game}{7}
+\contentsline {section}{\numberline {2.4}Modeling a best-of-three match}{7}
+\contentsline {section}{\numberline {2.5}Win Probability Equation}{8}
 \contentsline {chapter}{\numberline {3}Pre-game Match Prediction}{9}
 \contentsline {section}{\numberline {3.1}Overview}{9}
 \contentsline {section}{\numberline {3.2}Elo Ratings}{9}
-\contentsline {section}{\numberline {3.3}ATP/WTA Rank}{10}
+\contentsline {section}{\numberline {3.3}ATP Rank}{10}
 \contentsline {section}{\numberline {3.4}Point-based Model}{10}
 \contentsline {section}{\numberline {3.5}James-Stein Estimator}{11}
 \contentsline {section}{\numberline {3.6}Opponent-Adjusted Serve/Return Statistics}{13}
 \contentsline {section}{\numberline {3.7}Results}{13}
-\contentsline {subsection}{\numberline {3.7.1}Original Methods}{13}
-\contentsline {subsection}{\numberline {3.7.2}Methods with Optimization Component}{14}
-\contentsline {chapter}{\numberline {4}In-game Match Prediction}{15}
-\contentsline {section}{\numberline {4.1}Logistic Regression}{15}
-\contentsline {subsection}{\numberline {4.1.1}Cross Validation}{16}
-\contentsline {subsection}{\numberline {4.1.2}Visualizing Logistic Regression}{17}
-\contentsline {section}{\numberline {4.2}Random Forests}{18}
-\contentsline {section}{\numberline {4.3}Hierarchical Markov Model}{19}
-\contentsline {subsection}{\numberline {4.3.1}Beta Experiments}{19}
-\contentsline {subsection}{\numberline {4.3.2}Elo-induced Serve Probabilities}{19}
-\contentsline {section}{\numberline {4.4}Results}{20}
+\contentsline {subsection}{\numberline {3.7.1}Table}{14}
+\contentsline {subsection}{\numberline {3.7.2}Discussion}{14}
+\contentsline {chapter}{\numberline {4}In-game Match Prediction}{16}
+\contentsline {section}{\numberline {4.1}Logistic Regression}{17}
+\contentsline {subsection}{\numberline {4.1.1}Cross Validation}{18}
+\contentsline {subsection}{\numberline {4.1.2}Visualizing Logistic Regression}{18}
+\contentsline {section}{\numberline {4.2}Random Forests}{19}
+\contentsline {section}{\numberline {4.3}Hierarchical Markov Model}{20}
+\contentsline {subsection}{\numberline {4.3.1}Beta Experiments}{20}
+\contentsline {subsection}{\numberline {4.3.2}Elo-induced Serve Probabilities}{21}
+\contentsline {subsection}{\numberline {4.3.3}Significance of $f_{ij}+f_{ji}$}{22}
+\contentsline {section}{\numberline {4.4}Results}{23}
