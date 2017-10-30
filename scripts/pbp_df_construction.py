@@ -5,8 +5,8 @@ import numpy as np
 import time
 
 # indicator to generate point-by-point for best-of-three matches (else: best-of-five)
-BEST_OF_THREE = 1
-FILE_NAME = 'elo_pbp_with_surface_10_15.csv'
+BEST_OF_THREE = 0
+FILE_NAME = 'elo_pbp_with_surface_10_23.csv'
 
 if __name__=='__main__':
 	df = pd.read_csv('../../my_data/'+FILE_NAME)
@@ -34,7 +34,8 @@ if __name__=='__main__':
 	        'p0_s_kls_elo', 'p1_s_kls_elo','p0_s_kls_logit_elo_538','p1_s_kls_logit_elo_538',
 	        #'',
 	        'tny_stats','best_of']
-	df_pred = generate_df_2(df_pbp3,cols,0)
+	enum_df = df_pbp3 if BEST_OF_THREE else df_pbp5
+	df_pred = generate_df_2(enum_df,cols,0)
 	df_pred = df_pred.reset_index(drop=True)
 	print df_pred.columns
 	print 'df ('+str(len(df_pred))+' points) generated in: ', time.clock()-start,'seconds'
@@ -53,8 +54,8 @@ if __name__=='__main__':
 	df_pred['lead_margin'] = df_pred['sets_0']-df_pred['sets_1'] + (df_pred['games_0']-\
 							df_pred['games_1'])/6. + (df_pred['points_0']-df_pred['points_1'])/24.
 	best_of = '3' if BEST_OF_THREE else '5'
-	df_pred.to_csv('../../my_data/feature_df_pbp'+best_of+'_10_15.csv')
-	print 'feature_df_pbp'+best_of+'_10_15.csv saved to my_data'
+	df_pred.to_csv('../../my_data/feature_df_pbp'+best_of+'_10_23.csv')
+	print 'feature_df_pbp'+best_of+'_10_23.csv saved to my_data'
 
 
 

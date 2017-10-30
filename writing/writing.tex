@@ -81,13 +81,13 @@ $\newline$
 \\[5pt]
 \centerline{{\rm --- Christian Schneider (@Schneider\_CM) April 17, 2017}}
 
-In recent years, win probability has become increasingly prevalent in sports broadcasting. Brian Burke, an NFL commentator, has posted live win-probability graphs of NFL playoff games on his website for the past few years. Earlier this year, ESPN began to post win probabilities atop the score box in televised Major League Baseball games. Despite mixed reactions from fans, as shown above, these developments represent a transition in sports broadcasting's modern narrative. 
+In recent years, win probability has become increasingly prevalent in sports broadcasting. Brian Burke, an NFL commentator, has posted live win-probability graphs of NFL playoff games on his website for the past few years \footnote{http://www.advancedfootballanalytics.com/index.php/home/tools/live-playoff-probabilities}. Earlier this year, ESPN began to post win probabilities atop the score box in televised Major League Baseball games. Despite mixed reactions from fans, as shown above, these developments represent a transition in sports broadcasting's modern narrative. 
 
 %..Make an argument for the value of in-match forecasting, despite angry reactions..
 
-A win probability from any score line communicates how much one team or player is favored to win. While one can produce this from any model of choice, the field strives to produce the most well-informed estimate of how likely a player is to win the match. With the recent proliferation of online betting, in-match win probability dictates an entire market of its own. Betfair's platform  matched over 40 million Euros during the 2011 French Open Final \cite{Huang2011}; other high-profile matches often draw comparable volume over betting exchanges. While the majority of tennis prediction papers concern pre-match prediction, around 80$\%$ of online betting occurs while matches are in progress \cite{Sipko2015}. Clearly, in-match win probability is of great concern to all participants in this betting market. 
+A win probability from any score line communicates how much a team or player is favored to win. While one can produce this from any model of choice, those in sports analytics strive to produce the most well-informed estimate available.  With the recent proliferation of online betting, in-match win probability dictates an entire market of its own. Betfair's platform  matched over 40 million Euros during the 2011 French Open Final \cite{Huang2011}; other high-profile matches often draw comparable volume over betting exchanges. While the majority of tennis prediction papers concern pre-match prediction, around 80$\%$ of online betting occurs while matches are in progress \cite{Sipko2015}. At the very least, in-match win probability concerns all participants in this betting market, if not the general public.
 
-
+%While one can produce this from any model of choice, sports analytics strives to produce the most well-informed estimate available. 
 %While tennis has yet to broadcast win probabilities, 
 
 %demonstrates an individual model’s most informed guess at how likely a player is to win the match
@@ -95,7 +95,7 @@ A win probability from any score line communicates how much one team or player i
 %Drawing upon past research and exploring new methods, this paper searches for the most effective approach to in-match forecasting.
 
 \section{History of Tennis Forecasting}
-Plenty of research on tennis match prediction exists over the past twenty years. Klaassen and Magnus tested the assumption that points in a tennis match are independent and identically distributed \cite{KlaassenandMagnus2001}. Under this assumption, they construct a hierarchical Markov model in conjunction with tennis’ scoring system. From this model, they offer an analytical equation for match-win probability from any score, given each individual player's probability of winning a point on serve \cite{Klaassen2003}.  Barnett and Clarke then offer a method of estimating each player's serve probability from historical data \cite{BarnettandClarke2005}. Years later, Bevc proposed updating each these serve probabilities with a beta distribution between each point and computing the corresponding win probability with the above model \cite{Bevc2015}. Recently, Kovalchik assessed performance of 11 different pre-match prediction models on all tour-level ATP matches in 2014 \cite{Kovalchik2016}.
+Plenty of research on tennis match prediction exists over the past twenty years. Klaassen and Magnus tested the assumption that points in a tennis match are independent and identically distributed \cite{KlaassenandMagnus2001}. Under this assumption, they construct a hierarchical Markov model in conjunction with tennis' scoring system. From this model, they offer an analytical equation for match-win probability from any score, given each individual player's probability of winning a point on serve \cite{Klaassen2003}.  Barnett and Clarke then offer a method of estimating each player's serve probability from historical data \cite{BarnettandClarke2005}. Years later, Bevc proposed updating each these serve probabilities with a beta distribution between each point and computing the corresponding win probability with the above model \cite{Bevc2015}. Recently, Kovalchik assessed performance of 11 different pre-match prediction models on all ATP tour-level matches in 2014 \cite{Kovalchik2016}.
 
 Over the past several years, Jeff Sackmann (offer footnote to website) has released the largest publicly available library of tennis datasets via github. This collection contains match summaries of every ATP and WTA match in the Open Era, point-by-point summaries of nearly 100,000 tour-level and satellite matches, and a crowd-sourced match-charting project spanning over 3000 matches, where volunteers record each shot’s type and direction over an entire match. While 538 and Kovalchik use Jeff Sackmann’s match data to generate elo ratings, none of the aforementioned papers have tested models with his point-by-point dataset.
 
@@ -103,9 +103,9 @@ As past papers have spanned several decades, datasets and model evaluation are n
 
 %However, Jeff Sackmann has recently released the largest publicly available tennis dataset via github. This collection contains match summaries of every ATP and WTA match in the Open Era, point-by-point summaries of nearly 100,000 matches—both tour-level and satellite--and a crowd-sourced match-charting project spanning 2800 matches, where volunteers record each shot’s type and direction in every point. While 538 and Kovalchik use Jeff Sackmann’s match data to refine their own elo system for pre-match prediction, no papers on in-match prediction have used his point-by-point dataset. With over 10,000 ATP and WTA tour-level matches from 2010-2017, I compare existing approaches side-by-side and explore new methods to in-match prediction.  Just as Kovalchik does with pre-match prediction models, I attempt to find the GOAT (greatest of all-time) of in-match prediction models.
 
-This paper combines elo ratings, a wealth of data, and current technology to provide a similar survey of which in-match prediction methods perform the best. I build upon past research by testing variations of previous state-of-the-art methods, and applying several new concepts to these datasets, from successful probability models in football and baseball, to state exploration via hidden Markov Models.
+This paper combines elo ratings, a wealth of data, and current technology to provide a similar survey of which in-match prediction methods perform the best. I build upon past research by testing variations of previous state-of-the-art methods, and applying new concepts to these datasets, from probability models used in football to elo-induced serving percentages.
 
- (Can reference older sports forecasting mentioned in Nettleton and Lock...)
+%(Can reference older sports forecasting mentioned in Nettleton and Lock...)
 
  
 \section{Match/Point-by-Point Datasets}
@@ -119,15 +119,15 @@ This paper combines elo ratings, a wealth of data, and current technology to pro
 
 With the above datasets serving as a basis for this project, thorough re-formatting of the data was required in order to connect point-by-point strings to their corresponding rows in the match dataset.
 
-As both datasets included player names, year, and score, we connected matches across datasets with a hashing scheme \footnote{eg. hash(matchX) = ``Roger Federer Tomas Berdych 2012 3-6 7-5 7-5''}. Due to observed inconsistencies, we canonicalized player names between match and point-by-point datasets $\footnote{eg. ``Stan Wawrinka'' $\rightarrow$ ``Stanislas Wawrinka'', ``Federico Del Bonis'' $\rightarrow$ ``Federico Delbonis''}$ in order to maximize the number of available matches with point-by-point summaries. As a portion of the point-by-point summaries are from satellite events, we were able to match around 10,600/12,000 point-by-point strings to their respective tour-level matches. Then, we could then associate information generated from the match dataset's entirety (elo ratings, year-long adjusted serve stats, etc) with these point-by-point strings.
+As both datasets included player names, year, and score, we connected matches across datasets with a hashing scheme \footnote{eg. hash(matchX) = ``Roger Federer Tomas Berdych 2012 3-6 7-5 7-5''}. Due to observed inconsistencies, we canonicalized player names between match and point-by-point datasets $\footnote{eg. ``Stan Wawrinka'' $\rightarrow$ ``Stanislas Wawrinka'', ``Federico Del Bonis'' $\rightarrow$ ``Federico Delbonis''}$ in order to maximize the number of available matches with point-by-point summaries. While a portion of the point-by-point summaries are from satellite events, we were able to match around 10,600/12,000 point-by-point strings to their respective tour-level matches. Then, we could associate information generated from the match dataset's entirety (elo ratings, year-long adjusted serve stats, etc) with these point-by-point strings.
 
-To view this process in more depth, or access any of the resulting datasets, visit \url{https://github.com/jgollub1/tennis_match_prediction}. Implementations of each method in this project, and instructions on how to generate all relevant statistics, are also provided.
+To view this process in more depth or access any of the resulting datasets, visit \url{https://github.com/jgollub1/tennis_match_prediction}. Implementations of each method in this project, and instructions on how to generate all relevant statistics, are also provided.
 
 
 \chapter{Scoring}
-Tennis' scoring system consists of three levels: sets, games, and points. Consider a tennis match between two entities, $p_i$ and $p_j$. We can represent any score as $(s_i,s_j),(g_i,g_j),({x}_i,{x}_j)$ where $i$ is serving and $s_k,g_k,x_k$ represent player $k$'s score in sets, games, and points, respectively. The players alternate serve each game and continue until someone clinches the match by winning two sets (best-of-three) or three sets (best-of-five) $\footnote{The best-of-five format is typically reserved for men's grand slam and Davis Cup events}$.
+Tennis' scoring system consists of three levels: sets, games, and points. Consider a tennis match between two entities, $p_i$ and $p_j$. We can represent any score as $(s_i,s_j,g_i,g_j,{x}_i,{x}_j)$ where $i$ is serving and $s_k,g_k,x_k$ represent $p_k$'s score in sets, games, and points, respectively. The players alternate serve each game and continue until someone clinches the match by winning two sets (best-of-three) or three sets (best-of-five) $\footnote{The best-of-five format is typically reserved for men's grand slam and Davis Cup events}$.
 
-The majority of in-play tennis models utilize a hierarchical Markov Model, which embodies the levels in tennis' scoring system. Barnett formally defines a representation for scores in tennis \cite{BarnettandClarke2002}. With $p_i$ and $p_j$ winning points on serve with probabilities $f_{ij},f_{ji}$, each in-match scoreline $(s_i,s_j),(g_i,g_j),({x}_i,{x}_j)$ progresses to one of its two neighbors $(s_i,s_j),(g_i,g_j),({x}_i+1,{x}_j)$ and $(s_i,s_j),(g_i,g_j),({x}_i,{x}_j+1)$ with transition probabilities dependent on the current server. Assuming all points in a match are $iid$, we can then use the below model to recursively determine win probability:
+The majority of in-play tennis models utilize a graphical structure that embodies the levels within tennis' scoring system. Madurska referred to this as a hierarchical Markov Model \cite{Madurska2012}. Barnett formally defines this representation for tennis scores \cite{BarnettandClarke2002}. With $p_i$ and $p_j$ winning points on serve with probabilities $f_{ij},f_{ji}$, each in-match scoreline $(s_i,s_j),(g_i,g_j),({x}_i,{x}_j)$ progresses to one of its two neighbors $(s_i,s_j),(g_i,g_j),({x}_i+1,{x}_j)$ and $(s_i,s_j),(g_i,g_j),({x}_i,{x}_j+1)$ with transition probabilities dependent on the current server. Assuming all points in a match are i.i.d. between servers, we can then use the below model to recursively determine win probability:
 
 \begin{center}
 $P_m(s_i,s_j,g_i,g_j,{x}_i,{x}_j)$ = probability that $p_i$ wins the match when serving from this scoreline
@@ -432,7 +432,7 @@ Thanks to the boundary values at each level, we can programmatically compute thi
 \section{Overview}
 Before play has started, an in-match prediction model cannot draw on information from the match itself. Then, before a match between $p_i$ and $p_j$ commences, the most well-informed pre-match forecast $\hat{\pi}_{ij}(t)$ should serve as a basis for prediction. Therefore, we first explore pre-match models as a starting point for in-match prediction.
 
-Earlier this year, Kovalchik released a survey of eleven different pre-match prediction models, assessing them side-by-side in accuracy, log-loss, calibration, and discrimination. 538's elo-based model and the Bookmaker Consensus Model performed the best. Elo-based prediction incorporates player $i$ and $j$'s entire match histories, while the BCM model incorporates all information encoded in the betting market. As we will later back-test effective in-match models against market data, we first explore all pre-match prediction methods that do not employ market data.
+Earlier this year, Kovalchik released a survey of eleven different pre-match prediction models, assessing them side-by-side in accuracy, log-loss, calibration, and discrimination. 538's elo-based model and the Bookmaker Consensus Model performed the best. Elo-based prediction incorporates $p_i$ and $p_j$'s entire match histories, while the BCM model incorporates all information encoded in the betting market. In this section, we explore pre-match prediction methods that do not employ market data.
 
 %However, the paper leaves out a point-based method  devised by Klaassen and Magnus that derives serving probabilities from historical player data (combining player outcomes).
 
@@ -475,7 +475,7 @@ While Klaassen incorporated ATP rank into his prediction model \cite{Klaassen200
 \end{tabular}
 \end{center}
 
-Considering its superiority to ATP rank in recent years, models in this paper use elo ratings to represent a player's ability in place of official tour rank.
+As the ATP does not provide fans a corresponding win-probability equation to go along with their ranking system, we cannot compare the approaches in terms of log loss or calibration. Still, considering its superior accuracy to ATP rank in recent years, models in this paper use elo ratings to represent a player's ability in place of official tour rank.
 
 \section{Point-based Model}
 The hierarchical Markov Model offers an analytical solution to win probability $\hat{\pi}_{ij}(t)$ between players $p_i$ and $p_j$, given serving probabilities $f_{ij}$,$f_{ji}$. This hinges on the Markov assumption that transition probabilities from any state only depend on the current state. In other words, all points are independent and the probability of winning a given point only depends on the current server. While this is counter-intuitive, Klaassen and Magnus demonstrated that deviations from the iid assumption within matches are small enough to reasonably justify point-based models \cite{KlaassenandMagnus2001}. Later on, Barnett and Clarke demonstrated a method to estimate $f_{ij},f_{ji}$, given players' historical serve/return averages \cite{BarnettandClarke2005}.
@@ -499,7 +499,7 @@ As per Barnett and Clarke's formula, we use the previous year's tournament servi
 $f_t(w,y) = \frac{\sum_{k \in (w,y-1)}{\text{\# of points won on serve in match k}}}{\sum_{k \in (w,y-1)}\text{\# of points played in match k}}$
 \end{center}
 
-In their paper, Barnett and Clarke only apply this method to a single match: Roddick vs. El Aynaoui Australian Open 2003. Furthermore, their ability to calculate serve and return percentages is limited by aggregate statistics supplied by atpworldtour.com. That is, they can only use year-to-date serve and return statistics to calculate $f_i,g_i,f_j,g_j$. Since the statistics do not list corresponding sample sizes, they must assume that each best-of-three match lasts 165 points, which adds another layer of uncertainty to estimating players' abilities.
+In their paper, Barnett and Clarke only apply this method to a single match: Roddick vs. El Aynaoui Australian Open 2003. Furthermore, their ability to calculate serve and return percentages is limited by aggregate statistics supplied by atpworldtour.com. That is, they can only use year-to-date serve and return statistics to calculate $f_i,g_i,f_j,g_j$. Since the statistics do not list corresponding sample sizes, they must assume that each best-of-three match lasts 165 points, which adds another layer of uncertainty in estimating players' abilities.
 
 Implementing this method with year-to-date statistics proves troublesome because $f_i,g_i$ decrease in uncertainty as $p_i$ accumulates matches throughout the year. Due to availability of data, match forecasts in September will then be far more reliable than ones made in January. However, with our tour-level match dataset, we can keep a year-long tally of serve/return statistics for each player at any point in time. Where $(p_i,y,m)$ represents the set of $p_i$'s matches in year $y$, month $m$, we obtain the following statistics $\footnote{for the current month m, we only collect month-to-date matches} $:
 
@@ -520,8 +520,8 @@ Now, variance of $f_i,g_i$ no longer depends on time of year. Since the number o
 \begin{center}
 \begin{tabular}{ |c|c|c|c|c|c|c| } 
  \hline
- player name & $\#$ s\_points\_won & $\#$ s\_points
-&$f_i$ & $\#$ r\_points\_won & $\#$ r\_points & $g_i$ \\ 
+ player name & s\_points\_won & s\_points
+&$f_i$ & r\_points\_won & r\_points & $g_i$ \\ 
  \hline
  Kevin Anderson & 3292 & 4842 & .6799 & 1726 & 4962 & .3478\\ 
  \hline
@@ -568,14 +568,14 @@ $JS(f_i) = f_i + B_i(f_{av}-f_i)$
 
 We repeat the same process with $g_i$ to obtain James-Stein estimators for return statistics.
 
-To see how shrinkage makes our model robust to small sample sizes, consider the following example. When Daniel Elahi (COL) and Ivo Karlovic (CRO) faced off at ATP Bogota 2015, Elahi held only one tour-level match in his year-long stats. From a previous one-sided victory, his serve percentage, $f_i=51/64=.7969$, was abnormally high compared to the year-long tour-level average of $f_{av}=.6423$. 
+To see how shrinkage makes our model robust to small sample sizes, consider the following example. When Daniel Elahi (COL) and Ivo Karlovic (CRO) faced off at ATP Bogota 2015, Elahi had played only one tour-level match in the past year. From a previous one-sided victory, his year-long serve percentage, $f_i=51/64=.7969$, was abnormally high compared to the year-long tour-level average of $f_{av}=.6423$. 
 
 
 \begin{center}
 \begin{tabular}{ |c|c|c|c|c|c|c|c| } 
  \hline
- player name & $\#$ s\_points\_won & $\#$ s\_points
- & $f_i$ &$\#$ r\_points\_won & $\#$ r\_points & $g_i$ & elo rating \\ 
+ player name & s\_points\_won & s\_points
+ & $f_i$ & r\_points\_won & r\_points & $g_i$ & elo rating \\ 
  \hline
  Daniel Elahi & 51 & 64 & .7969 & 22 & 67 & .3284 & 1516.9178 
  \\
@@ -691,16 +691,16 @@ We observe performance across variants of elo-based predictions and point-based 
 
 \subsection{Discussion}
 
-As expected, James-Stein normalization significantly improves each point-based model's log loss. While surface-based elo remains competitive with regular elo, restricting Klaassen and Magnus' point-based method to surface-specific data clearly hurts performance. This is likely due to limited amounts of surface-specific data for many players. Even with James-Stein normalization, surface-specific statistics draw on a subset of a player's matches over the past twelve months. While many players perform differently across surfaces, the loss of information appears the benefit of surface-specific performance. As we did not rigorously explore possibilities for weighting players' surface-specific statistics, there may still be potential for a point-based model that effectively considers surface in computing serve/return percentages. Finally, using opponent-adjusted serve-return statistics further improved performance. By fully incorporating opponents' ability over a player's match history, this model approached the elo method in likeness of predictions, with $R^2=.76$.
+As expected, James-Stein normalization significantly improves each point-based model's log loss. While surface-based elo is competitive with regular elo, restricting Klaassen and Magnus' point-based method to surface-specific data clearly hurts performance. This is presumably due to limited surface-specific data. As many players perform differently across surfaces, computing serve percentages from surface-specific data offers the potential to express how players' performance varies by surface. Yet, even with James-Stein normalization, the loss in sample size appears to outweigh the benefits obtained from surface-specific data. As we did not rigorously explore possibilities for weighting players' surface-specific statistics, there may still be potential for a point-based model that effectively considers surface in computing serve/return percentages. Finally, using opponent-adjusted serve-return statistics further improved performance. By fully incorporating each opponent's ability in a player's match history, this model approached elo ratings in likeness of predictions, with win-probability forecasts between the two sharing $R^2=.76$.
 
-By plugging elo and surface elo into a logistic regression model, we achieve a log loss of .577. Aside from models which draw information directly from the betting market, no other model has documented preferable log loss. While Kovalchik reported 70$\%$ accuracy using 538's elo method \cite{Kovalchik2016}, she calculated elo ratings using satellite events (ATP Challengers and Futures) in addition to tour-level events \footnote{one can observe at https://github.com/skoval/deuce}. While this accounted for a small increase in accuracy, her method achieved a log loss of .59, which does not outperform our implementation. For simplicity's sake, we calculated all elo ratings and statistics from tour-level matches alone \footnote{there are about 3000 tour-level matches each year}.
+By plugging elo and surface elo into a logistic regression model, we achieve a log loss of .577. After fitting to the training data, this model learned coefficients for each variable that assigned a 56\% weight to regular elo ratings and 44\% weight to surface elo ratings. The near-even weight to both types of ratings suggests how important surface-specific ability is toward forecasting matches. Aside from models which draw information directly from the betting market, no other model has documented preferable log loss. Kovalchik reported 70$\%$ accuracy using 538's elo method \cite{Kovalchik2016}, calculating elo ratings using satellite events (ATP Challengers and Futures) in addition to tour-level events \footnote{one can observe at https://github.com/skoval/deuce}. While this accounted for a small increase in accuracy, her method achieved a log loss of .59, which does not outperform our implementation. For simplicity's sake, we calculated all elo ratings and statistics from tour-level matches alone \footnote{there are about 3000 tour-level matches each year}. In the end, our elo-based logistic regression's incremental improvement over singular elo ratings implies that an effective rating system should consider a overall ability as well as surface-specific ability.
 
 
-Our elo-based logistic regression's incremental improvement over singular elo ratings holds several implications. First, there is useful information about players contained in both surface-specific and non-surface elo ratings. Second, among well-documented models, no other tennis-specific methods have charted better performance. 
+%holds several implications. First, there is useful information about players contained in both surface-specific and non-surface elo ratings. Second, models that do not draw information from the betting market, no other tennis-specific methods have charted better performance \cite{Kovalchik2016}. 
 
-(you can attempt to combine both elo ratings with Gaussian processes or the hyperparameter hack)
+%(you can attempt to combine both elo ratings with Gaussian processes or the hyperparameter hack)
 
-Recently, Sipko explored machine-learning methods for pre-match prediction, surveying logistic regression, the common-opponent model, and an artificial neural net. While Sipko claimed to have achieved 4.3$\%$ return-on-investment off the betting market with an artificial neural net, the best of his machine learning models achieves a log loss of .61 (2014). Despite the current deep-learning craze throughout industry and academia, it is currently most effective to stick with elo's ``ruthlessly Bayesian design'' which Five-Thirty-Eight so frequently touts. Transitioning to in-match prediction, we will consider how these findings may inform an effective in-match model.
+Sipko recently explored machine-learning methods for pre-match prediction, surveying logistic regression, the common-opponent model, and an artificial neural net \cite{Sipko2015}. While he claimed to have achieved 4.3$\%$ return-on-investment off the betting market with an artificial neural net, his machine learning models did not beat a log loss of .61 when predicting 2013-2014 ATP matches \footnote{the models were trained on 2004-2010 ATP matches and validated on 2011-2012 ATP matches}. Despite the current deep-learning craze throughout industry and academia (cite nyt article), no one has published findings to suggest their superiority in predicting tennis matches. Short of market-based models, it appears most effective to stick with elo's ``ruthlessly Bayesian design'' which Five-Thirty-Eight so frequently touts (cite: article). Transitioning onward, we will consider how these findings may inform an effective in-match prediction model.
 
 
 %As Sipko surveyed logistic regression, the common-opponent model, and an artificial neural net, we are confident that elo provides a confident starting place for in-match prediction models.
@@ -717,11 +717,11 @@ Recently, Sipko explored machine-learning methods for pre-match prediction, surv
 
 The following methods will be tested on tour-level matches for which we have point-by-point data. The matches span 2010-2017, accounting for nearly half of all tour-level matches within this time. Point-by-point records in Sackmann's dataset take the form of the following string:
 
-Mikhail Youzhny vs. Evgeny Donskoy Australian Open 2013
+Mikhail Youzhny vs. Evgeny Donskoy (Australian Open 2013, Round 2)
 
 P=\seqsplit{``SSRSS;RRRR;SRSSS;SRRSRSSS;SRSSRS;RSRSSS;SRSRSS;RSRSRSSS;SSSS.SSSRRRSS;RSSSS;SSRSS;SSSRS;SSSS;RRRSSSSRRSSRRSRSSS;SRSRSS;SSSRS;RSRSSRSS;SSSS;SRSSS;RSRSSRRSSS;R/SR/SS/RR/RS/SR.RSRRR;...''}
 
-$S$ denotes a point won by the server and $R$ a point won by the returner. Individual games are separated by ``$;$'' sets by ``$.$'' and service changes in tiebreaks by ``$/$''. By iterating through the string, one can construct $n$ data points $\{P_0,P_1,...,P_{n-1}\}$ from a match with $n$ total points, with $P_i$ representing the subset of the match after $i$ points have been played.
+$S$ denotes a point won by the server and $R$ a point won by the returner. Individual games are separated by ``$;$'' sets by ``$.$'' and service changes in tiebreaks by ``$/$''. By iterating through the string, one can construct $n$ data points $\{P_0,P_1,...,P_{n-1}\}$ from a match with $n$ total points, with $P_i$ representing the subset of the match after which $i$ points have been played.
 
 $P_0 = ``"$
 
@@ -733,21 +733,21 @@ $P_3 = ``SSR"$
 
 ...
 
-With $M = \{M_1,M_2,...M_k\}$ complete match-strings in our point-by-point data set, the size of our enumerated data set then becomes $\sum_{i=1}^k |M_i|$. This comes out to 1231122 points for ATP matches spanning 2010-2017.
+With $M = \{M_1,M_2,...M_k\}$ representing complete match-strings in our point-by-point data set, the size of our enumerated data set becomes $\sum_{i=1}^k |M_i|$. In total, this sums to 1,231,122 individual points within ATP matches spanning 2010-2017. While many in-match prediction models utilize the hierarchical Markov Model structure, we will first test several machine-learning methods as a baseline.
 
-As many in-match prediction models utilize the hierarchical Markov Model structure, we may carry over previously computed serving percentages to in-match prediction. To start, we will test several machine-learning methods as a baseline.
+%we may apply serving percentages from the past section to in-match prediction. To start, 
 
 \section{Logistic Regression}
 
-Consider a logistic regression model where each input $x_i = [x_{i1},x_{i2},...,x_{ik}]$ has $k$ features. $F_{logit}(x_i)$ then yields the probability that our binary response variable equals 1. This function yields a player's win probability from input $x_i$,
+Consider a logistic regression model where each input $x_i = [x_{i1},x_{i2},...,x_{ik}]$ has $k$ features. $logit(x_i)$ yields $p_i$'s win probability from input $x_i$,
 
-$$F_{logit}(x_i) = \frac{1}{1+e^{-(\beta_0+\beta_1(x_{i1})+\beta_1(x_{i2})+...+\beta_1(x_{ik}))}}$$
+$$logit(x_i) = \frac{1}{1+e^{-(\beta_0+\beta_1(x_{i1})+\beta_1(x_{i2})+...+\beta_1(x_{ik}))}}$$
 
-From any scoreline  ($s_i,s_j,g_i,g_j,{x}_i,{x}_j$), we can simply feed these values as parameters into our model. Logistic Regression's structure makes it easy to consider additional features for each player, such as elo difference, surface elo difference, etc. Before adding more features to the model, we consider two baselines: a model using ($s_i,s_j,g_i,g_j,{x}_i,{x}_j$) and another model trained on elo differences and a lead heuristic $L_{ij}$.
+From any scoreline ($s_i,s_j,g_i,g_j,{x}_i,{x}_j$), we can simply feed these values into our model as features of $x_i$ (change notation?). Logistic Regression's structure makes it easy to consider additional features for each player, such as elo difference, surface elo difference, or break advantage. Before adding more features to the model, we consider two baselines: a model using score differentials ($s_i-s_j,g_i-g_j,{x}_i-{x}_j$) and another model trained on elo differences and lead heuristic $L_{ij}$.
 
-This heuristic simply calculates one player's total lead in sets, games, and points:
+This heuristic estimates one $p_i$'s total lead in sets, games, and points:
 
-$L_{ij} = s_i-s_j + \frac{1}{6}(g_i-g_j) + \frac{1}{24}(x_i-x_j)$
+$L_{ij} = (s_i-s_j) + \frac{1}{6}(g_i-g_j) + \frac{1}{24}(x_i-x_j)$
 
 The coefficients preserve order between sets, games, and points, as one cannot lead by six games without winning a set or four points without winning a game. In this model, we consider the following features for prediction:
 
@@ -763,13 +763,17 @@ The coefficients preserve order between sets, games, and points, as one cannot l
  \hline
  eloDiff &  Elo($p_0$) - Elo($p_1$) \\
  \hline
+  s\_eloDiff &  s\_Elo($p_0$) - s\_Elo($p_1$) \\
+ \hline
  setDiff &  SetsWon($p_0$) - SetsWon($p_1$)\\
  \hline
- breakAdv &  ServeGamesWon($p_0$) - ServeGamesWon($p_1$) + I(currently serving)\\
+ gameDiff &  inSetGamesWon($p_0$) - inSetGamesWon($p_1$)\\
  \hline
  pointDiff &  inGamePointsWon($p_0$) - inGamePointsWon($p_1$)\\
  \hline
- brkPointAdv & I(holding break point) - I(facing break point) (is this better than two separate indicators?)\\
+  breakAdv &  ServeGamesWon($p_0$) - ServeGamesWon($p_1$) + I(currently serving)\\
+ \hline
+ brkPointAdv & I(holding break point) - I(facing break point)\\
  \hline
  sv\_points\_pct\_0 & percentage of points won on $p_0$'s serve thus far\\
  \hline
@@ -780,43 +784,52 @@ The coefficients preserve order between sets, games, and points, as one cannot l
 
 Next, we test the following combinations of features:
 
-1) sets + games + points (diffs??)
+1) setDiff + gameDiff + pointDiff
 
-2) lead-margin + elo diff + surface elo diff
+2) lead\_margin + eloDiff + s\_eloDiff
 
 3) all features
 
 \subsection{Cross Validation}
 
-Each match in our best-of-three dataset has around 160 points on average. We implement five-fold group validation, keeping matches together, so points from the same match do not overlap between train, validation, and test sets. This prevents a single match from informing the model before assessing its other points. (actually didn't do hyperparameter cross-validation because it seemed unnecessary...)
+Each match in our best-of-three dataset has around 160 points on average. In tuning hyper parameters for machine learning models, we implement five-fold group validation. By grouping points from the same match together, this method prevents overlap between points from the same match across train, validation, and test sets. Then, performance on a test set truly reflects performance on matches a model has never seen before. 
 
-\subsection{Visualizing Logistic Regression}
+%prevents information within a single match from informing the model before we test performance on other points from the same match. 
 
-\includegraphics[scale=.7]{gasquet_reister_9_6_all_features}
+%(actually didn't do hyperparameter cross-validation because it seemed unnecessary...)
 
-One drawback of logistic regression is that it cannot distinguish between situations whose score differentials are equivalent. A player serving at (1,1),(5,4),(3,0) will have approximately the same win probability as one serving at (1,1),(1,0),(3,0). However, in the first situation, the player serving wins the match if he wins any of the next three points. From the second scenario, the player serving only holds a break advantage early in the set, from which the returner has many more chances to come back. Assuming each player serves at $f_i=f_j=.64$, our win-probability equation suggests a substantial difference between these two scenarios:
+%\subsection{Visualizing Logistic Regression ??? here???}
 
-\begin{center}
-$P_m(1,1,5,4,3,0) = .994$
 
-$P_m(1,1,1,0,3,0) = .800$
-\end{center}
+%\includegraphics[scale=.7]{gasquet_reister_9_6_all_features}
 
-Although the first situation is clearly favorable, logistic regression will compute approximately the same probability in both scenarios $\footnote{\text{after fitting coefficients for the equation P(win) = logit($s_i,s_j,g_i,g_j,{x}_i,{x}_j)= \frac{e^{(c_1s_i+c_2s_j+c_3g_i+c_4g_j+c_5x_i+c_6x_j}}{1+e^{(c_1s_i+c_2s_j+c_3g_i+c_4g_j+c_5x_i+c_6x_j}}$}, coefficients $ c_1 \approx c_2, c_3 \approx c_4,c_5 \approx c_6$ by symmetry and therefore $logit(1,0,5,4,3,0) \approx logit(1,0,1,0dddd,3,0) $}$
+%One drawback of logistic regression is that it cannot distinguish between situations whose score differentials are equivalent. A player serving at (1,1),(5,4),(3,0) will have approximately the same win probability as one serving at (1,1),(1,0),(3,0). However, in the first situation, the player serving wins the match if he wins any of the next three points. From the second scenario, the player serving only holds a break advantage early in the set, from which the returner has many more chances to come back. Assuming each player serves at $f_i=f_j=.64$, our win-probability equation suggests a substantial difference between these two scenarios:
+
+%\begin{center}
+%$P_m(1,1,5,4,3,0) = .994$
+
+%$P_m(1,1,1,0,3,0) = .800$
+%\end{center}
+
+%Although the first situation is clearly favorable, logistic regression will compute approximately the same probability in both scenarios $\footnote{\text{after fitting coefficients for the equation P(win) = logit($s_i,s_j,g_i,g_j,{x}_i,{x}_j)= \frac{e^{(c_1s_i+c_2s_j+c_3g_i+c_4g_j+c_5x_i+c_6x_j}}{1+e^{(c_1s_i+c_2s_j+c_3g_i+c_4g_j+c_5x_i+c_6x_j}}$}, coefficients $ c_1 \approx c_2, c_3 \approx c_4,c_5 \approx c_6$ by symmetry and therefore $logit(1,0,5,4,3,0) \approx logit(1,0,1,0,3,0) $}$
 
 %$\footnote{after fitting coefficients for the equation $P(win) = logit(s_i,s_j,g_i,g_j,{x}_i,{x}_j) = \frac{e^{(c_1s_i+c_2s_j+c_3g_i+c_4g_j+c_5x_i+c_6x_j}}{55}$, coefficients $ c_1 \approx c_2, c_3 \approx c_4,c_5 \approx c_6$ by symmetry and therefore}$
 
-Another issue is that logistic regression can fail to detect when a higher-ranked player is about to lose in a close match. Below,
+%Another issue is that logistic regression can fail to detect when a higher-ranked player is about to lose in a close match. Below,
 
-\includegraphics[scale=.7]{simon_gabashvili_9_6_all_features}
+%\includegraphics[scale=.7]{simon_gabashvili_9_6_all_features}
+
+%Simon leads for most of the match until Gabashvili comes back to force the third set. At the end of the third set, Gabashvili serves out the match from 5-4, yet the model fails to detect that Simon is about to lose. This is because, with sets at 1-1 and game differentials nearly even, Simon's elo advantage outweighs his current scoreline disadvantage. Consequentially, his win-probability hovers between 40-50\% as he loses the match, rather than fall toward 0.
 
 
 \section{Random Forests}
-Brian Burke's win-probability models are among the most well-known in sports. They calculate a team's win probability at any point in the match based on historical data through a combination of binning similar scenarios and smoothing probabilities. Nettleton and Lock built on this method by using a random forest approach.
+Brian Burke's win-probability models are among the most well-known in sports \cite{Burke2014}. They calculate a team's win probability at any point in the match based on historical data through a combination of binning inputs and smoothing their resulting probabilities. Nettleton and Lock built on this method by using a random forest approach.
 
-A random forest consists of an ensemble of randomly generated classification trees. Each tree forms decision functions for a subset of features with splits that generate maximum discriminatory ability. Nettleton and Lock also deviate from the traditional random forest classification problem in using regression trees and averaging their estimates to produce a probability estimate, rather than a majority vote.
+A random forest consists of an ensemble of randomly generated classification trees. Each tree forms decision functions for a subset of features with splits that generate maximum discriminatory ability. As Nettleton and Lock do so with football-specific features such as down, points, and yards to goal, we do so with analogous tennis features and train on our validation set.
 
-Then, training on our validation set, we test two random forest models on our point-by-point dataset, one with classification trees and one with regression trees.
+%Nettleton and Lock also deviate from the traditional random forest classification problem in using regression trees and averaging their estimates to produce a probability estimate, rather than a majority vote.
+
+%Then, training on our validation set, we test two random forest models on our point-by-point dataset, one with classification trees and one with regression trees.
 
 \begin{table}[H]
 \centering
@@ -826,40 +839,51 @@ Then, training on our validation set, we test two random forest models on our po
  \hline
  Variable & Description \\
  \hline
- $surface$ & hard, clay, grass \\
+ surface & hard, clay, grass \\
  \hline
- $set$ &  first, second, third \\
+ set &  first, second, third \\
  \hline
- $eloDiff$ &  Elo($p_0$) - Elo($p_1$) \\
+ eloDiff &  Elo($p_0$) - Elo($p_1$) \\
  \hline
- $setDiff$ &  SetsWon($p_0$) - SetsWon($p_1$)\\
+  setDiff &  SetsWon($p_0$) - SetsWon($p_1$)\\
  \hline
- $breakAdv$ &  ServeGamesWon($p_0$) - ServeGamesWon($p_1$) + I(currently serving)\\
+ gameDiff &  inSetGamesWon($p_0$) - inSetGamesWon($p_1$)\\
  \hline
- $pointDiff$ &  inGamePointsWon($p_0$) - inGamePointsWon($p_1$)\\
+ pointDiff &  inGamePointsWon($p_0$) - inGamePointsWon($p_1$)\\
  \hline
- $brkPointAdv$ & I(holding break point) - I(facing break point)\\
+  breakAdv &  ServeGamesWon($p_0$) - ServeGamesWon($p_1$) + I(currently serving)\\
+ \hline
+ brkPointAdv & I(holding break point) - I(facing break point)\\
  \hline
 \end{tabular}
 \end{table}
 
 \section{Hierarchical Markov Model}
-With serving percentages already calculated from historical data, our hierarchical Markov model is well-equipped to produce in-match win probability estimates. Using the analytical equation with players' serving abilities $f_{ij},f_{ji}$, we compute $P_m(s_i,s_j,g_i,g_j,x_i,x_j)$ from every scoreline $(s_i,s_j,g_i,g_j,x_i,x_j)$ in a match. To assess this model's performance, we repeat this on every match in our dataset, testing all estimates of $f_{ij},f_{ji}$ (James-Stein normalized, player-adjusted, elo-induced, surface-specific)
+With serving percentages already calculated from historical data, our hierarchical Markov model is well-equipped to produce in-match win probability estimates. Using the analytical equation with players' serving abilities $f_{ij},f_{ji}$, we compute $P_m(s_i,s_j,g_i,g_j,x_i,x_j)$ from every scoreline $(s_i,s_j,g_i,g_j,x_i,x_j)$ in a match. To assess this model's performance, we repeat this on every match in our dataset, with $f_{ij},f_{ji}$ computed with one's method of choice.
 
 \subsection{Beta Experiments}
-The above approaches only take into account the current score and pre-calculated serve percentages when computing win probability. However, in many cases, relevant information may be collected from $P_k$. Consider the following in-match substring, 
+The above approach only takes into account the current score and pre-calculated serve percentages when computing win probability. However, in many cases, relevant information may be collected from $P_k$. Consider the following in-match substring, 
 
 $P=``SSSS;RSSSRRSS;SSSS;SRRSRSRSSS;SSSS;RRRSSSRSRSSS;"$
 
-The above sequence demonstrates a current scoreline of three games all. However, $p_i$ has won 12/12 service points, while $p_j$ has won 18/30 service points. If both players continue serving at similar rates, $p_i$ is much more likely to break serve and win the match. Since original forecasts are $f_{ij},f_{ji}$ are based on historical serving percentages, it makes sense that in-match serving percentages may help us better determine each player's serving ability on a given day. To do this, we can update $f_{ij},f_{ji}$ at time $t$ of the match to factor in each player's serving performance thus far in the match.
+The above sequence demonstrates a current scoreline of three games all. However, $p_i$ has won 12/12 service points, while $p_j$ has won 18/30 service points. If both players continue serving at similar rates, $p_i$ is much more likely to break serve and win the match. Since original forecasts are $f_{ij},f_{ji}$ are based on historical serving percentages, it makes sense that in-match serving percentages may help us better determine each player's serving ability on a given day. To do this, we can update $f_{ij},f_{ji}$ at time $t$ of the match to factor in each player's serving performance thus far.
 
-Bevc explored this method by treating a player's serving percentage $f_{ij}$ as a beta prior which could be updated mid-match to form a posterior serving percentage. The beta distribution is a generalization of the uniform distribution. We often use the beta distribution to represent prior and posterior estimates of some unknown probability $p$. (can include stats notation with beta-binomial conjugacy)
+Bevc explored this method by modeling each player's serving percentage $f_{ij}$ with a beta prior $b_{prior}$ that could be updated mid-match to yield posterior estimates. Through beta-binomial conjugacy, we can update $b_{prior}$ when a player has won $s_{won}$ points on serve out of $s_{total}$ trials.
 
-To update our matches with in-match serving statistics, we set $f_{ij}$ as a prior and update with the number of points won and played on $p_i's$ serve, $(s_{won},s_{pt})$. Through beta-binomial conjugacy, we then obtain an update of the form 
+\begin{center}
+$b_{prior} \sim \text{Beta}(a,b)$ 
 
-$b_{posterior} = \frac{\alpha * f_{ij}+ s_{won}}{\alpha * f_{ij} + s_{pt}}$
+$b_{posterior} \sim \text{Beta}(a+s_{won},b+s_{total}-s_{won})$
+\end{center}
 
-where $\alpha$ is a hyperparameter that determines the strength of our prior. Regardless of alpha, the match's influence on our posterior serve estimates always grows as more points have been played.
+%The beta distribution is a generalization of the uniform distribution. We often use the beta distribution to represent prior and posterior estimates of some unknown probability $p$. (can include stats notation with beta-binomial conjugacy)
+
+If $f_{ij}$ is our prior, $a,b$ must satisfy $E(b_{prior}) = \frac{a}{a+b} = f_{ij}$. Then $a$ is a hyperparameter that determines the strength of our prior. To find a suitable prior strength, we will test various values of $a$ via cross-validation on our training set. Regardless of $a$, the match's influence on our posterior serve estimates always grows as more points have been played. At any point in the match, we can always obtain a posterior serving percentage for either player of the form
+
+$f_{ij}' = E(b_{posterior}) = \frac{a + s_{won}}{a + b + s_{total}}$
+
+
+%To update our matches with in-match serving statistics, we set $f_{ij}$ as a prior and update with the number of points won and played on $p_i's$ serve, $(s_{won},s_{pt})$. 
 
 \subsection{Elo-induced Serve Probabilities}
 Earlier on, Klaassen and Magnus suggested a method to infer serving probabilities from a pre-match win forecast $\pi_{ij}$. By imposing a constraint $f_{ij}+f_{ji}=t$, we can then create a one-to-one function 
@@ -867,9 +891,9 @@ $S: S(\pi_{ij},t) \rightarrow (f_i,f_j)$, which generates serving probabilities 
 
 Due to branching complexity (see section 2.5), our hierarchical Markov model's match probability equation has no analytical solution to its inverse, even when we specify $f_{ij}+f_{ji}=t$. Therefore, we turn to the following approximation algorithm to generate serving percentages that correspond to a win probability within $\epsilon$ of our elo forecast's:
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{elo-induced serve probabilities}\label{euclid}
-\begin{algorithmic}[1]
+\begin{algorithmic}[H]
 \Procedure{EloInducedServe(prob,sum,$\epsilon$)}{}
 \State $\text{s0} \gets \text{sum/2}$
 \State $\text{currentProb} \gets \text{.5}$
@@ -877,13 +901,13 @@ Due to branching complexity (see section 2.5), our hierarchical Markov model's m
 
 \While {$|$currentProb - prob$| > \epsilon $}:
 
-\State $\text{currentProb} \gets \text{matchProb(s0,sum-s0)}$
 \If {$\text{currentProb \textless$ $ prob}$}
 \State s0 += diff 
 \Else
 \State s0 -= diff
 \EndIf
 \State diff = diff/2
+\State $\text{currentProb} \gets \text{matchProb(s0,sum-s0)}$
 
 \EndWhile
 
@@ -894,98 +918,228 @@ Due to branching complexity (see section 2.5), our hierarchical Markov model's m
 \end{algorithmic}
 \end{algorithm}
 
-To generate elo-induced serve probabilities for a given match, we run the above algorithm with PROB=$\pi_{ij}$, SUM=$f_{ij}+f_{ji}$, and $\epsilon$ set to a desired precision level $\footnote{for purposes of this project, setting $epsilon$=.001 is sufficiently accurate}$. At each step, we call matchProb() to compute the win probability from the start of the match if $p_i$ and $p_j$ had serve probabilities $f_{ij}=s0, f_{ji}=\text{sum}-s0$, respectively. Then we compare currentProb to prob and increment by diff, which halves at every iteration. This process continues until the serve probabilities s0, sum-s0 produce a win probability within $\epsilon$ of PROB, taking $O(\log{\frac{1}{\epsilon}})$ calls to matchProb.
+To generate elo-induced serve probabilities for a given match, we run the above algorithm with PROB=$\pi_{ij}$, SUM=$f_{ij}+f_{ji}$, and $\epsilon$ set to a desired precision level $\footnote{for purposes of this project, setting $epsilon$=.001 is sufficiently accurate}$. At each step, we call matchProb() to compute the win probability from the start of the match if $p_i$ and $p_j$ had serve probabilities $f_{ij}=s0, f_{ji}=\text{sum}-s0$, respectively. Then we compare currentProb to prob and increment s0 by diff, which halves at every iteration. This process continues until the serve probabilities s0, sum-s0 produce a win probability within $\epsilon$ of PROB, taking $O(\log{\frac{1}{\epsilon}})$ calls to matchProb.
 
-This inverse algorithm is useful for several reasons. Given any effective pre-match forecast $\pi_{ij}$, we can produce serve probabilities that are consistent with $\pi_{ij}$ according to our hierarchical Markov model. By setting the constraint $f_{ij}+f_{ji}=t$, we also ensure that the sum of our players' serve probabilities agrees with historical data. While Klaassen and Magnus argue that $t = f_{ij}+f_{ji}$ is largely independent of $\pi_{ij}$, $t$ holds greater importance when predicting specific score lines a match \cite{Barnett2006}. Using the hierarchical Markov Model's equations, Barnette specifically computed the probability of reaching any set score given parameters $f_{ij},f_{ji}$. When comparing probabilities across matches, one can observe that as $t$ increases, closer set scores and tie-break games become more likely \footnote{``closer'' scores meaning 7-6, 6-7, 7-5, 5-7, etc.}. That is, $t$ encodes information regarding likely trajectories of a match scoreline and relative importance of winning each game on serve. For higher $t$, service games are won more often and service breaks hold relatively higher importance, while the opposite holds for lower $t$. Now, given $\pi_{ij}$ and $t$ \footnote{to avoid extreme values of $t$ from limited player data, this paper uses James-Stein normalized estimates to calculate $t$: $t = JS(f_{ij})+JS(f_{ji})$}, we can produce elo-induced serve probabilities for any two players.
+This inverse algorithm is useful for several reasons. Given any effective pre-match forecast $\pi_{ij}$, we can produce serve probabilities that are consistent with $\pi_{ij}$ according to our hierarchical Markov model. By setting the constraint $f_{ij}+f_{ji}=t$, we also ensure that the sum of our players' serve probabilities agrees with historical data. While Klaassen and Magnus argue that $t = f_{ij}+f_{ji}$ is largely independent of $\pi_{ij}$, $t$ holds greater importance when predicting specific score lines a match \cite{Barnett2006}. Using the hierarchical Markov Model's equations, Barnette specifically computed the probability of reaching any set score given $f_{ij},f_{ji}$. When comparing probabilities across matches, one can observe that as $t$ increases, closer set scores and tie-break games become more likely \footnote{``closer'' scores meaning 7-6, 6-7, 7-5, 5-7, etc.}. That is, $t$ encodes information regarding likely trajectories of a match scoreline and relative importance of winning each game on serve. For higher $t$, service games are won more often and service breaks hold relatively more importance, while the opposite holds for lower $t$. Now, given $\pi_{ij}$ and $t$, we can produce elo-induced serve probabilities for any two players.
 
-
+%\footnote{to avoid extreme values of $t$ from limited player data, we use James-Stein normalized estimates to calculate $t$: $t = JS(f_{ij})+JS(f_{ji})$}
 
 
 
 \subsection{Significance of $f_{ij}+f_{ji}$}
 
-To illustrate the importance of maintaining $t=f_{ij}+f_{ji}$, consider the two following matches.
-
-Feliciano Lo'pez v. John Isner (ATP Shanghai 2014, hard court) 
+To illustrate the importance of $t=f_{ij}+f_{ji}$, we consider the two following matches:
 
 \begin{center}
-\begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+\begin{tabular}{ |c|c|c|c|c|c|c| } 
  \hline
- $p_i$ & $p_j$ & tourney name
- & $\pi_{ij}$ & $t$ & $\#$ r\_points & $g_i$ & elo rating \\ 
+ match & $p_i$ & $p_j$ & tny\_name & surface
+ & $\pi_{ij}$ & $t$ \\ 
  \hline
- Daniel Elahi & 51 & 64 & .7969 & 22 & 67 & .3284 & 1516.9178 
+ $m_1$ & Feliciano Lopez & John Isner & ATP Shanghai 2014 & hard & .478 & 1.55 \\
+ \hline
+  $m_2$ & Andreas Seppi & Juan Monaco & ATP Kitzb$\ddot{\text{u}}$hel 2014 & clay & .476 & 1.14
  \\
  \hline
- Ivo Karlovic & 3516 & 4654 & .7555 & 1409 & 4903 & .2874 & 1876.9545 \\ 
- \hline
+
 \end{tabular}
 \end{center}
 
-Examples: Federer vs Isner at Paris (or Karlovic vs Isner for more even match), then Ferrer vs. Nishikori/Schwartzman or something with really good returners. (can visualize this with new win probabilities, use example when Karlovic and Schwartzman both had the same win probability)
+In both matches, $\pi_{ij}$ is approximately the same while $t$ differs significantly. To visualize how service breaks can have varying importance, consider win-probability graphs corresponding to the following progression of points, $P$. In each scenario, $p_i$ and $p_j$'s serve probabilities are calculated from method 4.3.2.
+
+$P=``SSSS;SSSS;SSSS;SSSS;SSSS;RRRR"$
+
+\includegraphics[scale=.7]{m12_wp}
+
+Over the first five games, both players win every point on serve. When $t=1.55$, service holds are expected and and win probability hardly moves. After $p_i$ breaks serve in the sixth game, his win probability suddenly spikes up, indicating a substantial advantage. When $t=1.14$, our model assumes that players win service games with much lower probability. Therefore, each time a player holds serve, his win probability noticeably increases. When $p_i$ breaks in the sixth game, his win probability climbs, but not as dramatically as in the previous case. When service games are won at a lower probability, service break advantages become weaker.
+
+$t$'s influence on the trajectory of a match suggests that prediction from any in-match scoreline will be most effective when $t$ accurately reflects the players' overall serving ability. While elo ratings or betting odds yield the most effective pre-match predictions \cite{Kovalchik2016}, their implied odds offer no information about $t$ in a given match-up. As $t$ holds significance for in-match forecasting from specific scorelines, method 4.3.2 allows us to combine any effective pre-match forecast $\pi_{ij}$ with $t$ to produce new serving probabilities.
+
+%To preserve information about the shape of each match, we set the constraint $t = f_{ij}+f_{ji}$, rather than some constant $k = f_{av}+g_{av}$.
+
+%Examples: Federer vs Isner at Paris (or Karlovic vs Isner for more even match), then Ferrer vs. Nishikori/Schwartzman or something with really good returners. (can visualize this with new win probabilities, use example when Karlovic and Schwartzman both had the same win probability)
 
 % write about importance on shape of match
 
-$t$'s influence on the trajectory of a match suggests that prediction from any in-match scoreline will be most effective if serve probabilities are consistent with $t$.
 
-Take two matches with $\pi_{1ij} \approx \pi_{2ij}$. Then graph the matches' WP with respect to a made-up scoreline that includes one service break.
+%Take two matches with $\pi_{1ij} \approx \pi_{2ij}$. Then graph the matches' WP with respect to a made-up scoreline that includes one service break.
 
-Since elo ratings fail to capture this, it is crucial that we find a way to incorporate this into our model.
+%Since elo ratings fail to capture this, it is crucial that we find a way to incorporate this into our model.
 
-show a histogram with sums.
+%show a histogram of $t$ (?):
 
 \section{Results}
 
-The following results were tested after training matches on 2011-2013 data and testing on 2014 point-by-point matches (2345). From the training set, we determined that setting hyperparameter $\alpha=200$ yielded optimal performance.
+The following models were trained on 4584 matches from 2011-2013 and tested on 1855 matches from 2014 in our point-by-point data set. From cross-validation on the training set, we determined that setting hyper-parameter $a=300$ yielded optimal performance across beta experiments. We then added a beta variation to KM elo-induced and KM logit-induced, our two best-performing point-based models.
+
+\setlist[description]{leftmargin=\parindent, labelindent=\parindent}
+\begin{description}[leftmargin=2.5cm, labelindent=2.5cm]
+\item[LR] - Logistic Regression model with feature set specified in 4.1
+
+\item[Random Forest] - Random Forest model with feature set specified in 4.2
+
+\item[Equivalent] - KM model with serve probabilities set to tour-level averages (assumes equal player ability)
+
+\item[elo-induced] - KM model with serve probabilities generated from elo-based win probability
+
+\item[logit-induced] - KM model with serve probabilities generated from logistic regression on elo and surface-based elo
+\end{description}
+
 
 \begin{center}
-\begin{tabular}{ |c|c|c| } 
+\begin{tabular}{ |c|c|c|c| } 
  \hline
- method & accuracy & log loss
+ method & accuracy & log loss & calibration
    \\ 
  \hline
-  LR 1) & 71.5 & .539
+  LR 1) & 71.4 & .540 & .993
   \\ 
  \hline
-  LR 2) & 75.4 & .503
+  LR 2) & 75.2 & .505 & 1.006
   \\ 
  \hline
- LR 3) & 76.4 & .486
+ LR 3) & 76.2 & .488 & .993
   \\ 
  \hline
- Random Forest &  & 
+ Random Forest & 70.1 & .562 & .902
   \\ 
  \hline
- KM James-Stein & 74.9 & .502
+ KM Equivalent & 71.5 & .538 & 1.040
   \\ 
  \hline
- KM adjusted James-Stein & 75.5 & .501
+ KM James-Stein & 74.9 & .501 & 1.002
   \\ 
  \hline
- KM elo-induced James-Stein & 76.1 & .486
+ KM adjusted James-Stein & 75.9 & .498 & .992
   \\ 
  \hline
-  KM logit-induced & 76.4 & .482
+ KM elo-induced & 76.2 & .486 & 1.001
   \\ 
  \hline
- KM logit-induced (a=300) & 76.4 & .478
+  KM elo-induced (a=300) &  & &
+  \\ 
+ \hline
+  KM logit-induced & 76.5 & .481 & .996
+  \\ 
+ \hline
+ KM logit-induced (a=300) & 76.5 & .477 & .999
   \\ 
  \hline
 \end{tabular}
 \end{center}
 
+Of our models, Random Forest had the least predictive power. While this is perhaps due to difficulty in constructing an effective feature space, nearly all features fed into each machine learning model had an additive effect on win probability. Positive score differentials, break advantages, and elo differences will all boost a player's expected win probability. The only non-additive features we considered were ``set'' and ``surface''. While the random forest model was able to consider various situations among these two features, we conclude that its inclination to group similar examples together, rather than estimate linear relationships between variables, ultimately accounted for its performance.
+
+Logistic regression, on the other hand, is designed to  learn additive relationships between features and its probability output. It's performance with the full feature set was competitive with our point-based models, despite their superior grasp of tennis' scoring system \footnote{consider, for example, how our logistic regression has no idea what a tiebreak game is}. Presumably, this model holds an advantage over point-based models in its ability to fit itself to the training data. Aside from our hyper-parameter search of $a$ in beta experiments, the point-based models offer no comparable method to optimize performance with respect to a training set.
+
+%When we consider prediction models for tennis, we want the following condition to hold: for any score line $(s_i,s_j,g_i,g_j,{x}_i,{x}_j)$, a suitable model with formula $P_m$ should produce win probability such that $P_m(s_i,s_j,g_i,g_j,{x}_i+1,{x}_j) > P_m(s_i,s_j,g_i,g_j,{x}_i,{x}_j)$. That is, at any stage in the match, $p_i$'s win probability should always increase after winning the next point. While there are no guarantees of maintaining this property with machine learning models, our point-based model will satisfy this condition without fail. \footnote{section 2.5 verifies this}
+
+Of the point-based models, KM logit-induced (a=300) achieved the best performance, although the improvement from running beta experiments with a=300 was marginal. Since elo ratings produce more reliable pre-match win forecasts $\pi_{ij}$ than estimates of $f_{ij},f_{ji}$ from historical serve/return data, using serve probabilities induced from elo ratings and then from our logit elo model improved our models performance by significant increments. Over the next few sections, we will examine our models' calibration and performance across subsets of our dataset.
+
+%Interestingly, logistic regression with our complete feature set performed nearly as well as our best variation of the KM point-based model. Despite issues discussed in 4.1.2, logistic regression can still perform nearly as well ase the best of our point-based models.
+
+\subsection{Model Calibration}
+
+\hspace*{-.5cm}\includegraphics[scale=.6]{calibration_plot}
+
+Calibration represents the ratio between observed rate of success and mean predicted rate of success. From a perfectly calibrated model that predicts a win probability of $p$, we can always expect a win to occur with probability $p$. While the Random Forest model under-predicted wins, the rest of our models closely resemble a perfectly calibrated model. From our table, KM logit elo and KM JS exhibited near-perfect calibration of 1.001 and .999, while logistic regression reported .993. As there is degree of uncertainty in measuring calibration, we could not reasonably expect to produce more well-calibrated models. Given win probability forecast $\pi_{ij}$ at any point in the match, we expect $p_i$ to win with probability $\pi_{ij}$.
+
+\subsection{By Set}
+
+to do: display uncertainty lines on each bar?? not sure if this is meaningful?
+
+\hspace*{-1.5cm}\includegraphics[scale=.6]{set_performance}
+
+Across both metrics, models are most effective during the second set. At this point in the match, the winner of the first set is often a clear favorite to win the match, unless their opponent has a significantly higher elo rating or service ability. As 64.3\% of matches in our test set are straight-sets victories \footnote{matches that end in two sets are straight-sets}, these matches offer relatively easy predictions for our model.
+
+Uncertainty increases once the match enters a third set because the set score has evened at 1-1. While the set score is tied in both first and third sets, it is easier to predict the outcome during the third set because its outcome corresponds directly to the match outcome. When predicting in the first set, the player who wins the first set can still go on to lose the match, which increases uncertainty.
+
+%If we are equally confident in predicting P(win current set) across all sets, then P(win | current set) = 1 in third set while P(win | current set) is less certain in the first set. Discuss how performance differs by set (1st, 2nd, 3rd) From a favorable position in the third set, one is more likely to win the match since winning the first set does not clinch the match.
+
+
+\subsection{By Surface}
+
+\hspace*{-1.5cm}\includegraphics[scale=.6]{surface_performance}
+
+Zoom in on graphs. 
+
+By surface, models predicted grass court matches most effectively while clay court matches proved more difficult. By nature, grass courts are faster and conducive to offensive play. Since service games are held at a higher rate, break advantages can be more decisive, which likely gave all models an edge when predicting outcomes from all scorelines. On the other hand, clay courts suit defensive play and often give rise to more service breaks. When service breaks are more likely, it becomes harder for our models to predict the match because advantages from a current score line are more likely to be turned around. Hard courts, where the majority of matches took place, ultimately proved in between grass and clay in its predictability. Further insight into the volatility of matches \footnote{we may calculate a measure of volatility from point-by-point sequences or a model's win probability output} across surfaces may explain differing results across surfaces.
+
+\subsection{Distribution of Performance}
+
+show a histogram of log loss scores, accuracy scores by match
 
 
 
+\subsection{Variable Importance}
+
+Discuss relative variable importance among features in the most effective LR model. Talk about how these features relate to the point-based model or how there may be features with information the point-based model lacks (likely not, since I crafted features to represent scenarios which are embedded in the point-based model, like break point, etc). serve percentages could be analogous to beta experiments
+
+graph LR and KM together, commenting how LR jumps around more
+
+(from points and game increases, this is a matter of reactivity from correlation vs causality; lr is somewhat reacting to jumps because having a point lead is going to be more associated with winners.)
+
+\section{Visualizing Win Probability}
+
+TO DO: Compare/contrast the two models, provide year/tournament info for each match
+
+\includegraphics[scale=.7]{reister_gasquet}
+
+One drawback of logistic regression is that it cannot distinguish between situations whose score differentials are equivalent. A player serving at (1,1),(5,4),(3,0) will have approximately the same win probability as one serving at (1,1),(1,0),(3,0). However, in the first situation, the player serving wins the match if he wins any of the next three points. From the second scenario, the player serving only holds a break advantage early in the set, from which the returner has many more chances to come back. Assuming each player serves at $f_i=f_j=.64$, our win-probability equation suggests a substantial difference between these two scenarios:
+
+\begin{center}
+$P_m(1,1,5,4,3,0) = .994$
+
+$P_m(1,1,1,0,3,0) = .800$
+\end{center}
+
+Although the first situation is clearly favorable, logistic regression will compute approximately the same probability in both scenarios $\footnote{\text{after fitting coefficients for the equation P(win) = logit($s_i,s_j,g_i,g_j,{x}_i,{x}_j)= \frac{e^{(c_1s_i+c_2s_j+c_3g_i+c_4g_j+c_5x_i+c_6x_j}}{1+e^{(c_1s_i+c_2s_j+c_3g_i+c_4g_j+c_5x_i+c_6x_j}}$}, coefficients $ c_1 \approx c_2, c_3 \approx c_4,c_5 \approx c_6$ by symmetry and therefore $logit(1,0,5,4,3,0) \approx logit(1,0,1,0,3,0) $}$
+
+%$\footnote{after fitting coefficients for the equation $P(win) = logit(s_i,s_j,g_i,g_j,{x}_i,{x}_j) = \frac{e^{(c_1s_i+c_2s_j+c_3g_i+c_4g_j+c_5x_i+c_6x_j}}{55}$, coefficients $ c_1 \approx c_2, c_3 \approx c_4,c_5 \approx c_6$ by symmetry and therefore}$
+
+Another issue is that logistic regression can fail to detect when a higher-ranked player is about to lose in a close match. Below,
+
+\includegraphics[scale=.7]{simon_gabashvili}
+
+Simon leads for most of the match until Gabashvili comes back to force the third set. At the end of the third set, Gabashvili serves out the match from 5-4, yet the model fails to detect that Simon is about to lose. This is because, with sets at 1-1 and game differentials nearly even, Simon's elo advantage outweighs his current scoreline disadvantage. Consequentially, his win-probability hovers between 40-50\% as he loses the match, rather than fall toward 0.
 
 
-Results: include a breakdown of performance by surface and set (can compare top models in each category as well).
 
-Mention Variable importance in LR model (serve percentages could be analogous to beta experiments)
+\chapter{Conclusion}
 
-What if we took the max(1.1,fij + fji)? There are plenty of matches with freakishly low serving sums calculated from the data
+For the first time, we have documented the performance of in-match prediction methods on thousands of matches. While previous work only applied methods to individual matches or the 1992-1995 Wimbledon match data set \cite{KlaassenandMagnus2003}, we have applied methods to thousands of matches from the past several years. Results from this project and Jeff Sackmann's point-by-point dataset should serve as an appropriate benchmark for future work in this field.
+
+%future work regarding in-match prediction, we have established a benchmark and data set against which to test prediction methods.
+
+Although many papers have referenced Klaassen and Magnus' point-based model, none has explicitly outlined a way to correct for uncertainty stemming from small sample sizes in players' serve/return history. Applying a normalization method, such as the James-Stein estimator in 3.5, significantly boosts the performance of point-based models. By factoring in the overall ability of a player's opponents in the past twelve months, calculating $f_{ij},f_{ji}$ from the opponent-adjusted method in 3.6 offers additional predictive power. Still, none of these variations produce pre-match forecasts as effectively as elo ratings. Using our approximation algorithm in 4.3.2, we can derive serve probabilities from any pre-match forecast $\pi_{ij}$ and historical serve parameter $t = f_{ij} + f_{ji}$. A combination of this method, using $\pi_{ij}$ derived from an elo-based logistic regression, ultimately produced the most reliable in-match prediction model.
+
+Finally, logistic regression's performance with a score-based feature set proved noteworthy. Machine-learning models offer potential in their ability to learn from a training set. While serve parameters $f_{ij},f_{ji}$ may be obtained from a machine-learning model's forecast, $\pi_{ij}$, our traditional point-based hierarchical Markov Model offers no comparable method to ``train'' itself from a dataset. Future work with point-based models that offers some aspect of optimization on a training set may be of much interest to fans and bettors alike.
+
+\section{Real-World Applications}
+
+Methods explored in this project may be applied to betting markets in several ways. First, we can take any pre-match forecast, $\pi_{ij}$, derived from implied market odds and produce corresponding serve probabilities $f_{ij},f_{ji}$ from method 4.3.2. As Kovalchik found that the Bookmaker Consensus Model outperformed elo ratings \cite{Kovalchik2016}, we could likely further improve performance of in-match prediction models by using pre-match betting odds. Next, we may back test any of our in-match prediction techniques against historical in-match odds. While Betfair offers historical data, all market data is time-stamped and lacks corresponding match scores. While mapping time-stamps to their corresponding score lines over thousands of matches proved outside the scope of this project, analyses with in-match betting data do exist, as when Huang demonstrated score inference from betting odds \cite{Huang2011}. Finally, one may also test betting strategies with any of these models in real time, provided you have up-to-date information to produce elo ratings and $f_{ij},f_{ji}$.
+
+There are many advances yet to come in forecasting in-game win probability of tennis matches. Aside from beta experiments, all point-based models in this paper operated under the assumption that points played by each server are iid. While Klaassen and Magnus concluded that deviations from iid are small enough for such models to provide a reasonable approximation \cite{KlaassenandMagnus2001}, there is clearly much more work to be done in this area. Tracking a player's momentum at any point in the match, and updating serve probabilities accordingly, may also allow us to improve our models.
 
 
+%This project was intended to lay a foundation for in-match prediction. By testing models on 
+
+\section{Future Steps}
+
+\section{Visualizing Grand Slam Matches}
+
+Earlier this year, Roger Federer overcame Rafael Nadal in the Australian Open final 6-4 3-6 6-1 3-6 6-3. Below, we view a win-probability graph corresponding to our LR 3) and KM logit-induced (a=300) models.
+
+\subsection{Roger Federer vs. Rafael Nadal Australian Open 2017 Final}
+
+\includegraphics[scale=.7]{federer_nadal_ao_17}
+
+
+\subsection{Novak Djokovic vs. Roger Federer US Open 2011 Semi-Final}
+
+One of the most famous comebacks in tennis history. Djokovic recovered from a two-set deficit before escaping defeat at 3-5 15-40 on Federer's serve in the final set \footnote{if one were to consider Djokovic's decision to hit an all-or-nothing return winner at 3-5 15-40 in the fifth set, we could have computed his win probability to be even less than $p=.015$, as Federer would have surmised \url{https://www.theguardian.com/sport/2011/sep/11/us-open-2011-federer-djokovic}. Calculating in-match win probability within points based on shot-selection is realistic nowadays, thanks to Jeff Sackmann's match charting project and recent data analyses with Hawkeye ball-tracking data, and a logical extension to our point-by-point models}.
+
+\includegraphics[scale=.7]{djokovic_federer_uso_11}
 
 
 

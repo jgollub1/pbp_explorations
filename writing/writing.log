@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  20 OCT 2017 16:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  29 OCT 2017 21:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -775,14 +775,14 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 2.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-))
+) [1
+
+
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
 \tf@toc=\write5
 \openout5 = `writing.toc'.
 
- [1
-
-
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+ [2]
 Chapter 1.
 
 Overfull \hbox (30.0pt too wide) in paragraph at lines 70--74
@@ -799,10 +799,7 @@ Overfull \hbox (30.0pt too wide) in paragraph at lines 80--83
 [] 
  []
 
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ™ in font cmr10!
-[2
+[3
 
 ]
 Missing character: There is no â in font cmr10!
@@ -811,8 +808,11 @@ Missing character: There is no ™ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
- [3] [4]
+ [4] [5]
 Chapter 2.
+
+LaTeX Warning: Citation `Madurska2012' on page 6 undefined on input line 130.
+
 
 Overfull \hbox (6.95079pt too wide) in paragraph at lines 137--138
 \OT1/cmr/m/n/10 In the fol-low-ing sec-tions, we spec-ify bound-ary val-ues to 
@@ -826,7 +826,7 @@ File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 144.
- [5
+ [6
 
 ]
 Overfull \hbox (18.62308pt too wide) detected at line 220
@@ -839,27 +839,22 @@ Overfull \hbox (122.32265pt too wide) in paragraph at lines 365--366
 [][] 
  []
 
-[6]
+[7]
 Overfull \hbox (15.40257pt too wide) detected at line 376
 \OML/cmm/m/it/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 g[]; g[]\OT1/cmr/m/n/10 )
  []
  []
 
-[7] [8]
+[8] [9]
 Chapter 3.
-[9
+[10
 
-] [10]
-Overfull \hbox (26.52309pt too wide) in paragraph at lines 521--531
+] [11] [12]
+Overfull \hbox (6.05089pt too wide) in paragraph at lines 575--586
  [] 
  []
 
-[11]
-Overfull \hbox (52.71764pt too wide) in paragraph at lines 575--586
- [] 
- []
-
-[12]
+[13]
 Overfull \hbox (11.57791pt too wide) in paragraph at lines 630--631
 []$\OML/cmm/m/it/12 g[] \OT1/cmr/m/n/12 = []$ 
  []
@@ -870,65 +865,22 @@ Overfull \hbox (9.71088pt too wide) in paragraph at lines 634--635
 n this dataset. 
  []
 
-[13]
+[14]
 Overfull \hbox (37.64505pt too wide) in paragraph at lines 641--642
 []\OT1/cmr/m/n/12 - point-based hi-er-ar-chi-cal Markov mod-els with com-bined 
 serve/return
  []
 
-[14] [15]
+[15] [16]
 Chapter 4.
-[16
+[17
 
-]
-Overfull \hbox (21.93065pt too wide) in paragraph at lines 748--749
-[]\OT1/cmr/m/n/12 This heuris-tic sim-ply cal-cu-lates one player's to-tal lead
- in sets, games, and points: 
- []
+] [18]
 
+LaTeX Warning: Citation `Burke2014' on page 19 undefined on input line 826.
 
-Overfull \hbox (75.83441pt too wide) in paragraph at lines 758--779
- [][] 
- []
-
-[17] <photos/gasquet_reister_9_6_all_features.png, id=83, 578.16pt x 289.08pt>
-File: photos/gasquet_reister_9_6_all_features.png Graphic file (type png)
-
-<use photos/gasquet_reister_9_6_all_features.png>
-Package pdftex.def Info: photos/gasquet_reister_9_6_all_features.png used on in
-put line 795.
-(pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
-
-Overfull \hbox (22.77048pt too wide) in paragraph at lines 795--796
-[] 
- []
-
-
-Overfull \hbox (5.05135pt too wide) in paragraph at lines 797--798
-\OT1/cmr/m/n/12 will have ap-prox-i-mately the same win prob-a-bil-ity as one s
-erv-ing at (1,1),(1,0),(3,0).
- []
-
-
-Overfull \hbox (24.05856pt too wide) in paragraph at lines 805--805
-[][][]\OT1/cmr/m/n/8 ,
- []
-
-[18 <./photos/gasquet_reister_9_6_all_features.png>]
-<photos/simon_gabashvili_9_6_all_features.png, id=89, 578.16pt x 289.08pt>
-File: photos/simon_gabashvili_9_6_all_features.png Graphic file (type png)
-
-<use photos/simon_gabashvili_9_6_all_features.png>
-Package pdftex.def Info: photos/simon_gabashvili_9_6_all_features.png used on i
-nput line 811.
-(pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
-
-Overfull \hbox (22.77048pt too wide) in paragraph at lines 811--812
-[][] 
- []
-
-[19 <./photos/simon_gabashvili_9_6_all_features.png>]
-Overfull \hbox (32.66028pt too wide) in paragraph at lines 852--853
+[19]
+Overfull \hbox (32.66028pt too wide) in paragraph at lines 867--868
 []$\OML/cmm/m/it/12 P \OT1/cmr/m/n/12 = \\OML/cmm/m/it/12 SSSS\OT1/cmr/m/n/12 ;
  \OML/cmm/m/it/12 RSSSRRSS\OT1/cmr/m/n/12 ; \OML/cmm/m/it/12 SSSS\OT1/cmr/m/n/1
 2 ; \OML/cmm/m/it/12 SRRSRSRSSS\OT1/cmr/m/n/12 ; \OML/cmm/m/it/12 SSSS\OT1/cmr/
@@ -936,25 +888,148 @@ m/n/12 ; \OML/cmm/m/it/12 RRRSSSRSRSSS\OT1/cmr/m/n/12 ; "$
  []
 
 [20] [21]
-Overfull \hbox (23.55022pt too wide) in paragraph at lines 912--923
+Overfull \hbox (35.69916pt too wide) in paragraph at lines 934--946
  [] 
  []
 
-[22] (./writing.bbl [23]) [24
+<photos/m12_wp.png, id=97, 578.16pt x 289.08pt>
+File: photos/m12_wp.png Graphic file (type png)
+ <use photos/m12_wp.png>
+Package pdftex.def Info: photos/m12_wp.png used on input line 952.
+(pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
+
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 952--953
+[][] 
+ []
+
+[22 <./photos/m12_wp.png>] [23]
+<photos/calibration_plot.png, id=106, 722.7pt x 722.7pt>
+File: photos/calibration_plot.png Graphic file (type png)
+
+<use photos/calibration_plot.png>
+Package pdftex.def Info: photos/calibration_plot.png used on input line 1043.
+(pdftex.def)             Requested size: 433.62334pt x 433.62334pt.
+
+Overfull \hbox (37.4582pt too wide) in paragraph at lines 1043--1044
+| [] 
+ []
+
+[24] [25 <./photos/calibration_plot.png>]
+<photos/set_performance.png, id=115, 867.24pt x 361.35pt>
+File: photos/set_performance.png Graphic file (type png)
+
+<use photos/set_performance.png>
+Package pdftex.def Info: photos/set_performance.png used on input line 1051.
+(pdftex.def)             Requested size: 520.34802pt x 216.81168pt.
+
+Overfull \hbox (95.73013pt too wide) in paragraph at lines 1051--1052
+[]| [] 
+ []
+
+<photos/surface_performance.png, id=116, 867.24pt x 361.35pt>
+File: photos/surface_performance.png Graphic file (type png)
+
+<use photos/surface_performance.png>
+Package pdftex.def Info: photos/surface_performance.png used on input line 1062
+.
+(pdftex.def)             Requested size: 520.34802pt x 216.81168pt.
+
+Overfull \hbox (95.73013pt too wide) in paragraph at lines 1062--1063
+| [] 
+ []
+
+[26 <./photos/set_performance.png>] [27 <./photos/surface_performance.png>]
+<photos/reister_gasquet.png, id=125, 578.16pt x 289.08pt>
+File: photos/reister_gasquet.png Graphic file (type png)
+
+<use photos/reister_gasquet.png>
+Package pdftex.def Info: photos/reister_gasquet.png used on input line 1086.
+(pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
+
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 1086--1087
+[][] 
+ []
+
+
+Overfull \hbox (5.05135pt too wide) in paragraph at lines 1088--1089
+\OT1/cmr/m/n/12 will have ap-prox-i-mately the same win prob-a-bil-ity as one s
+erv-ing at (1,1),(1,0),(3,0).
+ []
+
+
+Overfull \hbox (24.05856pt too wide) in paragraph at lines 1096--1096
+[][][]\OT1/cmr/m/n/8 ,
+ []
+
+[28 <./photos/reister_gasquet.png>]
+<photos/simon_gabashvili.png, id=130, 578.16pt x 289.08pt>
+File: photos/simon_gabashvili.png Graphic file (type png)
+
+<use photos/simon_gabashvili.png>
+Package pdftex.def Info: photos/simon_gabashvili.png used on input line 1102.
+(pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
+
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 1102--1103
+[][] 
+ []
+
+[29 <./photos/simon_gabashvili.png>]
+Chapter 5.
+
+LaTeX Warning: Citation `KlaassenandMagnus2003' on page 30 undefined on input l
+ine 1110.
+
+[30
+
+] <photos/federer_nadal_ao_17.png, id=138, 578.16pt x 289.08pt>
+File: photos/federer_nadal_ao_17.png Graphic file (type png)
+
+<use photos/federer_nadal_ao_17.png>
+Package pdftex.def Info: photos/federer_nadal_ao_17.png used on input line 1135
+.
+(pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
+
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 1135--1136
+[] 
+ []
+
+[31]
+Overfull \hbox (9.59311pt too wide) in paragraph at lines 1138--1138
+ |[]\OT1/cmr/bx/n/12 Novak Djokovic vs. Roger Fed-erer US Open 2011 Semi-Final|
+ 
+ []
+
+<photos/djokovic_federer_uso_11.png, id=143, 578.16pt x 289.08pt>
+File: photos/djokovic_federer_uso_11.png Graphic file (type png)
+
+<use photos/djokovic_federer_uso_11.png>
+Package pdftex.def Info: photos/djokovic_federer_uso_11.png used on input line 
+1142.
+(pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
+
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 1142--1143
+[][] 
+ []
+
+(./writing.bbl [32 <./photos/federer_nadal_ao_17.png>] [33 <./photos/djokovic_f
+ederer_uso_11.png>]) [34
 
 ] (./writing.aux)
+
+LaTeX Warning: There were undefined references.
+
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 16675 strings out of 493089
- 315156 string characters out of 6134842
- 438061 words of memory out of 5000000
- 19820 multiletter control sequences out of 15000+600000
- 12319 words of font info for 48 fonts, out of 8000000 for 9000
+ 16709 strings out of 493089
+ 315933 string characters out of 6134842
+ 439097 words of memory out of 5000000
+ 19847 multiletter control sequences out of 15000+600000
+ 12487 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,10n,60p,1483b,596s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,12n,60p,1319b,596s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
@@ -980,11 +1055,12 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2015/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2015/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on writing.pdf (24 pages, 436089 bytes).
+st/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2015/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on writing.pdf (34 pages, 607002 bytes).
 PDF statistics:
- 194 PDF objects out of 1000 (max. 8388607)
- 136 compressed objects within 2 object streams
+ 242 PDF objects out of 1000 (max. 8388607)
+ 161 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 23 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 53 words of extra memory for PDF output out of 10000 (max. 10000000)
 
