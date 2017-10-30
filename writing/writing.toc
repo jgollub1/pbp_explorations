@@ -14,18 +14,18 @@
 \contentsline {section}{\numberline {3.2}Elo Ratings}{10}
 \contentsline {section}{\numberline {3.3}ATP Rank}{11}
 \contentsline {section}{\numberline {3.4}Point-based Model}{11}
-\contentsline {section}{\numberline {3.5}James-Stein Estimator}{12}
-\contentsline {section}{\numberline {3.6}Opponent-Adjusted Serve/Return Statistics}{14}
-\contentsline {section}{\numberline {3.7}Results}{14}
+\contentsline {section}{\numberline {3.5}James-Stein Estimator}{13}
+\contentsline {section}{\numberline {3.6}Opponent-Adjusted Serve/Return Statistics}{15}
+\contentsline {section}{\numberline {3.7}Results}{15}
 \contentsline {subsection}{\numberline {3.7.1}Table}{15}
-\contentsline {subsection}{\numberline {3.7.2}Discussion}{15}
-\contentsline {chapter}{\numberline {4}In-game Match Prediction}{17}
+\contentsline {subsection}{\numberline {3.7.2}Discussion}{16}
+\contentsline {chapter}{\numberline {4}In-game Match Prediction}{18}
 \contentsline {section}{\numberline {4.1}Logistic Regression}{18}
 \contentsline {subsection}{\numberline {4.1.1}Cross Validation}{19}
-\contentsline {section}{\numberline {4.2}Random Forests}{19}
-\contentsline {section}{\numberline {4.3}Hierarchical Markov Model}{19}
+\contentsline {section}{\numberline {4.2}Random Forests}{20}
+\contentsline {section}{\numberline {4.3}Hierarchical Markov Model}{20}
 \contentsline {subsection}{\numberline {4.3.1}Beta Experiments}{20}
-\contentsline {subsection}{\numberline {4.3.2}Elo-induced Serve Probabilities}{20}
+\contentsline {subsection}{\numberline {4.3.2}Elo-induced Serve Probabilities}{21}
 \contentsline {subsection}{\numberline {4.3.3}Significance of $f_{ij}+f_{ji}$}{22}
 \contentsline {section}{\numberline {4.4}Results}{23}
 \contentsline {subsection}{\numberline {4.4.1}Model Calibration}{25}
@@ -35,8 +35,8 @@
 \contentsline {subsection}{\numberline {4.4.5}Variable Importance}{27}
 \contentsline {section}{\numberline {4.5}Visualizing Win Probability}{28}
 \contentsline {chapter}{\numberline {5}Conclusion}{30}
-\contentsline {section}{\numberline {5.1}Real-World Applications}{31}
+\contentsline {section}{\numberline {5.1}Real-World Applications}{30}
 \contentsline {section}{\numberline {5.2}Future Steps}{31}
 \contentsline {section}{\numberline {5.3}Visualizing Grand Slam Matches}{31}
-\contentsline {subsection}{\numberline {5.3.1}Roger Federer vs. Rafael Nadal Australian Open 2017 Final}{32}
+\contentsline {subsection}{\numberline {5.3.1}Roger Federer vs. Rafael Nadal Australian Open 2017 Final}{31}
 \contentsline {subsection}{\numberline {5.3.2}Novak Djokovic vs. Roger Federer US Open 2011 Semi-Final}{32}
