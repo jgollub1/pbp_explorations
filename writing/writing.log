@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  30 OCT 2017 11:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  2 NOV 2017 01:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -650,6 +650,43 @@ Package: enumitem 2011/09/28 v3.5.2 Customized lists
 Package: seqsplit 2006/08/07 v0.1 Splitting long sequences (DNA, RNA, proteins,
  etc.) 
 )
+(/usr/local/texlive/2015/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2005/04/14 v1.61803 publication quality tables
+\heavyrulewidth=\dimen184
+\lightrulewidth=\dimen185
+\cmidrulewidth=\dimen186
+\belowrulesep=\dimen187
+\belowbottomsep=\dimen188
+\aboverulesep=\dimen189
+\abovetopsep=\dimen190
+\cmidrulesep=\dimen191
+\cmidrulekern=\dimen192
+\defaultaddspace=\dimen193
+\@cmidla=\count143
+\@cmidlb=\count144
+\@aboverulesep=\dimen194
+\@belowrulesep=\dimen195
+\@thisruleclass=\count145
+\@lastruleclass=\count146
+\@thisrulewidth=\dimen196
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen197
+\captionmargin@=\dimen198
+\captionwidth=\dimen199
+\caption@tempdima=\dimen200
+\caption@indent=\dimen201
+\caption@parindent=\dimen202
+\caption@hangindent=\dimen203
+)
+\c@ContinuedFloat=\count147
+Package caption Info: float package is loaded.
+)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
@@ -669,7 +706,7 @@ File: tikzlibraryarrows.code.tex 2008/01/09 v3.0.0 (rcs-revision 1.1)
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
 code.tex
 File: pgflibraryarrows.code.tex 2013/09/23 v3.0.0 (rcs-revision 1.16)
-\arrowsize=\dimen184
+\arrowsize=\dimen204
 ))
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... none found.
@@ -685,38 +722,38 @@ LaTeX Warning: Label `my-label' multiply defined.
 )
 \openout1 = `writing.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 62.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 62.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 64.
+LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 64.
+LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 64.
+LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 64.
+LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 64.
+LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 64.
+LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 64.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 64.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    ... okay on input line 64.
 
 ABD: EveryShipout initializing macros
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count143
-\scratchdimen=\dimen185
+\scratchcounter=\count148
+\scratchdimen=\dimen205
 \scratchbox=\box45
-\nofMPsegments=\count144
-\nofMParguments=\count145
+\nofMPsegments=\count149
+\nofMParguments=\count150
 \everyMPshowfont=\toks43
-\MPscratchCnt=\count146
-\MPscratchDim=\dimen186
-\MPnumerator=\count147
-\makeMPintoPDFobject=\count148
+\MPscratchCnt=\count151
+\MPscratchDim=\dimen206
+\MPnumerator=\count152
+\makeMPintoPDFobject=\count153
 \everyMPtoPDFconversion=\toks44
 ) (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
@@ -766,6 +803,9 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+
 (./writing.toc
 LaTeX Font Info:    Try loading font information for U+msa on input line 2.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -785,25 +825,25 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  [2]
 Chapter 1.
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 70--74
+Overfull \hbox (30.0pt too wide) in paragraph at lines 72--76
 [] 
  []
 
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 75--79
+Overfull \hbox (30.0pt too wide) in paragraph at lines 77--81
 [] 
  []
 
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 80--83
+Overfull \hbox (30.0pt too wide) in paragraph at lines 82--85
 [] 
  []
 
 
-LaTeX Warning: Citation `ESPNwp' on page 3 undefined on input line 84.
+LaTeX Warning: Citation `ESPNwp' on page 3 undefined on input line 86.
 
 
-Overfull \hbox (1.80266pt too wide) in paragraph at lines 100--101
+Overfull \hbox (1.80266pt too wide) in paragraph at lines 102--103
 \OT1/cmr/m/n/10 Statistical pre-dic-tion mod-els have been ap-plied to ten-nis 
 matches for over twenty years. Klaassen
  []
@@ -820,79 +860,106 @@ Missing character: There is no ™ in font cmr10!
  [4] [5]
 Chapter 2.
 
-LaTeX Warning: Citation `Madurska2012' on page 6 undefined on input line 131.
+LaTeX Warning: Citation `Madurska2012' on page 6 undefined on input line 133.
 
+<photos/scoreboard.jpg, id=32, 927.465pt x 353.32pt>
+File: photos/scoreboard.jpg Graphic file (type jpg)
 
-Overfull \hbox (6.95079pt too wide) in paragraph at lines 142--143
+<use photos/scoreboard.jpg>
+Package pdftex.def Info: photos/scoreboard.jpg used on input line 139.
+(pdftex.def)             Requested size: 278.24164pt x 105.99681pt.
+
+Overfull \hbox (6.95079pt too wide) in paragraph at lines 148--149
 \OT1/cmr/m/n/10 In the fol-low-ing sec-tions, we spec-ify bound-ary val-ues to 
 each level of our hi-er-ar-chi-cal model. 
  []
 
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 149.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 155.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 149.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 155.
  [6
 
-]
-Overfull \hbox (18.62308pt too wide) detected at line 225
+ <./photos/scoreboard.jpg>]
+Overfull \hbox (18.62308pt too wide) detected at line 231
 \OML/cmm/m/it/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; x[]\OT1/cmr/m/n/10 )
  []
  []
 
 [7]
-Overfull \hbox (122.32265pt too wide) in paragraph at lines 370--371
+Overfull \hbox (122.32265pt too wide) in paragraph at lines 376--377
 [][] 
  []
 
 
-Overfull \hbox (15.40257pt too wide) detected at line 381
+Overfull \hbox (15.40257pt too wide) detected at line 387
 \OML/cmm/m/it/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 g[]; g[]\OT1/cmr/m/n/10 )
  []
  []
 
-[8]
-Overfull \hbox (30.013pt too wide) in paragraph at lines 428--432
+[8] [9]
+Overfull \hbox (30.013pt too wide) in paragraph at lines 446--450
 [][] 
  []
 
-[9]
+[10]
 Chapter 3.
 
-LaTeX Warning: Citation `HowForecasting' on page 10 undefined on input line 463
+LaTeX Warning: Citation `HowForecasting' on page 11 undefined on input line 487
 .
 
-[10
+[11
 
-] [11] [12]
-Overfull \hbox (6.05089pt too wide) in paragraph at lines 588--599
+] [12] [13]
+Overfull \hbox (6.05089pt too wide) in paragraph at lines 608--619
  [] 
  []
 
-[13] <photos/norm_fig.png, id=69, 578.16pt x 289.08pt>
+[14] <photos/norm_fig.png, id=76, 578.16pt x 289.08pt>
 File: photos/norm_fig.png Graphic file (type png)
 
 <use photos/norm_fig.png>
-Package pdftex.def Info: photos/norm_fig.png used on input line 628.
+Package pdftex.def Info: photos/norm_fig.png used on input line 648.
 (pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
 
-Overfull \hbox (22.77048pt too wide) in paragraph at lines 628--629
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 648--649
 [][] 
  []
 
-[14 <./photos/norm_fig.png>] [15] [16] [17]
+[15 <./photos/norm_fig.png>]
+Overfull \hbox (2.69133pt too wide) in paragraph at lines 665--666
+[]$\OML/cmm/m/it/10 g[] \OT1/cmr/m/n/10 = []$ 
+ []
+
+
+Overfull \hbox (26.05095pt too wide) in paragraph at lines 670--681
+ [] 
+ []
+
+
+Overfull \hbox (45.66078pt too wide) in paragraph at lines 686--697
+ [] 
+ []
+
+
+Overfull \hbox (7.47868pt too wide) in paragraph at lines 705--706
+\OT1/cmr/m/n/10 With ad-justed serv-ing per-cent-ages, we fac-tor in Kyr-gios' 
+stronger op-po-nent his-tory and Youzhny's
+ []
+
+[16] [17] [18]
 Chapter 4.
 
-Overfull \hbox (14.3305pt too wide) in paragraph at lines 733--734
+Overfull \hbox (14.3305pt too wide) in paragraph at lines 777--778
 \OT1/cmr/m/n/10 this time. Point-by-point records in Sack-mann's dataset take t
 he form of the fol-low-ing string: 
  []
 
 
-Overfull \hbox (3.19252pt too wide) in paragraph at lines 737--738
+Overfull \hbox (3.19252pt too wide) in paragraph at lines 781--782
 []\OT1/cmr/m/n/10 P=` ` $\OML/cmm/m/it/10 SSRSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/
 10 RRRR\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 SRSSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/
 10 SRRSRSSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 SRSSRS\OT1/cmr/m/n/10 ; \OML/cmm/
@@ -901,7 +968,7 @@ mm/m/it/10 RSRSRSSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 SSS
  []
 
 
-Overfull \hbox (6.29652pt too wide) in paragraph at lines 737--738
+Overfull \hbox (6.29652pt too wide) in paragraph at lines 781--782
 \OML/cmm/m/it/10 S:SSSRRRSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 RSSSS\OT1/cmr/m/n
 /10 ; \OML/cmm/m/it/10 SSRSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 SSSRS\OT1/cmr/m/
 n/10 ; \OML/cmm/m/it/10 SSSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 RRRSSSSRRSSRRSRS
@@ -910,134 +977,141 @@ SS
  []
 
 
-Overfull \hbox (6.5435pt too wide) in paragraph at lines 737--738
+Overfull \hbox (6.5435pt too wide) in paragraph at lines 781--782
 \OML/cmm/m/it/10 RS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 RSRSSRSS\OT1/cmr/m/n/10 ;
  \OML/cmm/m/it/10 SSSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 SRSSS\OT1/cmr/m/n/10 ;
  \OML/cmm/m/it/10 RSRSSRRSSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 R=SR=SS=RR=RS=SR
 :RSRRR\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 :::$ \OT1/cmr/m/n/10 ' ' 
  []
 
-[18
+[19
 
-]
+] [20]
 
-LaTeX Warning: Citation `WPexp' on page 19 undefined on input line 843.
+LaTeX Warning: Citation `WPexp' on page 21 undefined on input line 897.
 
-[19] [20] [21] <photos/m12_wp.png, id=98, 578.16pt x 289.08pt>
+[21] [22] [23] <photos/m12_wp.png, id=108, 578.16pt x 289.08pt>
 File: photos/m12_wp.png Graphic file (type png)
 
 <use photos/m12_wp.png>
-Package pdftex.def Info: photos/m12_wp.png used on input line 969.
+Package pdftex.def Info: photos/m12_wp.png used on input line 1023.
 (pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
 
-Overfull \hbox (22.77048pt too wide) in paragraph at lines 969--970
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 1023--1024
 [][] 
  []
 
-[22] [23 <./photos/m12_wp.png>]
-<photos/calibration_plot.png, id=106, 722.7pt x 722.7pt>
+[24 <./photos/m12_wp.png>] [25]
+<photos/calibration_plot.png, id=117, 722.7pt x 722.7pt>
 File: photos/calibration_plot.png Graphic file (type png)
 
 <use photos/calibration_plot.png>
-Package pdftex.def Info: photos/calibration_plot.png used on input line 1060.
+Package pdftex.def Info: photos/calibration_plot.png used on input line 1104.
 (pdftex.def)             Requested size: 433.62334pt x 433.62334pt.
 
-Overfull \hbox (37.4582pt too wide) in paragraph at lines 1060--1061
+Overfull \hbox (37.4582pt too wide) in paragraph at lines 1104--1105
 | [] 
  []
 
-[24] [25 <./photos/calibration_plot.png>]
-<photos/set_performance.png, id=115, 867.24pt x 361.35pt>
+[26] <photos/set_performance.png, id=121, 867.24pt x 361.35pt>
 File: photos/set_performance.png Graphic file (type png)
 
 <use photos/set_performance.png>
-Package pdftex.def Info: photos/set_performance.png used on input line 1068.
+Package pdftex.def Info: photos/set_performance.png used on input line 1112.
 (pdftex.def)             Requested size: 520.34802pt x 216.81168pt.
 
-Overfull \hbox (95.73013pt too wide) in paragraph at lines 1068--1069
-[]| [] 
- []
-
-<photos/surface_performance.png, id=116, 867.24pt x 361.35pt>
-File: photos/surface_performance.png Graphic file (type png)
-
-<use photos/surface_performance.png>
-Package pdftex.def Info: photos/surface_performance.png used on input line 1079
-.
-(pdftex.def)             Requested size: 520.34802pt x 216.81168pt.
-
-Overfull \hbox (95.73013pt too wide) in paragraph at lines 1079--1080
+Overfull \hbox (95.73013pt too wide) in paragraph at lines 1112--1113
 | [] 
  []
 
-[26 <./photos/set_performance.png>] [27 <./photos/surface_performance.png>]
-<photos/reister_gasquet.png, id=125, 578.16pt x 289.08pt>
+[27 <./photos/calibration_plot.png>]
+<photos/surface_performance2.png, id=126, 867.24pt x 361.35pt>
+File: photos/surface_performance2.png Graphic file (type png)
+
+<use photos/surface_performance2.png>
+Package pdftex.def Info: photos/surface_performance2.png used on input line 112
+3.
+(pdftex.def)             Requested size: 520.34802pt x 216.81168pt.
+
+Overfull \hbox (95.73013pt too wide) in paragraph at lines 1123--1124
+| [] 
+ []
+
+[28 <./photos/set_performance.png>] [29 <./photos/surface_performance2.png>]
+<photos/reister_gasquet.png, id=135, 578.16pt x 289.08pt>
 File: photos/reister_gasquet.png Graphic file (type png)
 
 <use photos/reister_gasquet.png>
-Package pdftex.def Info: photos/reister_gasquet.png used on input line 1103.
+Package pdftex.def Info: photos/reister_gasquet.png used on input line 1148.
 (pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
 
-Overfull \hbox (22.77048pt too wide) in paragraph at lines 1103--1104
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 1148--1149
 [][] 
  []
 
-[28 <./photos/reister_gasquet.png>]
-Overfull \hbox (24.05856pt too wide) in paragraph at lines 1117--1117
+
+Overfull \hbox (24.05856pt too wide) in paragraph at lines 1162--1162
 [][][]\OT1/cmr/m/n/8 ,
  []
 
-<photos/simon_gabashvili.png, id=130, 578.16pt x 289.08pt>
+[30 <./photos/reister_gasquet.png>]
+<photos/simon_gabashvili.png, id=140, 578.16pt x 289.08pt>
 File: photos/simon_gabashvili.png Graphic file (type png)
 
 <use photos/simon_gabashvili.png>
-Package pdftex.def Info: photos/simon_gabashvili.png used on input line 1125.
+Package pdftex.def Info: photos/simon_gabashvili.png used on input line 1170.
 (pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
 
-Overfull \hbox (22.77048pt too wide) in paragraph at lines 1125--1126
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 1170--1171
 [][] 
  []
 
-[29 <./photos/simon_gabashvili.png>]
+[31 <./photos/simon_gabashvili.png>]
 Chapter 5.
 
-LaTeX Warning: Citation `KlaassenandMagnus2003' on page 30 undefined on input l
-ine 1133.
+LaTeX Warning: Citation `KlaassenandMagnus2003' on page 32 undefined on input l
+ine 1178.
 
-[30
 
-] <photos/federer_nadal_ao_17.png, id=138, 578.16pt x 289.08pt>
+Overfull \hbox (6.30263pt too wide) in paragraph at lines 1184--1185
+[]\OT1/cmr/m/n/10 Still, lo-gis-tic re-gres-sion's per-for-mance with a score-b
+ased fea-ture set proved note-wor-thy. Machine-
+ []
+
+[32
+
+] <photos/federer_nadal_ao_17.png, id=149, 578.16pt x 289.08pt>
 File: photos/federer_nadal_ao_17.png Graphic file (type png)
 
 <use photos/federer_nadal_ao_17.png>
-Package pdftex.def Info: photos/federer_nadal_ao_17.png used on input line 1162
+Package pdftex.def Info: photos/federer_nadal_ao_17.png used on input line 1209
 .
 (pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
 
-Overfull \hbox (22.77048pt too wide) in paragraph at lines 1162--1163
-[] 
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 1209--1210
+[][] 
  []
 
-
-Overfull \hbox (9.59311pt too wide) in paragraph at lines 1165--1165
+[33]
+Overfull \hbox (9.59311pt too wide) in paragraph at lines 1216--1216
  |[]\OT1/cmr/bx/n/12 Novak Djokovic vs. Roger Fed-erer US Open 2011 Semi-Final|
  
  []
 
-[31 <./photos/federer_nadal_ao_17.png>]
-<photos/djokovic_federer_uso_11.png, id=144, 578.16pt x 289.08pt>
+<photos/djokovic_federer_uso_11.png, id=153, 578.16pt x 289.08pt>
 File: photos/djokovic_federer_uso_11.png Graphic file (type png)
 
 <use photos/djokovic_federer_uso_11.png>
 Package pdftex.def Info: photos/djokovic_federer_uso_11.png used on input line 
-1169.
+1220.
 (pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
 
-Overfull \hbox (22.77048pt too wide) in paragraph at lines 1169--1170
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 1220--1221
 [][] 
  []
 
-(./writing.bbl [32 <./photos/djokovic_federer_uso_11.png>]) [33
+(./writing.bbl [34 <./photos/federer_nadal_ao_17.png>] [35 <./photos/djokovic_f
+ederer_uso_11.png>]) [36
 
 ] (./writing.aux)
 
@@ -1048,42 +1122,46 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 16716 strings out of 493089
- 316060 string characters out of 6134842
- 438165 words of memory out of 5000000
- 19853 multiletter control sequences out of 15000+600000
- 12486 words of font info for 49 fonts, out of 8000000 for 9000
+ 17820 strings out of 493089
+ 335907 string characters out of 6134842
+ 421367 words of memory out of 5000000
+ 20942 multiletter control sequences out of 15000+600000
+ 13428 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,12n,60p,1335b,596s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pf
-b></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
-r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/
-local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
-l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
-texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/te
-xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texli
-ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/
-2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/201
-5/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2015/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on writing.pdf (33 pages, 591616 bytes).
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
+}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></u
+sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></u
+sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
+r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></u
+sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr
+/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/l
+ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local
+/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/t
+exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/tex
+live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/
+2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/201
+5/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/font
+s/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2015/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
+ype1/public/cm-super/sfrm1000.pfb>
+Output written on writing.pdf (36 pages, 791313 bytes).
 PDF statistics:
- 233 PDF objects out of 1000 (max. 8388607)
- 153 compressed objects within 2 object streams
+ 256 PDF objects out of 1000 (max. 8388607)
+ 169 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 58 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 63 words of extra memory for PDF output out of 10000 (max. 10000000)
 

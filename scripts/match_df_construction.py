@@ -43,6 +43,7 @@ if __name__=='__main__':
 	atp_all_matches = generate_elo(atp_all_matches,0)
 	atp_all_matches = generate_elo(atp_all_matches,1)
 	atp_all_matches = generate_52_stats(atp_all_matches,start_ind)
+	print 'should be printing adj stats...'
 	atp_all_matches = generate_52_adj_stats(atp_all_matches,start_ind)
 	atp_all_matches = generate_tny_stats(atp_all_matches,start_ind)
 	#print 'adj stats: ', atp_all_matches[atp_all_matches['match_year']==2014][['w_52_s_adj','w_52_r_adj']]
@@ -83,9 +84,9 @@ if __name__=='__main__':
 
 	# generate win probabilities from logit of elo/s_elo 538 differences, trained on 2011-2013 data
 	df = generate_logit_probs(df,cols=['elo_diff_538','sf_elo_diff_538'],col_name='logit_elo_538_prob')
-	df = generate_logit_probs(df,cols=['elo_diff','sf_elo_diff'],col_name='logit_elo_prob')
-	df = generate_logit_probs(df,cols=['elo_diff'],col_name='logit_elo_diff_prob')
-	df = generate_logit_probs(df,cols=['elo_diff_538'],col_name='logit_elo_diff_538_prob')
+	# df = generate_logit_probs(df,cols=['elo_diff','sf_elo_diff'],col_name='logit_elo_prob')
+	# df = generate_logit_probs(df,cols=['elo_diff'],col_name='logit_elo_diff_prob')
+	# df = generate_logit_probs(df,cols=['elo_diff_538'],col_name='logit_elo_diff_538_prob')
 
 
 	#print 'adj stats 2nd time: ', df[df['match_year']==2014][['p0_52_s_adj','p0_52_r_adj']]
@@ -164,5 +165,5 @@ if __name__=='__main__':
 	# tour-level matches from START_DATE to present
 	name = 'elo_pbp_with_surface_10_29' if ONLY_PBP else 'elo_atp_matches_all_10_29'
 	# 'elo_atp_matches_21st_century_9_17'
-	print name + '.csv saved to my_data'
-	df.to_csv('../../my_data/'+name+'.csv')
+	#print name + '.csv saved to my_data'
+	#df.to_csv('../../my_data/'+name+'.csv')
