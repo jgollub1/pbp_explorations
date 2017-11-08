@@ -1,0 +1,114 @@
+\documentclass[chapterprefix=false]{report}
+\setlength{\oddsidemargin}{0 in}
+\setlength{\evensidemargin}{0 in}
+\setlength{\topmargin}{0 in}
+\setlength{\textwidth}{5.7 in}
+\setlength{\textheight}{8.0 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0.3 in}
+\setlength{\parskip}{0.1 in}
+\usepackage{titlesec}
+
+\titleformat{\chapter}{\huge}{\thechapter.}{20pt}{\huge}
+
+\usepackage{epsf}
+\usepackage{pseudocode}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{textcomp}
+\usepackage{tikz}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{seqsplit}
+\graphicspath{{photos/}}
+\usepackage{booktabs}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{url}
+\usepackage{cite}
+\usepackage[parfill]{parskip}
+\usepackage{setspace}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=50mm,
+ }
+
+
+%\usepackage{titling}
+%\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+%\renewcommand\maketitlehookd{\vfill\null}
+
+\doublespacing
+%\AtBeginEnvironment{tabular}{\singlespacing}
+%\AtBeginEnvironment{tabular}{\singlespacing}
+\makeatletter
+\AtBeginEnvironment{tabular}{%
+  \def\baselinestretch{1}\@currsize}%
+\makeatother
+\usepackage{natbib}
+\bibliographystyle{apa}
+%\bibliographystyle{unsrtnat}
+
+\usetikzlibrary{arrows}
+\tikzset{
+    vertex/.style={circle,draw,minimum size=1.5em},
+    edge/.style={->,> = latex'}
+}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+% \usepackage{times}
+% \usepackage{mathptm}
+
+\def\O{\mathop{\smash{O}}\nolimits}
+\def\o{\mathop{\smash{o}}\nolimits}
+\newcommand{\e}{{\rm e}}
+\newcommand{\R}{{\bf R}}
+\newcommand{\Z}{{\bf Z}}
+\newcommand{\h}{1.2}
+
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+ 
+\begin{document}
+\linespread{2}
+
+\begin{titlepage}
+	\centering
+	{\huge\bfseries\linespread{1.5}\selectfont Producing Win Probabilities for Professional Tennis Matches from any Score \par}
+	\vspace{1cm}
+	{\Large\itshape Jacob Gollub}
+	\vspace{1cm}\par
+	\includegraphics[width=0.15\textwidth]{StatisticsLogo}\par
+	{\scshape\LARGE Harvard College \par}
+	Cambridge, Massachusetts \par \vspace{1cm}
+	\vspace{1cm}
+	
+	Thesis Submitted in Partial Fulfillment of the
+	\par Requirements for the Degree of 
+	\par Bachelor of Arts in Statistics And Computer Science
+	
+	
+	\vfill
+	supervised by\par
+	Kevin \textsc{Rader}
+
+	\vfill
+
+% Bottom of the page
+	{\large \today\par}
+\end{titlepage} 
+
+\end{document}

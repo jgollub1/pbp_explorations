@@ -1,42 +1,40 @@
-\contentsline {chapter}{\numberline {1}Introduction}{3}
-\contentsline {section}{\numberline {1.1}In-game Sports Analytics}{3}
-\contentsline {section}{\numberline {1.2}History of Tennis Forecasting}{4}
-\contentsline {section}{\numberline {1.3}Match/Point-by-Point Datasets}{4}
-\contentsline {section}{\numberline {1.4}Implementation}{5}
-\contentsline {chapter}{\numberline {2}Scoring}{6}
-\contentsline {section}{\numberline {2.1}Modeling games}{7}
-\contentsline {section}{\numberline {2.2}Modeling sets}{8}
-\contentsline {section}{\numberline {2.3}Modeling a tie-break game}{9}
-\contentsline {section}{\numberline {2.4}Modeling a best-of-three match}{9}
-\contentsline {section}{\numberline {2.5}Win Probability Equation}{10}
-\contentsline {chapter}{\numberline {3}Pre-game Match Prediction}{11}
-\contentsline {section}{\numberline {3.1}Overview}{11}
-\contentsline {section}{\numberline {3.2}Elo Ratings}{11}
-\contentsline {section}{\numberline {3.3}ATP Rank}{12}
-\contentsline {section}{\numberline {3.4}Point-based Model}{12}
-\contentsline {section}{\numberline {3.5}James-Stein Estimator}{14}
-\contentsline {section}{\numberline {3.6}Opponent-Adjusted Serve/Return Statistics}{16}
-\contentsline {section}{\numberline {3.7}Results}{17}
-\contentsline {subsection}{\numberline {3.7.1}Table}{17}
-\contentsline {subsection}{\numberline {3.7.2}Discussion}{18}
-\contentsline {chapter}{\numberline {4}In-game Match Prediction}{19}
-\contentsline {section}{\numberline {4.1}Logistic Regression}{20}
-\contentsline {subsection}{\numberline {4.1.1}Cross Validation}{20}
-\contentsline {section}{\numberline {4.2}Random Forests}{21}
-\contentsline {section}{\numberline {4.3}Hierarchical Markov Model}{21}
-\contentsline {subsection}{\numberline {4.3.1}Beta Experiments}{21}
-\contentsline {subsection}{\numberline {4.3.2}Elo-induced Serve Probabilities}{22}
-\contentsline {subsection}{\numberline {4.3.3}Significance of $f_{ij}+f_{ji}$}{23}
-\contentsline {section}{\numberline {4.4}Results}{24}
-\contentsline {subsection}{\numberline {4.4.1}Model Calibration}{27}
-\contentsline {subsection}{\numberline {4.4.2}By Set}{28}
-\contentsline {subsection}{\numberline {4.4.3}By Surface}{29}
-\contentsline {subsection}{\numberline {4.4.4}Variable Importance}{29}
-\contentsline {section}{\numberline {4.5}Visualizing Win Probability}{30}
-\contentsline {chapter}{\numberline {5}Conclusion}{32}
-\contentsline {section}{\numberline {5.1}Applications to Betting Markets}{32}
-\contentsline {section}{\numberline {5.2}Future Steps}{33}
-\contentsline {section}{\numberline {5.3}Visualizing Grand Slam Matches}{33}
-\contentsline {subsection}{\numberline {5.3.1}Roger Federer vs. Rafael Nadal Australian Open 2017 Final}{33}
-\contentsline {subsection}{\numberline {5.3.2}Stanislas Wawrinka vs. Novak Djokovic French Open 2015 Final}{34}
-\contentsline {subsection}{\numberline {5.3.3}Novak Djokovic vs. Roger Federer US Open 2011 Semi-Final}{34}
+\contentsline {chapter}{\numberline {1}Introduction}{4}
+\contentsline {section}{\numberline {1.1}In-game Sports Analytics}{4}
+\contentsline {section}{\numberline {1.2}History of Tennis Forecasting}{5}
+\contentsline {section}{\numberline {1.3}Match/Point-by-Point Datasets}{6}
+\contentsline {section}{\numberline {1.4}Implementation}{7}
+\contentsline {chapter}{\numberline {2}Scoring}{9}
+\contentsline {section}{\numberline {2.1}Modeling games}{10}
+\contentsline {section}{\numberline {2.2}Modeling sets}{11}
+\contentsline {section}{\numberline {2.3}Modeling a tiebreak game}{13}
+\contentsline {section}{\numberline {2.4}Modeling a best-of-three match}{13}
+\contentsline {section}{\numberline {2.5}Win Probability Equation}{14}
+\contentsline {chapter}{\numberline {3}Pre-game Match Prediction}{15}
+\contentsline {section}{\numberline {3.1}Overview}{15}
+\contentsline {section}{\numberline {3.2}Elo Ratings}{16}
+\contentsline {section}{\numberline {3.3}ATP Rank}{16}
+\contentsline {section}{\numberline {3.4}Point-based Model}{17}
+\contentsline {section}{\numberline {3.5}James-Stein Estimator}{19}
+\contentsline {section}{\numberline {3.6}Opponent-Adjusted Serve/Return Statistics}{22}
+\contentsline {section}{\numberline {3.7}Results}{23}
+\contentsline {subsection}{\numberline {3.7.1}Discussion}{25}
+\contentsline {chapter}{\numberline {4}In-game Match Prediction}{27}
+\contentsline {section}{\numberline {4.1}Logistic Regression}{28}
+\contentsline {subsection}{\numberline {4.1.1}Cross Validation}{29}
+\contentsline {section}{\numberline {4.2}Random Forests}{30}
+\contentsline {section}{\numberline {4.3}Hierarchical Markov Model}{30}
+\contentsline {subsection}{\numberline {4.3.1}Beta Experiments}{31}
+\contentsline {subsection}{\numberline {4.3.2}Elo-induced Serve Probabilities}{32}
+\contentsline {subsection}{\numberline {4.3.3}Importance of $f_{ij}+f_{ji}$}{33}
+\contentsline {section}{\numberline {4.4}Results}{35}
+\contentsline {subsection}{\numberline {4.4.1}Model Calibration}{38}
+\contentsline {subsection}{\numberline {4.4.2}By Set}{39}
+\contentsline {subsection}{\numberline {4.4.3}By Surface}{40}
+\contentsline {section}{\numberline {4.5}Visualizing Win Probability}{41}
+\contentsline {chapter}{\numberline {5}Conclusion}{44}
+\contentsline {section}{\numberline {5.1}Applications to Betting Markets}{45}
+\contentsline {section}{\numberline {5.2}Future Steps}{45}
+\contentsline {section}{\numberline {5.3}Visualizing Grand Slam Matches}{46}
+\contentsline {subsection}{\numberline {5.3.1}\unhbox \voidb@x \hbox {Roger Federer vs. Rafael Nadal Australian Open 2017 Final}}{46}
+\contentsline {subsection}{\numberline {5.3.2}\unhbox \voidb@x \hbox {Stanislas Wawrinka vs. Novak Djokovic French Open 2015 Final}}{47}
+\contentsline {subsection}{\numberline {5.3.3}Novak Djokovic vs. Roger Federer US Open 2011 Semi-Final}{48}

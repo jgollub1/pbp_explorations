@@ -1,49 +1,49 @@
 This is BibTeX, Version 0.99d (TeX Live 2015)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: writing.aux
-The style file: plain.bst
+The style file: apa.bst
 Database file #1: references.bib
 Warning--empty journal in Bevc2015
 Warning--empty journal in Sipko2015
-You've used 10 entries,
-            2118 wiz_defined-function locations,
-            568 strings with 5756 characters,
-and the built_in function-call counts, 2957 in all, are:
-= -- 295
-> -- 128
-< -- 1
-+ -- 50
-- -- 40
-* -- 189
-:= -- 514
-add.period$ -- 31
-call.type$ -- 10
-change.case$ -- 46
-chr.to.int$ -- 0
-cite$ -- 12
-duplicate$ -- 116
-empty$ -- 234
-format.name$ -- 40
-if$ -- 610
-int.to.chr$ -- 0
-int.to.str$ -- 10
-missing$ -- 10
-newline$ -- 53
-num.names$ -- 20
-pop$ -- 50
+You've used 17 entries,
+            1940 wiz_defined-function locations,
+            582 strings with 6636 characters,
+and the built_in function-call counts, 5728 in all, are:
+= -- 567
+> -- 194
+< -- 15
++ -- 66
+- -- 60
+* -- 469
+:= -- 1026
+add.period$ -- 53
+call.type$ -- 17
+change.case$ -- 110
+chr.to.int$ -- 17
+cite$ -- 19
+duplicate$ -- 230
+empty$ -- 398
+format.name$ -- 90
+if$ -- 1095
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 15
+newline$ -- 89
+num.names$ -- 51
+pop$ -- 92
 preamble$ -- 1
-purify$ -- 38
+purify$ -- 113
 quote$ -- 0
-skip$ -- 83
+skip$ -- 186
 stack$ -- 0
-substring$ -- 170
-swap$ -- 16
+substring$ -- 355
+swap$ -- 36
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 38
+type$ -- 98
 warning$ -- 2
-while$ -- 30
-width$ -- 12
-write$ -- 107
+while$ -- 46
+width$ -- 0
+write$ -- 216
 (There were 2 warnings)

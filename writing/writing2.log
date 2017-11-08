@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  6 NOV 2017 22:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  6 NOV 2017 20:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**writing.tex
-(./writing.tex
+**writing2.tex
+(./writing2.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/report.cls
@@ -702,30 +702,6 @@ Package: parskip 2001/04/09 non-zero parskip adjustments
 (/usr/local/texlive/2015/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/pdfpages/pdfpages.sty
-Package: pdfpages 2015/05/11 v0.4x Insert pages of external PDF documents (AM)
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/eso-pic/eso-pic.sty
-Package: eso-pic 2015/04/20 v2.0e eso-pic (RN)
-
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/atbegshi.sty
-Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
-
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
-)))
-\AM@pagewidth=\dimen204
-\AM@pageheight=\dimen205
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/pdfpages/pppdftex.def
-File: pppdftex.def 2015/05/11 v0.4x Pdfpages driver for pdfTeX (AM)
-)
-\AM@pagebox=\box45
-\AM@toc@title=\toks43
-\c@AM@survey=\count148
-\AM@templatesizebox=\box46
-)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 
@@ -737,7 +713,7 @@ Package natbib Warning: The `cite' package should not be used
 \bibsep=\skip58
 LaTeX Info: Redefining \cite on input line 694.
 LaTeX Info: Redefining \citenum on input line 708.
-\c@NAT@ctr=\count149
+\c@NAT@ctr=\count148
 )
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryarrows.code.tex
@@ -746,7 +722,7 @@ File: tikzlibraryarrows.code.tex 2008/01/09 v3.0.0 (rcs-revision 1.1)
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
 code.tex
 File: pgflibraryarrows.code.tex 2013/09/23 v3.0.0 (rcs-revision 1.16)
-\arrowsize=\dimen206
+\arrowsize=\dimen204
 ))
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... none found.
@@ -755,46 +731,42 @@ Package csquotes Info: ... none found.
 LaTeX Warning: Unused global option(s):
     [chapterprefix=false].
 
-(./writing.aux
+No file writing2.aux.
+\openout1 = `writing2.aux'.
 
-LaTeX Warning: Label `my-label' multiply defined.
-
-)
-\openout1 = `writing.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 78.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 78.
- (/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1cmr.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 77.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 77.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    ... okay on input line 77.
 
 ABD: EveryShipout initializing macros
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count150
-\scratchdimen=\dimen207
-\scratchbox=\box47
-\nofMPsegments=\count151
-\nofMParguments=\count152
-\everyMPshowfont=\toks44
-\MPscratchCnt=\count153
-\MPscratchDim=\dimen208
-\MPnumerator=\count154
-\makeMPintoPDFobject=\count155
-\everyMPtoPDFconversion=\toks45
+\scratchcounter=\count149
+\scratchdimen=\dimen205
+\scratchbox=\box45
+\nofMPsegments=\count150
+\nofMParguments=\count151
+\everyMPshowfont=\toks43
+\MPscratchCnt=\count152
+\MPscratchDim=\dimen206
+\MPnumerator=\count153
+\makeMPintoPDFobject=\count154
+\everyMPtoPDFconversion=\toks44
 ) (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -802,6 +774,10 @@ Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifluatex.sty
 Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
 )
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
@@ -841,83 +817,82 @@ e
 ))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-\AtBeginShipoutBox=\box48
 
-<title.pdf, id=4, 597.50829pt x 845.0471pt>
-File: title.pdf Graphic file (type pdf)
- <use title.pdf>
-Package pdftex.def Info: title.pdf used on input line 81.
-(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
-File: title.pdf Graphic file (type pdf)
- <use title.pdf>
-Package pdftex.def Info: title.pdf used on input line 81.
-(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+[1
 
-<title.pdf, id=7, page=1, 597.50829pt x 845.0471pt>
-File: title.pdf Graphic file (type pdf)
- <use title.pdf, page 1>
-Package pdftex.def Info: title.pdf, page1 used on input line 81.
-(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
-File: title.pdf Graphic file (type pdf)
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+No file writing2.toc.
+\tf@toc=\write5
+\openout5 = `writing2.toc'.
 
-<use title.pdf, page 1>
-Package pdftex.def Info: title.pdf, page1 used on input line 81.
-(pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
-File: title.pdf Graphic file (type pdf)
- <use title.pdf, page 1>
-Package pdftex.def Info: title.pdf, page1 used on input line 81.
-(pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
-File: title.pdf Graphic file (type pdf)
- <use title.pdf, page 1>
-Package pdftex.def Info: title.pdf, page1 used on input line 81.
-(pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
-File: title.pdf Graphic file (type pdf)
+[2
 
-<use title.pdf, page 1>
-Package pdftex.def Info: title.pdf, page1 used on input line 81.
-(pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
- [1
-
- <./title.pdf{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.
-map}>] [1
-
-] (./writing.toc
-LaTeX Font Info:    Try loading font information for U+msa on input line 2.
-
+]
+Chapter 1.
+LaTeX Font Info:    Try loading font information for U+msa on input line 92.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 2.
+LaTeX Font Info:    Try loading font information for U+msb on input line 92.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [2
-
-])
-\tf@toc=\write5
-\openout5 = `writing.toc'.
-
- [3]
-Chapter 1.
-
-Overfull \hbox (30.0pt too wide) in paragraph at lines 98--102
+)
+Overfull \hbox (30.0pt too wide) in paragraph at lines 92--96
 [] 
  []
 
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 103--107
+Overfull \hbox (30.0pt too wide) in paragraph at lines 97--101
 [] 
  []
 
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 108--111
+Overfull \hbox (30.0pt too wide) in paragraph at lines 102--105
 [] 
  []
 
-[4
+
+Package natbib Warning: Citation `WPexp' on page 3 undefined on input line 106.
+
+
+
+Package natbib Warning: Citation `ESPNwp' on page 3 undefined on input line 106
+.
+
+
+Package natbib Warning: Citation `Huang2011' on page 3 undefined on input line 
+110.
+
+
+Package natbib Warning: Citation `Sipko2015' on page 3 undefined on input line 
+110.
+
+[3
 
 ]
-Overfull \hbox (1.80266pt too wide) in paragraph at lines 128--129
+
+Package natbib Warning: Citation `KlaassenandMagnus2001' on page 4 undefined on
+ input line 122.
+
+
+Package natbib Warning: Citation `Klaassen2003' on page 4 undefined on input li
+ne 122.
+
+
+Package natbib Warning: Citation `BarnettandClarke2005' on page 4 undefined on 
+input line 122.
+
+
+Package natbib Warning: Citation `Bevc2015' on page 4 undefined on input line 1
+22.
+
+
+Package natbib Warning: Citation `Kovalchik2016' on page 4 undefined on input l
+ine 122.
+
+
+Overfull \hbox (1.80266pt too wide) in paragraph at lines 122--123
 \OT1/cmr/m/n/10 Statistical pre-dic-tion mod-els have been ap-plied to ten-nis 
 matches for over twenty years. Klaassen
  []
@@ -925,103 +900,173 @@ matches for over twenty years. Klaassen
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
-[5]
-Overfull \hbox (0.27486pt too wide) in paragraph at lines 140--141
+[4]
+
+Package natbib Warning: Citation `Barnett2006' on page 5 undefined on input lin
+e 126.
+
+
+Overfull \hbox (0.27486pt too wide) in paragraph at lines 134--135
 \OT1/cmr/m/n/10 mann ($\OT1/cmtt/m/n/10 https : / / github . com / JeffSackmann
 $\OT1/cmr/m/n/10 ). We use the matches dataset un-der ``\OT1/cmtt/m/n/10 tennis
 []atp\OT1/cmr/m/n/10 ''
  []
 
-[6] [7] [8]
+[5] [6] [7]
 Chapter 2.
-<photos/scoreboard.jpg, id=77, 927.465pt x 353.32pt>
+
+Package natbib Warning: Citation `madurska2012set' on page 8 undefined on input
+ line 158.
+
+
+Package natbib Warning: Citation `BarnettandClarke2002' on page 8 undefined on 
+input line 158.
+
+<photos/scoreboard.jpg, id=38, 927.465pt x 353.32pt>
 File: photos/scoreboard.jpg Graphic file (type jpg)
 
 <use photos/scoreboard.jpg>
-Package pdftex.def Info: photos/scoreboard.jpg used on input line 170.
+Package pdftex.def Info: photos/scoreboard.jpg used on input line 164.
 (pdftex.def)             Requested size: 278.24164pt x 105.99681pt.
- [9
+ [8
 
 ]
-Overfull \hbox (6.95079pt too wide) in paragraph at lines 179--180
+Overfull \hbox (6.95079pt too wide) in paragraph at lines 173--174
 \OT1/cmr/m/n/10 In the fol-low-ing sec-tions, we spec-ify bound-ary val-ues to 
 each level of our hi-er-ar-chi-cal model. 
  []
 
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 186.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 180.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 186.
- [10 <./photos/scoreboard.jpg>]
-Overfull \hbox (18.62308pt too wide) detected at line 262
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 180.
+ [9 <./photos/scoreboard.jpg>]
+Overfull \hbox (18.62308pt too wide) detected at line 256
 \OML/cmm/m/it/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; x[]\OT1/cmr/m/n/10 )
  []
  []
 
-[11]
-Overfull \hbox (122.32265pt too wide) in paragraph at lines 407--408
+[10]
+Overfull \hbox (122.32265pt too wide) in paragraph at lines 401--402
 [][] 
  []
 
 
-Overfull \hbox (15.40257pt too wide) detected at line 418
+Overfull \hbox (15.40257pt too wide) detected at line 412
 \OML/cmm/m/it/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 g[]; g[]\OT1/cmr/m/n/10 )
  []
  []
 
-[12] [13]
-Overfull \hbox (30.013pt too wide) in paragraph at lines 476--480
+[11] [12]
+Overfull \hbox (30.013pt too wide) in paragraph at lines 470--474
 [][] 
  []
 
-[14]
+[13]
 Chapter 3.
-[15
 
-] [16] [17] [18] [19]
-Overfull \hbox (4.96751pt too wide) in paragraph at lines 638--649
+Package natbib Warning: Citation `elo1978rating' on page 14 undefined on input 
+line 499.
+
+
+Package natbib Warning: Citation `HowForecasting' on page 14 undefined on input
+ line 499.
+
+[14
+
+]
+
+Package natbib Warning: Citation `HowForecasting' on page 15 undefined on input
+ line 511.
+
+
+Package natbib Warning: Citation `Klaassen2003' on page 15 undefined on input l
+ine 520.
+
+
+Package natbib Warning: Citation `Kovalchik2016' on page 15 undefined on input 
+line 520.
+
+[15]
+
+Package natbib Warning: Citation `KlaassenandMagnus2001' on page 16 undefined o
+n input line 540.
+
+
+Package natbib Warning: Citation `BarnettandClarke2005' on page 16 undefined on
+ input line 540.
+
+[16] [17]
+
+Package natbib Warning: Citation `EfronandMorris1977' on page 18 undefined on i
+nput line 604.
+
+[18]
+Overfull \hbox (4.96751pt too wide) in paragraph at lines 632--643
  [] 
  []
 
-[20] <photos/norm_fig.png, id=126, 578.16pt x 289.08pt>
+[19] <photos/norm_fig.png, id=89, 578.16pt x 289.08pt>
 File: photos/norm_fig.png Graphic file (type png)
 
 <use photos/norm_fig.png>
-Package pdftex.def Info: photos/norm_fig.png used on input line 678.
+Package pdftex.def Info: photos/norm_fig.png used on input line 672.
 (pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
 
-Overfull \hbox (22.77048pt too wide) in paragraph at lines 678--679
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 672--673
 [][] 
  []
 
-[21]
-Overfull \hbox (2.69133pt too wide) in paragraph at lines 695--696
+[20]
+Overfull \hbox (2.69133pt too wide) in paragraph at lines 689--690
 []$\OML/cmm/m/it/10 g[] \OT1/cmr/m/n/10 = []$ 
  []
 
-[22 <./photos/norm_fig.png>]
-Overfull \hbox (30.0pt too wide) in paragraph at lines 699--710
+[21 <./photos/norm_fig.png>]
+Overfull \hbox (30.0pt too wide) in paragraph at lines 693--704
 [][] 
  []
 
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 713--724
+Overfull \hbox (30.0pt too wide) in paragraph at lines 707--718
 [][] 
  []
 
-[23] [24] [25] [26]
+
+Package natbib Warning: Citation `Kovalchik2016' on page 22 undefined on input 
+line 731.
+
+[22] [23]
+
+Package natbib Warning: Citation `Kovalchik2016' on page 24 undefined on input 
+line 775.
+
+[24]
+
+Package natbib Warning: Citation `Sipko2015' on page 25 undefined on input line
+ 782.
+
+
+Package natbib Warning: Citation `lewis2016great' on page 25 undefined on input
+ line 782.
+
+
+Package natbib Warning: Citation `HowForecasting' on page 25 undefined on input
+ line 782.
+
+[25]
 Chapter 4.
 
-Overfull \hbox (14.3305pt too wide) in paragraph at lines 803--804
+Overfull \hbox (14.3305pt too wide) in paragraph at lines 797--798
 \OT1/cmr/m/n/10 this time. Point-by-point records in Sack-mann's dataset take t
 he form of the fol-low-ing string: 
  []
 
 
-Overfull \hbox (3.19252pt too wide) in paragraph at lines 807--808
+Overfull \hbox (3.19252pt too wide) in paragraph at lines 801--802
 []\OT1/cmr/m/n/10 P=` ` $\OML/cmm/m/it/10 SSRSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/
 10 RRRR\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 SRSSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/
 10 SRRSRSSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 SRSSRS\OT1/cmr/m/n/10 ; \OML/cmm/
@@ -1030,7 +1075,7 @@ mm/m/it/10 RSRSRSSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 SSS
  []
 
 
-Overfull \hbox (6.29652pt too wide) in paragraph at lines 807--808
+Overfull \hbox (6.29652pt too wide) in paragraph at lines 801--802
 \OML/cmm/m/it/10 S:SSSRRRSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 RSSSS\OT1/cmr/m/n
 /10 ; \OML/cmm/m/it/10 SSRSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 SSSRS\OT1/cmr/m/
 n/10 ; \OML/cmm/m/it/10 SSSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 RRRSSSSRRSSRRSRS
@@ -1039,128 +1084,181 @@ SS
  []
 
 
-Overfull \hbox (6.5435pt too wide) in paragraph at lines 807--808
+Overfull \hbox (6.5435pt too wide) in paragraph at lines 801--802
 \OML/cmm/m/it/10 RS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 RSRSSRSS\OT1/cmr/m/n/10 ;
  \OML/cmm/m/it/10 SSSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 SRSSS\OT1/cmr/m/n/10 ;
  \OML/cmm/m/it/10 RSRSSRRSSS\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 R=SR=SS=RR=RS=SR
 :RSRRR\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 :::$ \OT1/cmr/m/n/10 ' ' 
  []
 
-[27
+[26
 
-] [28] [29] [30] [31] [32] [33]
-<photos/m12_wp.png, id=174, 578.16pt x 289.08pt>
+] [27]
+
+Package natbib Warning: Citation `WPexp' on page 28 undefined on input line 918
+.
+
+
+Package natbib Warning: Citation `LockandNettleton2014' on page 28 undefined on
+ input line 918.
+
+[28] [29] [30] [31]
+
+Package natbib Warning: Citation `Barnett2006' on page 32 undefined on input li
+ne 1015.
+
+[32] <photos/m12_wp.png, id=138, 578.16pt x 289.08pt>
 File: photos/m12_wp.png Graphic file (type png)
  <use photos/m12_wp.png>
-Package pdftex.def Info: photos/m12_wp.png used on input line 1050.
+Package pdftex.def Info: photos/m12_wp.png used on input line 1044.
 (pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
 
-Overfull \hbox (22.77048pt too wide) in paragraph at lines 1050--1051
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 1044--1045
 [][] 
  []
 
-[34 <./photos/m12_wp.png>] [35] [36]
-<photos/calibration_plot.png, id=186, 722.7pt x 722.7pt>
+
+Package natbib Warning: Citation `Kovalchik2016' on page 33 undefined on input 
+line 1048.
+
+[33 <./photos/m12_wp.png>] [34] [35]
+<photos/calibration_plot.png, id=149, 722.7pt x 722.7pt>
 File: photos/calibration_plot.png Graphic file (type png)
 
 <use photos/calibration_plot.png>
-Package pdftex.def Info: photos/calibration_plot.png used on input line 1131.
+Package pdftex.def Info: photos/calibration_plot.png used on input line 1125.
 (pdftex.def)             Requested size: 433.62334pt x 433.62334pt.
 
-Overfull \hbox (37.4582pt too wide) in paragraph at lines 1131--1132
+Overfull \hbox (37.4582pt too wide) in paragraph at lines 1125--1126
 | [] 
  []
 
-[37] [38 <./photos/calibration_plot.png>]
-<photos/set_performance3.png, id=194, 867.24pt x 361.35pt>
+[36] [37 <./photos/calibration_plot.png>]
+<photos/set_performance3.png, id=158, 867.24pt x 361.35pt>
 File: photos/set_performance3.png Graphic file (type png)
 
 <use photos/set_performance3.png>
-Package pdftex.def Info: photos/set_performance3.png used on input line 1139.
+Package pdftex.def Info: photos/set_performance3.png used on input line 1133.
 (pdftex.def)             Requested size: 520.34802pt x 216.81168pt.
 
-Overfull \hbox (95.73013pt too wide) in paragraph at lines 1139--1140
+Overfull \hbox (95.73013pt too wide) in paragraph at lines 1133--1134
 | [] 
  []
 
-[39 <./photos/set_performance3.png>]
-<photos/surface_performance3.png, id=199, 867.24pt x 361.35pt>
+[38 <./photos/set_performance3.png>]
+<photos/surface_performance3.png, id=163, 867.24pt x 361.35pt>
 File: photos/surface_performance3.png Graphic file (type png)
 
 <use photos/surface_performance3.png>
 Package pdftex.def Info: photos/surface_performance3.png used on input line 114
-9.
+3.
 (pdftex.def)             Requested size: 520.34802pt x 216.81168pt.
 
-Overfull \hbox (95.73013pt too wide) in paragraph at lines 1149--1150
+Overfull \hbox (95.73013pt too wide) in paragraph at lines 1143--1144
 | [] 
  []
 
-[40 <./photos/surface_performance3.png>]
-<photos/reister_gasquet.png, id=204, 578.16pt x 289.08pt>
+[39 <./photos/surface_performance3.png>]
+<photos/reister_gasquet.png, id=168, 578.16pt x 289.08pt>
 File: photos/reister_gasquet.png Graphic file (type png)
 
 <use photos/reister_gasquet.png>
-Package pdftex.def Info: photos/reister_gasquet.png used on input line 1173.
+Package pdftex.def Info: photos/reister_gasquet.png used on input line 1167.
 (pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
 
-Overfull \hbox (22.77048pt too wide) in paragraph at lines 1173--1174
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 1167--1168
 [][] 
  []
 
-[41 <./photos/reister_gasquet.png>]
+[40 <./photos/reister_gasquet.png>]
 
 Package amsfonts Warning: Obsolete command \bold; \mathbf should be used instea
-d on input line 1187.
+d on input line 1181.
 
-<photos/simon_gabashvili.png, id=210, 578.16pt x 289.08pt>
+<photos/simon_gabashvili.png, id=173, 578.16pt x 289.08pt>
 File: photos/simon_gabashvili.png Graphic file (type png)
 
 <use photos/simon_gabashvili.png>
-Package pdftex.def Info: photos/simon_gabashvili.png used on input line 1195.
+Package pdftex.def Info: photos/simon_gabashvili.png used on input line 1189.
 (pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
 
-Overfull \hbox (22.77048pt too wide) in paragraph at lines 1195--1196
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 1189--1190
 [][] 
  []
 
-[42 <./photos/simon_gabashvili.png>] [43]
+[41 <./photos/simon_gabashvili.png>] [42]
 Chapter 5.
 
-Overfull \hbox (6.30263pt too wide) in paragraph at lines 1209--1210
+Package natbib Warning: Citation `Klaassen2003' on page 43 undefined on input l
+ine 1197.
+
+
+Overfull \hbox (6.30263pt too wide) in paragraph at lines 1203--1204
 []\OT1/cmr/m/n/10 Still, lo-gis-tic re-gres-sion's per-for-mance with a score-b
 ased fea-ture set proved note-wor-thy. Machine-
  []
 
-[44
+[43
 
-] [45]
-Overfull \hbox (15.41267pt too wide) in paragraph at lines 1230--1230
+]
+
+Package natbib Warning: Citation `Kovalchik2016' on page 44 undefined on input 
+line 1207.
+
+
+Package natbib Warning: Citation `Huang2011' on page 44 undefined on input line
+ 1207.
+
+
+Package natbib Warning: Citation `KlaassenandMagnus2001' on page 44 undefined o
+n input line 1214.
+
+[44]
+Overfull \hbox (15.41267pt too wide) in paragraph at lines 1224--1224
  |[][]| 
  []
 
-<photos/federer_nadal_ao_17.png, id=226, 578.16pt x 289.08pt>
+<photos/federer_nadal_ao_17.png, id=188, 578.16pt x 289.08pt>
 File: photos/federer_nadal_ao_17.png Graphic file (type png)
 
 <use photos/federer_nadal_ao_17.png>
-Package pdftex.def Info: photos/federer_nadal_ao_17.png used on input line 1234
+Package pdftex.def Info: photos/federer_nadal_ao_17.png used on input line 1228
 .
+(pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
+
+Overfull \hbox (22.77048pt too wide) in paragraph at lines 1228--1229
+[][] 
+ []
+
+[45]
+Overfull \hbox (39.59184pt too wide) in paragraph at lines 1230--1230
+ |[][]| 
+ []
+
+<photos/wawrinka_djokovic_fo_15.png, id=192, 578.16pt x 289.08pt>
+File: photos/wawrinka_djokovic_fo_15.png Graphic file (type png)
+
+<use photos/wawrinka_djokovic_fo_15.png>
+Package pdftex.def Info: photos/wawrinka_djokovic_fo_15.png used on input line 
+1234.
 (pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
 
 Overfull \hbox (22.77048pt too wide) in paragraph at lines 1234--1235
 [][] 
  []
 
-[46]
-Overfull \hbox (39.59184pt too wide) in paragraph at lines 1236--1236
- |[][]| 
+
+Overfull \hbox (9.59311pt too wide) in paragraph at lines 1236--1236
+ |[]\OT1/cmr/bx/n/12 Novak Djokovic vs. Roger Fed-erer US Open 2011 Semi-Final|
+ 
  []
 
-<photos/wawrinka_djokovic_fo_15.png, id=230, 578.16pt x 289.08pt>
-File: photos/wawrinka_djokovic_fo_15.png Graphic file (type png)
+[46 <./photos/federer_nadal_ao_17.png> <./photos/wawrinka_djokovic_fo_15.png>]
+<photos/djokovic_federer_uso_11.png, id=198, 578.16pt x 289.08pt>
+File: photos/djokovic_federer_uso_11.png Graphic file (type png)
 
-<use photos/wawrinka_djokovic_fo_15.png>
-Package pdftex.def Info: photos/wawrinka_djokovic_fo_15.png used on input line 
+<use photos/djokovic_federer_uso_11.png>
+Package pdftex.def Info: photos/djokovic_federer_uso_11.png used on input line 
 1240.
 (pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
 
@@ -1168,46 +1266,23 @@ Overfull \hbox (22.77048pt too wide) in paragraph at lines 1240--1241
 [][] 
  []
 
+No file writing2.bbl.
 
-Overfull \hbox (9.59311pt too wide) in paragraph at lines 1242--1242
- |[]\OT1/cmr/bx/n/12 Novak Djokovic vs. Roger Fed-erer US Open 2011 Semi-Final|
- 
- []
+Package natbib Warning: There were undefined citations.
 
-[47 <./photos/federer_nadal_ao_17.png> <./photos/wawrinka_djokovic_fo_15.png>]
-<photos/djokovic_federer_uso_11.png, id=236, 578.16pt x 289.08pt>
-File: photos/djokovic_federer_uso_11.png Graphic file (type png)
+[47 <./photos/djokovic_federer_uso_11.png>] (./writing2.aux)
 
-<use photos/djokovic_federer_uso_11.png>
-Package pdftex.def Info: photos/djokovic_federer_uso_11.png used on input line 
-1246.
-(pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
-
-Overfull \hbox (22.77048pt too wide) in paragraph at lines 1246--1247
-[][] 
- []
-
-(./writing.bbl [48 <./photos/djokovic_federer_uso_11.png>] [49
-
-]
-Overfull \hbox (51.30736pt too wide) in paragraph at lines 93--99
-\OT1/cmtt/m/n/10 why-[]espn-[]uses-[]those-[]in-[]game-[]win-[]probability-[]st
-ats-[]that-[]drive-[]some-[]baseball-[]fans-[]nuts /
- []
-
-) [50] (./writing.aux)
-
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 18871 strings out of 493089
- 352259 string characters out of 6134842
- 438419 words of memory out of 5000000
- 21966 multiletter control sequences out of 15000+600000
- 14668 words of font info for 56 fonts, out of 8000000 for 9000
+ 18179 strings out of 493089
+ 340515 string characters out of 6134842
+ 424898 words of memory out of 5000000
+ 21295 multiletter control sequences out of 15000+600000
+ 14322 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,18n,60p,1425b,604s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,13n,60p,1426b,604s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 }</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
@@ -1234,15 +1309,13 @@ t/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2015/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type
-1/public/cm-super/sfrm1000.pfb>
-Output written on writing.pdf (51 pages, 959040 bytes).
+/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2015/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2015/texmf-dist/fonts/ty
+pe1/public/cm-super/sfrm1000.pfb>
+Output written on writing2.pdf (47 pages, 799540 bytes).
 PDF statistics:
- 341 PDF objects out of 1000 (max. 8388607)
- 229 compressed objects within 3 object streams
+ 295 PDF objects out of 1000 (max. 8388607)
+ 195 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 88 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 68 words of extra memory for PDF output out of 10000 (max. 10000000)
 

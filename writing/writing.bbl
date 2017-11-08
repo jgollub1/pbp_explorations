@@ -1,60 +1,100 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{}
 
-\bibitem{BarnettandClarke2005}
-Tristan Barnett and Stephen~R Clarke.
+\bibitem[\protect\astroncite{Barnett and Clarke}{2005}]{BarnettandClarke2005}
+Barnett, T. and Clarke, S.~R. (2005).
 \newblock Combining player statistics to predict outcomes of tennis matches.
-\newblock {\em IMA Journal of Management Mathematics}, 16(2):113--120, 2005.
+\newblock {\em IMA Journal of Management Mathematics}, 16(2):113--120.
 
-\bibitem{BarnettandClarke2002}
-Tristan~J Barnett, Stephen~R Clarke, et~al.
+\bibitem[\protect\astroncite{Barnett et~al.}{2002}]{BarnettandClarke2002}
+Barnett, T.~J., Clarke, S.~R., et~al. (2002).
 \newblock Using microsoft excel to model a tennis match.
 \newblock In {\em 6th Conference on Mathematics and Computers in Sport}, pages
-  63--68. Queensland, Australia: Bond University, 2002.
+  63--68. Queensland, Australia: Bond University.
 
-\bibitem{Barnett2006}
-Tristan~J Barnett et~al.
+\bibitem[\protect\astroncite{Barnett et~al.}{2006}]{Barnett2006}
+Barnett, T.~J. et~al. (2006).
 \newblock {\em Mathematical modelling in hierarchical games with specific
   reference to tennis}.
-\newblock PhD thesis, Swinburne University of Technology, 2006.
+\newblock PhD thesis, Swinburne University of Technology.
 
-\bibitem{Bevc2015}
-Martin Bevc.
+\bibitem[\protect\astroncite{Bevc}{2015}]{Bevc2015}
+Bevc, M. (2015).
 \newblock Predicting the outcome of tennis matches from point-by-point data.
-\newblock 2015.
 
-\bibitem{EfronandMorris1977}
-Bradley Efron and Carl~N Morris.
+\bibitem[\protect\astroncite{Bialik et~al.}{2016}]{HowForecasting}
+Bialik, C., Morris, B., and Boice, J. (2016).
+\newblock How we're forecasting the 2016 u.s. open.
+\newblock
+  \url{http://fivethirtyeight.com/features/how-were-forecasting-the-2016-us-open/}.
+\newblock Accessed: 2017-10-30.
+
+\bibitem[\protect\astroncite{Burke}{2014}]{WPexp}
+Burke, B. (2014).
+\newblock Win probability and wpa.
+\newblock
+  \url{http://www.advancedfootballanalytics.com/index.php/home/stats/stats-explained/win-probability-and-wpa}.
+\newblock Accessed: 2017-10-30.
+
+\bibitem[\protect\astroncite{Efron and Morris}{1977}]{EfronandMorris1977}
+Efron, B. and Morris, C.~N. (1977).
 \newblock {\em Stein's paradox in statistics}.
-\newblock WH Freeman, 1977.
+\newblock WH Freeman.
 
-\bibitem{Huang2011}
-Xinzhuo Huang, William Knottenbelt, and Jeremy Bradley.
+\bibitem[\protect\astroncite{Elo}{1978}]{elo1978rating}
+Elo, A.~E. (1978).
+\newblock {\em The rating of chessplayers, past and present}.
+\newblock Arco Pub.
+
+\bibitem[\protect\astroncite{Huang et~al.}{2011}]{Huang2011}
+Huang, X., Knottenbelt, W., and Bradley, J. (2011).
 \newblock Inferring tennis match progress from in-play betting odds.
 \newblock {\em Final year project), Imperial College London, South Kensington
-  Campus, London, SW7 2AZ}, 2011.
+  Campus, London, SW7 2AZ}.
 
-\bibitem{KlaassenandMagnus2001}
-Franc J G~M Klaassen and Jan~R Magnus.
+\bibitem[\protect\astroncite{Klaassen and Magnus}{2003}]{Klaassen2003}
+Klaassen, F.~J. and Magnus, J.~R. (2003).
+\newblock Forecasting the winner of a tennis match.
+\newblock {\em European Journal of Operational Research}, 148(2):257--267.
+
+\bibitem[\protect\astroncite{Klaassen and Magnus}{2001}]{KlaassenandMagnus2001}
+Klaassen, F. J. G.~M. and Magnus, J.~R. (2001).
 \newblock Are points in tennis independent and identically distributed?
   evidence from a dynamic binary panel data model.
 \newblock {\em Journal of the American Statistical Association},
-  96(454):500--509, 2001.
+  96(454):500--509.
 
-\bibitem{Klaassen2003}
-Franc~JGM Klaassen and Jan~R Magnus.
-\newblock Forecasting the winner of a tennis match.
-\newblock {\em European Journal of Operational Research}, 148(2):257--267,
-  2003.
-
-\bibitem{Kovalchik2016}
-Stephanie~Ann Kovalchik.
+\bibitem[\protect\astroncite{Kovalchik}{2016}]{Kovalchik2016}
+Kovalchik, S.~A. (2016).
 \newblock Searching for the goat of tennis win prediction.
-\newblock {\em Journal of Quantitative Analysis in Sports}, 12(3):127--138,
-  2016.
+\newblock {\em Journal of Quantitative Analysis in Sports}, 12(3):127--138.
 
-\bibitem{Sipko2015}
-Michal Sipko and William Knottenbelt.
+\bibitem[\protect\astroncite{Lewis-Kraus}{2016}]{lewis2016great}
+Lewis-Kraus, G. (2016).
+\newblock The great ai awakening.
+\newblock {\em The New York Times Magazine}.
+
+\bibitem[\protect\astroncite{Lock and Nettleton}{2014}]{LockandNettleton2014}
+Lock, D. and Nettleton, D. (2014).
+\newblock Using random forests to estimate win probability before each play of
+  an nfl game.
+\newblock {\em Journal of Quantitative Analysis in Sports}, 10(2):197--205.
+
+\bibitem[\protect\astroncite{Madurska}{2012}]{madurska2012set}
+Madurska, A.~M. (2012).
+\newblock A set-by-set analysis method for predicting the outcome of
+  professional singles tennis matches.
+\newblock {\em Imperial College London, Department of Computing, Tech. Rep.}
+
+\bibitem[\protect\astroncite{Sipko and Knottenbelt}{2015}]{Sipko2015}
+Sipko, M. and Knottenbelt, W. (2015).
 \newblock Machine learning for the prediction of professional tennis matches.
-\newblock 2015.
+
+\bibitem[\protect\astroncite{Steinberg}{2017}]{ESPNwp}
+Steinberg, D. (2017).
+\newblock Why espn uses those in-game win probability stats that drive some
+  baseball fans nuts.
+\newblock
+  \url{https://www.washingtonpost.com/news/dc-sports-bog/wp/2017/04/23/why-espn-uses-those-in-game-win-probability-stats-that-drive-some-baseball-fans-nuts/?utm_term=.8163323a5ee2}.
+\newblock Accessed: 2017-10-30.
 
 \end{thebibliography}
